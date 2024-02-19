@@ -1,0 +1,44 @@
+/*
+!.gitignore
+!SalSoft/
+!alacritty/
+alacritty/themes
+!dunst/
+!environment.d/
+!fish/
+fish/*
+!fish/config.fish
+!fish/functions/
+!greenpepper software/
+/greenpepper software/*
+!greenpepper software/qimgv.conf
+!gtk-2.0/
+!gtk-3.0/
+gtk-3.0/bookmarks
+!gtk-4.0/
+!i3/
+!keyd/
+keyd/*
+!keyd/app.conf
+!mimeapps.list
+!mpv
+mpv/*
+!mpv/autosub.lua
+!mpv/input.conf
+!mpv/mpv.conf
+!mpv/scripts/autosub.lua
+!nautilus
+nautilus/*
+!nautilus/search-metadata
+!qimgv
+qimgv/*
+!qimgv/qimgv.conf
+!qimgv/theme.conf
+!qt5ct/
+!qt6ct/
+!swappy/
+!sway/
+!sworkstyle/
+!waybar/
+!xdg-desktop-portal/
+!xsettingsd/

@@ -1,0 +1,400 @@
+# Copied from ~/.config/sway/config and edited
+# Read `man 5 sway` for a complete reference.
+output eDP-1 scale 1
+
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema color-scheme 'prefer-dark'
+    #gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
+    #gsettings set $gnome-schema font-name 'Your font name'
+}
+exec sworkstyle &> /tmp/sworkstyle.log
+exec amixer set Capture off
+exec keyd-application-mapper &
+
+### Variables
+set $mod Mod4
+# Gaps
+gaps inner 1
+gaps outer 1
+default_border pixel 1
+smart_gaps on
+for_window [app_id="gnome-calendar"] floating enabled
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $term alacritty
+# Launcher. Note: it's recommended that you pass the final command to sway
+set $menu bemenu-run --fn "Terminus Normal 20" | xargs swaymsg exec --
+
+font pango:"JetBrainsMono NF" 0
+titlebar_border_thickness 1
+titlebar_padding 1
+
+### Input configuration
+# get names of inputs: swaymsg -t get_inputs
+# `man 5 sway-input` for more info
+input type:keyboard {
+    # xkb_layout "rctl_remapped_rwin" # ok while it lasted but now I use tab as win
+    #( changed to ~/.xkb/symbols/rctl_remapped_rwin)
+    xkb_layout "us"
+    xkb_variant altgr-intl 
+    xkb_options "altwin:menu_win,numpad:mac"
+}
+input type:touchpad {
+    tap enabled
+    middle_emulation disabled
+}
+
+### Key bindings
+################################3
+# Media/Hardware control
+bindsym XF86AudioMute        exec amixer set Master toggle
+bindsym XF86AudioLowerVolume exec amixer set Master 5%-
+bindsym --locked XF86AudioLowerVolume exec amixer set Master 5%-
+bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
+bindsym --locked XF86AudioRaiseVolume exec amixer set Master 5%+
+bindsym XF86AudioMicMute     exec amixer set Capture toggle
+bindsym Print  exec grim -g "$(slurp)" - | swappy -f -
+bindsym $mod+p exec grim -g "$(slurp)" - | swappy -f -
+#bindsym --locked XF86MonBrightnessDown exec light -S "$(light -G | awk '{ print int($1 / 1.4) }')"
+bindsym --locked XF86MonBrightnessUp exec light -T 1.4
+bindsym --locked XF86MonBrightnessDown exec light -T 0.72
+
+# Move mouse a lil bit but quick ergonomic shortcuts
+bindsym $mod+Left  seat "*" cursor move -5 0
+bindsym $mod+Down  seat "*" cursor move 0 +5
+bindsym $mod+Up    seat "*" cursor move 0 -5
+bindsym $mod+Right seat "*" cursor move +5 0
+
+# Basics:
+# Start a terminal
+bindsym $mod+Return exec $term
+
+# Kill focused window
+bindsym $mod+Shift+4 kill
+
+# Start your launcher
+bindsym $mod+r exec $menu
+
+# Drag floating windows: $mod + left cursor drag. (normal)
+# Resize  ``      ``   : $mod + right cursor drag. (normal)
+floating_modifier $mod normal
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Exit sway (logs you out of your Wayland session)
+bindsym $mod+Shift+y exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+#
+# Move window focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+###########################
+# Workspaces
+  # Switch to workspace
+  bindsym $mod+1 workspace number 1
+  bindsym $mod+2 workspace number 2
+  bindsym $mod+3 workspace number 3
+  bindsym $mod+q workspace number 4
+  bindsym $mod+w workspace number 5
+  bindsym $mod+e workspace number 6
+  bindsym $mod+a workspace number 7
+  bindsym $mod+s workspace number 8
+  bindsym $mod+d workspace number 9
+  bindsym $mod+x workspace number 10
+  # Move focused container to workspacE
+  bindsym $mod+Shift+1 move container to workspace number 1
+  bindsym $mod+Shift+2 move container to workspace number 2
+  bindsym $mod+Shift+3 move container to workspace number 3
+  bindsym $mod+Shift+q move container to workspace number 4
+  bindsym $mod+Shift+w move container to workspace number 5
+  bindsym $mod+Shift+e move container to workspace number 6
+  bindsym $mod+Shift+a move container to workspace number 7
+  bindsym $mod+Shift+s move container to workspace number 8
+  bindsym $mod+Shift+d move container to workspace number 9
+  bindsym $mod+Shift+x move container to workspace number 10
+  # Note: workspaces can have any name you want, not just numbers.
+  # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+  # You can "split" the current object of your focus with
+  # $mod+b or $mod+v, for horizontal and vertical splits
+  bindsym $mod+g splith ##  g| 
+  bindsym $mod+v splitv ## _v 
+
+  # Switch the current container between different layout styles
+  bindsym $mod+t layout tabbed
+  bindsym $mod+equal layout stacking
+  bindsym $mod+b layout toggle split
+
+  # Make the current focus fullscreen
+  bindsym $mod+f fullscreen
+
+  # Toggle the current focus between tiling and floating mode
+  bindsym $mod+Shift+space floating toggle
+
+  # Swap focus between the tiling area and the floating area
+  bindsym $mod+BackSpace focus mode_toggle
+
+ # Move focus to the parent container
+  bindsym $mod+6 focus parent
+#
+# Scratchpad: (bag of holding windows)
+#
+  # Move the currently focused window to the scratchpad
+  bindsym $mod+Shift+minus move scratchpad
+
+  # Show the next scratchpad window or hide the focused scratchpad window.
+  # If there are multiple scratchpad windows, this command cycles through them.
+  bindsym $mod+minus scratchpad show
+
+# Move cursor coarsely anytime
+bindsym SunProps+1 seat "-" cursor set 96 67
+bindsym SunProps+2 seat "-" cursor set 288 67
+bindsym SunProps+3 seat "-" cursor set 480 67
+bindsym SunProps+4 seat "-" cursor set 672 67
+bindsym SunProps+5 seat "-" cursor set 864 67
+bindsym SunProps+6 seat "-" cursor set 1056 67
+bindsym SunProps+7 seat "-" cursor set 1248 67
+bindsym SunProps+8 seat "-" cursor set 1440 67
+bindsym SunProps+9 seat "-" cursor set 1632 67
+bindsym SunProps+0 seat "-" cursor set 1824 67
+bindsym SunProps+q seat "-" cursor set 96 202
+bindsym SunProps+w seat "-" cursor set 288 202
+bindsym SunProps+e seat "-" cursor set 480 202
+bindsym SunProps+r seat "-" cursor set 672 202
+bindsym SunProps+t seat "-" cursor set 864 202
+bindsym SunProps+y seat "-" cursor set 1056 202
+bindsym SunProps+u seat "-" cursor set 1248 202
+bindsym SunProps+i seat "-" cursor set 1440 202
+bindsym SunProps+o seat "-" cursor set 1632 202
+bindsym SunProps+p seat "-" cursor set 1824 202
+bindsym SunProps+a seat "-" cursor set 96 337
+bindsym SunProps+s seat "-" cursor set 288 337
+bindsym SunProps+d seat "-" cursor set 480 337
+bindsym SunProps+f seat "-" cursor set 672 337
+bindsym SunProps+g seat "-" cursor set 864 337
+bindsym SunProps+h seat "-" cursor set 1056 337
+bindsym SunProps+j seat "-" cursor set 1248 337
+bindsym SunProps+k seat "-" cursor set 1440 337
+bindsym SunProps+l seat "-" cursor set 1632 337
+bindsym SunProps+semicolon seat "-" cursor set 1824 337
+bindsym SunProps+z seat "-" cursor set 96 472
+bindsym SunProps+x seat "-" cursor set 288 472
+bindsym SunProps+c seat "-" cursor set 480 472
+bindsym SunProps+v seat "-" cursor set 672 472
+bindsym SunProps+b seat "-" cursor set 864 472
+bindsym SunProps+n seat "-" cursor set 1056 472
+bindsym SunProps+m seat "-" cursor set 1248 472
+bindsym SunProps+comma seat "-" cursor set 1440 472
+bindsym SunProps+period seat "-" cursor set 1632 472
+bindsym SunProps+slash seat "-" cursor set 1824 472
+bindsym SunProps+Mod5+1 seat "-" cursor set 96 607
+bindsym SunProps+Mod5+2 seat "-" cursor set 288 607
+bindsym SunProps+Mod5+3 seat "-" cursor set 480 607
+bindsym SunProps+Mod5+4 seat "-" cursor set 672 607
+bindsym SunProps+Mod5+5 seat "-" cursor set 864 607
+bindsym SunProps+Mod5+6 seat "-" cursor set 1056 607
+bindsym SunProps+Mod5+7 seat "-" cursor set 1248 607
+bindsym SunProps+Mod5+8 seat "-" cursor set 1440 607
+bindsym SunProps+Mod5+9 seat "-" cursor set 1632 607
+bindsym SunProps+Mod5+0 seat "-" cursor set 1824 607
+bindsym SunProps+Mod5+q seat "-" cursor set 96 742
+bindsym SunProps+Mod5+w seat "-" cursor set 288 742
+bindsym SunProps+Mod5+e seat "-" cursor set 480 742
+bindsym SunProps+Mod5+r seat "-" cursor set 672 742
+bindsym SunProps+Mod5+t seat "-" cursor set 864 742
+bindsym SunProps+Mod5+y seat "-" cursor set 1056 742
+bindsym SunProps+Mod5+u seat "-" cursor set 1248 742
+bindsym SunProps+Mod5+i seat "-" cursor set 1440 742
+bindsym SunProps+Mod5+o seat "-" cursor set 1632 742
+bindsym SunProps+Mod5+p seat "-" cursor set 1824 742
+bindsym SunProps+Mod5+a seat "-" cursor set 96 877
+bindsym SunProps+Mod5+s seat "-" cursor set 288 877
+bindsym SunProps+Mod5+d seat "-" cursor set 480 877
+bindsym SunProps+Mod5+f seat "-" cursor set 672 877
+bindsym SunProps+Mod5+g seat "-" cursor set 864 877
+bindsym SunProps+Mod5+h seat "-" cursor set 1056 877
+bindsym SunProps+Mod5+j seat "-" cursor set 1248 877
+bindsym SunProps+Mod5+k seat "-" cursor set 1440 877
+bindsym SunProps+Mod5+l seat "-" cursor set 1632 877
+bindsym SunProps+Mod5+semicolon seat "-" cursor set 1824 877
+bindsym SunProps+Mod5+z seat "-" cursor set 96 1012
+bindsym SunProps+Mod5+x seat "-" cursor set 288 1012
+bindsym SunProps+Mod5+c seat "-" cursor set 480 1012
+bindsym SunProps+Mod5+v seat "-" cursor set 672 1012
+bindsym SunProps+Mod5+b seat "-" cursor set 864 1012
+bindsym SunProps+Mod5+n seat "-" cursor set 1056 1012
+bindsym SunProps+Mod5+m seat "-" cursor set 1248 1012
+bindsym SunProps+Mod5+comma seat "-" cursor set 1440 1012
+bindsym SunProps+Mod5+period seat "-" cursor set 1632 1012
+bindsym SunProps+Mod5+slash seat "-" cursor set 1824 1012
+
+### some special mouse cursor positions that I use all the time
+bindsym SunProps+minus seat "-" cursor set 1290 7
+### Impromptu clicks in regular mode 
+bindsym SunProps+Return mode "drag"
+### attempting to map mouse scroll wheel (2024-02-10 not working)
+bindsym SunProps+Left  seat "-" cursor press button4
+bindsym SunProps+Right seat "-" cursor press button5
+bindsym SunProps+Up    seat "-" cursor press 6
+bindsym SunProps+Down  seat "-" cursor press 7
+
+### medium tuned movement (keypad)
+bindsym Mod1+SunProps+1 seat "-" cursor move -30 -30
+bindsym Mod1+SunProps+2 seat "-" cursor move   0 -30
+bindsym Mod1+SunProps+3 seat "-" cursor move +30 -30
+bindsym Mod1+SunProps+q seat "-" cursor move -30  0
+bindsym Mod1+SunProps+w seat "-" cursor move   0 +30
+bindsym Mod1+SunProps+e seat "-" cursor move +30  0
+bindsym Mod1+SunProps+a seat "-" cursor move -30 +30
+bindsym Mod1+SunProps+s seat "-" cursor move   0 +30
+bindsym Mod1+SunProps+d seat "-" cursor move +30 +30
+### fine tuned mouse movement 
+bindsym Mod1+SunProps+h seat "-" cursor move -8  0
+bindsym Mod1+SunProps+j seat "-" cursor move  0 +8
+bindsym Mod1+SunProps+k seat "-" cursor move  0 -8
+bindsym Mod1+SunProps+l seat "-" cursor move +8  0
+
+#
+# Resizing containers:
+#
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize shrink height 10px
+    bindsym $up resize grow height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize shrink height 10px
+    bindsym Up resize grow height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "drag" {
+### fine tuned movement
+  bindsym left  seat "-" cursor move -8  0
+  bindsym down  seat "-" cursor move  0 +8
+  bindsym up    seat "-" cursor move  0 -8
+  bindsym right seat "-" cursor move +8  0
+  # vim  for mouse move
+  bindsym h   seat "-" cursor move -8  0
+  bindsym j   seat "-" cursor move  0 +8
+  bindsym k   seat "-" cursor move  0 -8
+  bindsym l   seat "-" cursor move +8  0
+  ### medium tuned movement (keypad)
+  bindsym 1   seat "-" cursor move -30 -30
+  bindsym 2   seat "-" cursor move   0 -30
+  bindsym 3   seat "-" cursor move +30 -30
+  bindsym q   seat "-" cursor move -30  0
+  bindsym w   seat "-" cursor move -30 -30
+  bindsym e   seat "-" cursor move +30  0
+  bindsym a   seat "-" cursor move -30 +30
+  bindsym s   seat "-" cursor move   0 +30
+  bindsym d   seat "-" cursor move +30 +30
+  bindsym space seat "-" cursor press button1 
+  # bindsym Return seat "-" cursor press button3; seat "-" cursor release button3;
+
+  bindsym minus seat "-" cursor set 1338 7
+  bindsym equal seat "-" cursor set 1905 20
+  bindsym bracketleft  seat "-" cursor set 870 540
+  bindsym bracketright seat "-" cursor set 1902 540
+  bindsym apostrophe   seat "-" cursor set 870 1050
+  
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+o mode "resize"
+
+bindsym $mod+Space mode "drag"; seat "-" cursor press button1; 
+
+# Window colorReturn seat "-" cursor press button2s
+# color class           border  backgrd  text    indicator child_border
+client.focused          #ffffff #93a1a1  #073692 #93a1a1   #4274ca
+client.focused_inactive #252b23 #586e75  #eee8d5 #657b83   #135051
+client.unfocused        #073642 #002b36  #839496 #073642   #000000
+client.urgent           #fffb16 #dc322f  #eee8d5 #dc322f   #93a1a1
+
+#
+# Status Bar:
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position top
+    font pango:"JetBrainsMono NF" 0
+    swaybar_command waybar
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+    colors {
+        background         #073642
+        statusline         #00ff00
+        separator          #eee8d5
+        focused_workspace  #eee8d5 #93a1a1 #073642
+        active_workspace   #657b83 #586e75 #eee8d5
+        inactive_workspace #002b36 #073642 #839496
+        urgent_workspace   #ff2b16 #ff322f #eee8d5
+    }
+
+    # colors {  
+    #     # item;  border  background text
+    #     statusline #ffffff
+    #     background #323232
+    #     inactive_workspace #32323200 #32323200 #8d7d7d
+    #    # urgent_worspace   #1122ff #ffffff #ff0000
+    # }
+}
+
+include /etc/sway/config.d/*
+#caps as arros fails bu would maybe work via custom x input file)
+#set $caps Mod2 
+#bindsym $caps+h exec wtype -k 'left'; bindsym $caps+j exec wtype -k 'down'
+#bindsym $caps+k exec wtype -k 'up'; bindsym $caps+l exec wtype -k 'right'
+# bindsym $mod3+e exec wtype -M 'ctrl' -M 'shift' -P 'Right' -m 'shift' -m 'ctrl' 
+
+# ########------
+# leftover from default leaving just in case
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' \
+#               resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.

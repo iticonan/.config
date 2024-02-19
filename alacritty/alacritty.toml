@@ -1,0 +1,8 @@
+import = ["/home/ivan/.config/alacritty/themes/themes/monokai_charcoal.toml"]
+
+[font]
+size = 19
+
+[font.normal]
+family = "JetBrainsMonoNL NF"
+style = "Regular"
