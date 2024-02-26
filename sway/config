@@ -1,6 +1,7 @@
 # Read `man 5 sway` for a complete reference.
 #calibration has resolution dependent cursor shortcuts
 include calibration
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 set $gnome-schema org.gnome.desktop.interface
 
@@ -166,8 +167,8 @@ bindsym $mod+Shift+$right move right
 #####
 # MOUSE CURSOR PSEUDO-MODE
 # # attempt to map mouse scroll wheel (2024-02-10 not working)
-  bindsym SunProps+Next seat "-" cursor press button4
-  bindsym SunProps+Prior seat "-" cursor press button5
+  bindsym SunProps+Next exec echo wheel 1 | dotoolc
+  bindsym SunProps+Prior exec echo wheel -1 | dotoolc
   bindsym SunProps+kp_3 seat "-" cursor press 6
   bindsym SunProps+kp_4 seat "-" cursor press 7
 
