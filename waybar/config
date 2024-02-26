@@ -1,7 +1,7 @@
 {
     // "layer": "top", // Waybar at top layer
     // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 35, // Waybar height (to be removed for auto height)
+    //"height": 45, // Waybar height (to be removed for auto height)
     // "width": 1920, // Waybar width
     "spacing": 0, // Gaps between modules (4px)
     "fixed-center" : false,

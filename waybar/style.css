@@ -6,7 +6,7 @@
 }
 
 window {
-	/*font-weight: bold;*/
+	font-weight: normal;
 }
 window#waybar {
     background: rgba(0, 0, 0, 0);

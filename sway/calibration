@@ -1,0 +1,92 @@
+output eDP-1 scale 1
+
+### some special cursor positions that I use all the time
+bindsym SunProps+minus seat "-" cursor set 1290 7
+  # bindsym minus seat "-" cursor set 1338 7
+  # bindsym equal seat "-" cursor set 1905 20
+  # bindsym bracketleft  seat "-" cursor set 870 540
+  # bindsym bracketright seat "-" cursor set 1902 540
+  # bindsym apostrophe   seat "-" cursor set 870 1050
+
+# Cursor to absolute position relative to resolution
+bindsym SunProps+1 seat "-" cursor set 96 67
+bindsym SunProps+2 seat "-" cursor set 288 67
+bindsym SunProps+3 seat "-" cursor set 480 67
+bindsym SunProps+4 seat "-" cursor set 672 67
+bindsym SunProps+5 seat "-" cursor set 864 67
+bindsym SunProps+6 seat "-" cursor set 1056 67
+bindsym SunProps+7 seat "-" cursor set 1248 67
+bindsym SunProps+8 seat "-" cursor set 1440 67
+bindsym SunProps+9 seat "-" cursor set 1632 67
+bindsym SunProps+0 seat "-" cursor set 1824 67
+bindsym SunProps+q seat "-" cursor set 96 202
+bindsym SunProps+w seat "-" cursor set 288 202
+bindsym SunProps+e seat "-" cursor set 480 202
+bindsym SunProps+r seat "-" cursor set 672 202
+bindsym SunProps+t seat "-" cursor set 864 202
+bindsym SunProps+y seat "-" cursor set 1056 202
+bindsym SunProps+u seat "-" cursor set 1248 202
+bindsym SunProps+i seat "-" cursor set 1440 202
+bindsym SunProps+o seat "-" cursor set 1632 202
+bindsym SunProps+p seat "-" cursor set 1824 202
+bindsym SunProps+a seat "-" cursor set 96 337
+bindsym SunProps+s seat "-" cursor set 288 337
+bindsym SunProps+d seat "-" cursor set 480 337
+bindsym SunProps+f seat "-" cursor set 672 337
+bindsym SunProps+g seat "-" cursor set 864 337
+bindsym SunProps+h seat "-" cursor set 1056 337
+bindsym SunProps+j seat "-" cursor set 1248 337
+bindsym SunProps+k seat "-" cursor set 1440 337
+bindsym SunProps+l seat "-" cursor set 1632 337
+bindsym SunProps+semicolon seat "-" cursor set 1824 337
+bindsym SunProps+z seat "-" cursor set 96 472
+bindsym SunProps+x seat "-" cursor set 288 472
+bindsym SunProps+c seat "-" cursor set 480 472
+bindsym SunProps+v seat "-" cursor set 672 472
+bindsym SunProps+b seat "-" cursor set 864 472
+bindsym SunProps+n seat "-" cursor set 1056 472
+bindsym SunProps+m seat "-" cursor set 1248 472
+bindsym SunProps+comma seat "-" cursor set 1440 472
+bindsym SunProps+period seat "-" cursor set 1632 472
+bindsym SunProps+slash seat "-" cursor set 1824 472
+bindsym SunProps+Mod5+1 seat "-" cursor set 96 607
+bindsym SunProps+Mod5+2 seat "-" cursor set 288 607
+bindsym SunProps+Mod5+3 seat "-" cursor set 480 607
+bindsym SunProps+Mod5+4 seat "-" cursor set 672 607
+bindsym SunProps+Mod5+5 seat "-" cursor set 864 607
+bindsym SunProps+Mod5+6 seat "-" cursor set 1056 607
+bindsym SunProps+Mod5+7 seat "-" cursor set 1248 607
+bindsym SunProps+Mod5+8 seat "-" cursor set 1440 607
+bindsym SunProps+Mod5+9 seat "-" cursor set 1632 607
+bindsym SunProps+Mod5+0 seat "-" cursor set 1824 607
+bindsym SunProps+Mod5+q seat "-" cursor set 96 742
+bindsym SunProps+Mod5+w seat "-" cursor set 288 742
+bindsym SunProps+Mod5+e seat "-" cursor set 480 742
+bindsym SunProps+Mod5+r seat "-" cursor set 672 742
+bindsym SunProps+Mod5+t seat "-" cursor set 864 742
+bindsym SunProps+Mod5+y seat "-" cursor set 1056 742
+bindsym SunProps+Mod5+u seat "-" cursor set 1248 742
+bindsym SunProps+Mod5+i seat "-" cursor set 1440 742
+bindsym SunProps+Mod5+o seat "-" cursor set 1632 742
+bindsym SunProps+Mod5+p seat "-" cursor set 1824 742
+bindsym SunProps+Mod5+a seat "-" cursor set 96 877
+bindsym SunProps+Mod5+s seat "-" cursor set 288 877
+bindsym SunProps+Mod5+d seat "-" cursor set 480 877
+bindsym SunProps+Mod5+f seat "-" cursor set 672 877
+bindsym SunProps+Mod5+g seat "-" cursor set 864 877
+bindsym SunProps+Mod5+h seat "-" cursor set 1056 877
+bindsym SunProps+Mod5+j seat "-" cursor set 1248 877
+bindsym SunProps+Mod5+k seat "-" cursor set 1440 877
+bindsym SunProps+Mod5+l seat "-" cursor set 1632 877
+bindsym SunProps+Mod5+semicolon seat "-" cursor set 1824 877
+bindsym SunProps+Mod5+z seat "-" cursor set 96 1012
+bindsym SunProps+Mod5+x seat "-" cursor set 288 1012
+bindsym SunProps+Mod5+c seat "-" cursor set 480 1012
+bindsym SunProps+Mod5+v seat "-" cursor set 672 1012
+bindsym SunProps+Mod5+b seat "-" cursor set 864 1012
+bindsym SunProps+Mod5+n seat "-" cursor set 1056 1012
+bindsym SunProps+Mod5+m seat "-" cursor set 1248 1012
+bindsym SunProps+Mod5+comma seat "-" cursor set 1440 1012
+bindsym SunProps+Mod5+period seat "-" cursor set 1632 1012
+bindsym SunProps+Mod5+slash seat "-" cursor set 1824 1012
+
