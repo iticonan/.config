@@ -1,6 +1,6 @@
 # Read `man 5 sway` for a complete reference.
 #calibration has resolution dependent cursor shortcuts
-include calibration
+include calibration3
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 set $gnome-schema org.gnome.desktop.interface
@@ -28,9 +28,9 @@ exec keyd-application-mapper &
   smart_gaps on
   for_window [app_id="gnome-calendar"] floating enabled
 
-font pango:"JetBrainsMono NF" 0
-titlebar_border_thickness 1
-titlebar_padding 1
+font pango:monospace 0.01
+titlebar_border_thickness 0
+titlebar_padding 0
 
 ### Input configuration
 # get names of inputs: swaymsg -t get_inputs
@@ -163,14 +163,11 @@ bindsym $mod+Shift+$right move right
   # Swap focus between the tiling area and the floating area
   bindsym $mod+BackSpace focus mode_toggle
 
-
 #####
 # MOUSE CURSOR PSEUDO-MODE
 # # attempt to map mouse scroll wheel (2024-02-10 not working)
   bindsym SunProps+Next exec echo wheel 1 | dotoolc
   bindsym SunProps+Prior exec echo wheel -1 | dotoolc
-  bindsym SunProps+kp_3 seat "-" cursor press 6
-  bindsym SunProps+kp_4 seat "-" cursor press 7
 
   ### mid speed movement tab + hold via keyd
   bindsym XF86Launch1 seat "-" cursor move -30 -30
@@ -190,6 +187,7 @@ bindsym $mod+Shift+$right move right
   ## press/release mouse button1
   bindsym XF86MenuKB seat "-" cursor press button1
   bindsym XF86Xfer seat "-" cursor release button1
+  bindsym plusminus --release   seat "-" cursor release button1
 
 ###
 # Resizing containers:

@@ -50,9 +50,9 @@
         "spacing": 10
     },
     "clock": {
-      "format": "{:%a%d<span font-family='Grape Nuts'>%H:%M</span>}",
+      "format": "{:%a%d<span font-family='Grape Nuts'><b>%H:%M</b></span>}",
       "format-alt": " {:%A, %B %d, %Y (%R)}  ",
-      "tooltip-format": "<tt><big>{calendar}</big></tt>",
+      "tooltip-format": "<tt><small>{calendar}</small></tt>",
       "today-format": "<span color='#ff4499'><b><u>{}</u></b></span>",
       "format-calendar": "<span color='#ffead3'><b>{}</b></span>",
       "format-calendar-weekdays": "<span color='#ffcc66'><b>{}</b></span>",
@@ -60,11 +60,12 @@
       "calendar": {
         "mode"          : "year",
         "mode-mon-col"  : 3,
+        "weeks-pos"      : "right",
         "on-scroll"     : 1,
         "on-click-right": "mode",
         "format": {
           "months":     "<span color='#ffead3'><b>{}</b></span>",
-          "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+          "days":       "<span color='#ecc6d9'>{}</span>",
           "weeks":      "<span color='#99ffdd'><b>{}</b></span>",
           "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
           "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
@@ -99,7 +100,7 @@
     },
     "backlight": {
         // "device": "acpi_video1",
-        "format": "{icon}<span size='small'>{percent}٪</span>",
+        "format": "{icon}{percent}٪",
         "format-icons": [" ", " ", " ", " ", " ", " ", " ", " ", " "]
     },
     "battery": {

@@ -54,7 +54,7 @@ window#waybar {
 
 #clock {
   font-family: Terminus;
-  font-weight: bold;
+  font-weight: normal;
 }
 tooltip{
   font-family: Roboto;
