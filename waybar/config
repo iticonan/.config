@@ -1,7 +1,7 @@
 {
     // "layer": "top", // Waybar at top layer
     // "position": "bottom", // Waybar position (top|bottom|left|right)
-    //"height": 45, // Waybar height (to be removed for auto height)
+    "height": 35, // Waybar height (to be removed for auto height)
     // "width": 1920, // Waybar width
     "spacing": 0, // Gaps between modules (4px)
     "fixed-center" : false,
@@ -17,7 +17,7 @@
     "sway/workspaces": {
         "all-outputs": true,
         //"spacing": 9,
-        "format": "{name}<span font-size='medium'><span color='lightgrey'>{index}</span></span>",
+        "format": "{name}<span size='small' color='yellow' rise='9pt'>{index}</span>",
     },
     "keyboard-state": {
         "numlock": true,
@@ -100,7 +100,7 @@
     },
     "backlight": {
         // "device": "acpi_video1",
-        "format": "{icon}{percent}٪",
+        "format": "{icon}<span size='small'>{percent}٪</span>",
         "format-icons": [" ", " ", " ", " ", " ", " ", " ", " ", " "]
     },
     "battery": {
@@ -135,8 +135,8 @@
         "format-bluetooth": "{volume}٪{icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted": " {format_source}",
-        "format-source": "<span color='red'>{volume}٪</span> ",
-        "format-source-muted": "󰍭",
+        "format-source": "<span color='red' size='small'>{volume}٪</span> ",
+        "format-source-muted": "<span size='small'>󰍭</span>",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -146,7 +146,7 @@
             "car": "",
             "default": [" ", " ","󰕾 ", "  "]
         },
-        "on-click": "pavucontrol"
+        "on-click": ""
     },
     "custom/media": {
         "format": "{icon} {}",

@@ -1,6 +1,6 @@
 * {
     border: none;
-    font-size: 26px;
+    font-size: 28px;
     color: #ffffff;
     border-radius: 10px;
 }
@@ -14,9 +14,9 @@ window#waybar {
 /*-----module groups----*/
 .modules-left {
   margin: 0px 0 0 0px;
-  font-family: Grape Nuts;
+  font-family: Cantarell;
   font-weight: bolder;
-	background-color: rgba(0,119,179,0.6);
+  background-color: rgba(0,119,179,0.6);
 }
 .modules-center {
   font-family: Nimbus Sans Narrow;
@@ -32,7 +32,7 @@ window#waybar {
 }
 /*-----modules indv----*/
 #workspaces button label{
-  font-weight: bolder;
+  font-weight: 700;
 }
 #workspaces button.focused{
   font-size: 27px;
@@ -76,6 +76,7 @@ tooltip{
 #memory,
 #network,
 #pulseaudio,
+#wireplumber,
 #custom-media,
 #tray,
 #mode,
@@ -99,6 +100,7 @@ tooltip{
 #idle_inhibitor.activated {
     color: #2dcc36;
 }
+#wireplumber.muted
 #pulseaudio.muted {
     color: #cc3436;
 }

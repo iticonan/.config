@@ -3,7 +3,15 @@
 include calibration3
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
-set $gnome-schema org.gnome.desktop.interface
+### Variables
+  set $mod Mod4
+  set $left h
+  set $down j
+  set $up k
+  set $right l
+  set $gnome-schema org.gnome.desktop.interface
+  set $slow 3
+  set $fast 33
 
 exec_always {
     gsettings set $gnome-schema color-scheme 'prefer-dark'
@@ -13,13 +21,6 @@ exec_always {
 exec sworkstyle &> /tmp/sworkstyle.log
 exec amixer set Capture off
 exec keyd-application-mapper &
-
-### Variables
-  set $mod Mod4
-  set $left h
-  set $down j
-  set $up k
-  set $right l
 
 ## Gaps
   gaps inner 0
@@ -31,6 +32,10 @@ exec keyd-application-mapper &
 font pango:monospace 0.01
 titlebar_border_thickness 0
 titlebar_padding 0
+
+###############################################################################
+# MAKE ALL POSITIONAL! Letters meant to not mean ANYTHING! just QWERTY (for now)
+###############################################################################
 
 ### Input configuration
 # get names of inputs: swaymsg -t get_inputs
@@ -51,38 +56,55 @@ input type:touchpad {
 ### Key bindings
 ################################3
 # Media/Hardware control
-bindsym XF86AudioMute        exec amixer set Master toggle
-bindsym XF86AudioLowerVolume exec amixer set Master 5%-
-bindsym --locked XF86AudioLowerVolume exec amixer set Master 5%-
-bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
-bindsym --locked XF86AudioRaiseVolume exec amixer set Master 5%+
-bindsym XF86AudioMicMute     exec amixer set Capture toggle
+bindsym XF86AudioMute                 exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym Mod4+m                        exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym --locked Mod4+comma           exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ 
+bindsym --locked Mod4+period          exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ 
+bindsym XF86AudioMicMute              exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym Mod4+n                        exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym Print  exec grim -g "$(slurp)" - | swappy -f -
-bindsym $mod+p exec grim -g "$(slurp)" - | swappy -f -
+bindsym Mod4+0 exec grim -g "$(slurp)" - | swappy -f -
 bindsym --locked XF86MonBrightnessUp exec light -T 1.4
+bindsym --locked Mod4+q              exec light -T 1.4
 bindsym --locked XF86MonBrightnessDown exec light -T 0.72
+bindsym --locked Mod4+a                exec light -T 0.72
 
 # TODO: (low priority) do windows tiling behaviour. Currently just moves cursor
-bindsym $mod+Left  seat "*" cursor move -5 0
-bindsym $mod+Down  seat "*" cursor move 0 +5
-bindsym $mod+Up    seat "*" cursor move 0 -5
-bindsym $mod+Right seat "*" cursor move +5 0
+bindsym Mod4+Left  seat "*" cursor move -5 0
+bindsym Mod4+Down  seat "*" cursor move 0 +5
+bindsym Mod4+Up    seat "*" cursor move 0 -5
+bindsym Mod4+Right seat "*" cursor move +5 0
 
-# Basics:
 # Start a terminal
-bindsym $mod+Return exec alacritty
+bindsym Mod4+Return exec alacritty
 
-# Kill focused window
-bindsym $mod+Shift+4 kill
+bindsym Mod4+y reload
+
+bindsym Mod4+u fullscreen
+
+bindsym Mod4+i mode "resize"
 
 # Launcher. Note: it's recommended that you pass the final command to sway
-bindsym $mod+r exec bemenu-run --fn "Terminus Normal 20" | xargs swaymsg exec --
-# Reload the configuration file
-bindsym $mod+Shift+r reload
+bindsym Mod4+o exec bemenu-run --fn "Terminus Normal 20" | xargs swaymsg exec --
+
+# Move focus to the parent container
+bindsym Mod4+p focus parent
 
 # Exit sway (log out of Wayland session)
-bindsym $mod+Shift+y exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-#
+bindsym Mod4+Shift+y exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+# Kill focused window
+bindsym Mod4+Shift+q kill
+
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
 # Move window focus around
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
@@ -99,42 +121,34 @@ bindsym $mod+Shift+$right move right
 # Workspaces (number is needed for sworkstyle, TODO: somehow label workspaces by letter)
 #
   # Switch to workspace
-  bindsym $mod+1 workspace number 1
-  bindsym $mod+2 workspace number 2
-  bindsym $mod+3 workspace number 3
-  bindsym $mod+q workspace number 4
-  bindsym $mod+w workspace number 5
-  bindsym $mod+e workspace number 6
-  bindsym $mod+a workspace number 7
-  bindsym $mod+s workspace number 8
-  bindsym $mod+d workspace number 9
+  bindsym $mod+2 workspace number 1
+  bindsym $mod+3 workspace number 2
+  bindsym $mod+4 workspace number 3
+  bindsym $mod+w workspace number 4
+  bindsym $mod+e workspace number 5
+  bindsym $mod+r workspace number 6
+  bindsym $mod+s workspace number 7
+  bindsym $mod+d workspace number 8
+  bindsym $mod+f workspace number 9
   bindsym $mod+z workspace number 10
   bindsym $mod+x workspace number 11
   bindsym $mod+c workspace number 12
   # Move focused container to workspace
-  bindsym $mod+Shift+1 move container to workspace number 1
-  bindsym $mod+Shift+2 move container to workspace number 2
-  bindsym $mod+Shift+3 move container to workspace number 3
-  bindsym $mod+Shift+q move container to workspace number 4
-  bindsym $mod+Shift+w move container to workspace number 5
-  bindsym $mod+Shift+e move container to workspace number 6
-  bindsym $mod+Shift+a move container to workspace number 7
-  bindsym $mod+Shift+s move container to workspace number 8
-  bindsym $mod+Shift+d move container to workspace number 9
+  bindsym $mod+Shift+2 move container to workspace number 1
+  bindsym $mod+Shift+3 move container to workspace number 2
+  bindsym $mod+Shift+4 move container to workspace number 3
+  bindsym $mod+Shift+w move container to workspace number 4
+  bindsym $mod+Shift+e move container to workspace number 5
+  bindsym $mod+Shift+r move container to workspace number 6
+  bindsym $mod+Shift+s move container to workspace number 7
+  bindsym $mod+Shift+d move container to workspace number 8
+  bindsym $mod+Shift+f move container to workspace number 9
   bindsym $mod+Shift+z move container to workspace number 10
   bindsym $mod+Shift+x move container to workspace number 11
   bindsym $mod+Shift+c move container to workspace number 12
   # Note: workspaces can have any name you want, not just numbers.
   # We just use 1-10 as the default.
  #
-  # Scratchpad: (bag of holding windows)
-  #
-  # Move the currently focused window to the scratchpad
-  bindsym $mod+Shift+minus move scratchpad
-
-  # Show the next scratchpad window or hide the focused scratchpad window.
-  # If there are multiple scratchpad windows, this command cycles through them.
-  bindsym $mod+minus scratchpad show
 
 ###
 # LAYOUT:
@@ -142,16 +156,12 @@ bindsym $mod+Shift+$right move right
   #                       [v] [b]  > _ *
   bindsym $mod+g split horizontal
   bindsym $mod+v split vertical
-  bindsym $mod+b layout toggle split
-  # Move focus to the parent container
-  bindsym $mod+u focus parent
+  bindsym $mod+slash layout toggle split
 
   # Switch the current container between different layout styles
-  bindsym $mod+t layout tabbed
-  bindsym $mod+equal layout stacking
+  bindsym $mod+t          layout tabbed
+  bindsym $mod+apostrophe layout stacking
 
-  # Make the current focus fullscreen
-  bindsym $mod+f fullscreen
 
   ###### Floating Window Stuff
   # 'normal' means:
@@ -165,29 +175,33 @@ bindsym $mod+Shift+$right move right
 
 #####
 # MOUSE CURSOR PSEUDO-MODE
-# # attempt to map mouse scroll wheel (2024-02-10 not working)
-  bindsym SunProps+Next exec echo wheel 1 | dotoolc
-  bindsym SunProps+Prior exec echo wheel -1 | dotoolc
+  ### mouse scroll wheel
+  bindsym SunProps+Next exec  echo wheel -1 | dotoolc
+  bindsym SunProps+Prior exec echo wheel +1 | dotoolc
 
-  ### mid speed movement tab + hold via keyd
-  bindsym XF86Launch1 seat "-" cursor move -30 -30
-  bindsym XF86Launch2 seat "-" cursor move   0 -30
-  bindsym XF86Launch3 seat "-" cursor move +30 -30
-  bindsym XF86Launch4 seat "-" cursor move -30  0
-  bindsym XF86Launch5 seat "-" cursor move   0 +30
-  bindsym XF86Launch6 seat "-" cursor move +30  0
-  bindsym XF86Launch7 seat "-" cursor move -30 +30
-  bindsym XF86Launch8 seat "-" cursor move   0 +30
-  bindsym XF86Launch9 seat "-" cursor move +30 +30
+  ### mid speed movement via keyd
+  bindsym XF86Launch1 seat "-" cursor move -$fast -$fast
+  bindsym XF86Launch2 seat "-" cursor move   0    -$fast
+  bindsym XF86Launch3 seat "-" cursor move +$fast -$fast
+  bindsym XF86Launch4 seat "-" cursor move -$fast  0
+  bindsym XF86Launch5 seat "-" cursor release button1
+  bindsym XF86Launch6 seat "-" cursor move +$fast  0
+  bindsym XF86Launch7 seat "-" cursor move -$fast +$fast
+  bindsym XF86Launch8 seat "-" cursor move   0    +$fast
+  bindsym XF86Launch9 seat "-" cursor move +$fast +$fast
   ### fine tuned mouse movement ( meant for mouse keyd "mode")
-  bindsym SunProps+left  seat "-" cursor move -5  0
-  bindsym SunProps+down  seat "-" cursor move  0 +5
-  bindsym SunProps+up    seat "-" cursor move  0 -5
-  bindsym SunProps+right seat "-" cursor move +5  0
+  bindsym SunProps+F1    seat "-" cursor move -$slow -$slow
+  bindsym SunProps+up    seat "-" cursor move  0     -$slow
+  bindsym SunProps+F3    seat "-" cursor move +$slow -$slow
+  bindsym SunProps+left  seat "-" cursor move -$slow  0
+  bindsym SunProps+F5    seat "-" cursor release button1
+  bindsym SunProps+right seat "-" cursor move +$slow  0
+  bindsym SunProps+F7    seat "-" cursor move -$slow +$slow
+  bindsym SunProps+down  seat "-" cursor move  0     +$slow
+  bindsym SunProps+F9    seat "-" cursor move +$slow +$slow
   ## press/release mouse button1
-  bindsym XF86MenuKB seat "-" cursor press button1
+  #bindsym XF86MenuKB seat "-" cursor press button1
   bindsym XF86Xfer seat "-" cursor release button1
-  bindsym plusminus --release   seat "-" cursor release button1
 
 ###
 # Resizing containers:
@@ -208,7 +222,6 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+o mode "resize"
 
 
 ### COLORS
