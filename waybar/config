@@ -8,8 +8,8 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
     "modules-center": ["sway/window"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "temperature", "memory", "backlight",
-                      "battery", "clock", "tray"],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "temperature", "memory", 
+                      "backlight", "battery", "clock", "tray"],
     
     "sway/window": {
       "tooltip" : false,
@@ -17,7 +17,7 @@
     "sway/workspaces": {
         "all-outputs": true,
         //"spacing": 9,
-        "format": "{name}<span size='small' color='yellow' rise='9pt'>{index}</span>",
+        "format": "{name}<span size='small' color='darkgray' rise='10pt'>{index}</span>",
     },
     "keyboard-state": {
         "numlock": true,
@@ -50,7 +50,7 @@
         "spacing": 10
     },
     "clock": {
-      "format": "{:%a%d<span font-family='Grape Nuts'><b>%H:%M</b></span>}",
+      "format": "{:%a%d<span font-family='Grape Nuts'><b>%H:%M </b></span>}",
       "format-alt": " {:%A, %B %d, %Y (%R)}  ",
       "tooltip-format": "<tt><small>{calendar}</small></tt>",
       "today-format": "<span color='#ff4499'><b><u>{}</u></b></span>",

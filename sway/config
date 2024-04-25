@@ -1,6 +1,6 @@
 # Read `man 5 sway` for a complete reference.
 #calibration has resolution dependent cursor shortcuts
-include calibration3
+include calibration
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 ### Variables
@@ -45,8 +45,8 @@ input type:keyboard {
     xkb_layout "us"
     xkb_variant altgr-intl 
     xkb_options "altwin:menu_win,numpad:mac"
-    repeat_delay 299
-    repeat_rate 25
+    repeat_delay 349
+    repeat_rate 45
 }
 input type:touchpad {
     tap enabled
@@ -65,7 +65,7 @@ bindsym --locked Mod4+period          exec wpctl set-volume -l 1.5 @DEFAULT_AUDI
 bindsym XF86AudioMicMute              exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym Mod4+n                        exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym Print  exec grim -g "$(slurp)" - | swappy -f -
-bindsym Mod4+0 exec grim -g "$(slurp)" - | swappy -f -
+bindsym Mod4+bracketleft exec grim -g "$(slurp)" - | swappy -f -
 bindsym --locked XF86MonBrightnessUp exec light -T 1.4
 bindsym --locked Mod4+q              exec light -T 1.4
 bindsym --locked XF86MonBrightnessDown exec light -T 0.72
@@ -200,7 +200,7 @@ bindsym $mod+Shift+$right move right
   bindsym SunProps+down  seat "-" cursor move  0     +$slow
   bindsym SunProps+F9    seat "-" cursor move +$slow +$slow
   ## press/release mouse button1
-  #bindsym XF86MenuKB seat "-" cursor press button1
+  bindsym XF86MenuKB seat "-" cursor press button1
   bindsym XF86Xfer seat "-" cursor release button1
 
 ###

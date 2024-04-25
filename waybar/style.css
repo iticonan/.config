@@ -1,18 +1,18 @@
 * {
     border: none;
-    font-size: 28px;
+    font-size: 30px;
     color: #ffffff;
-    border-radius: 10px;
 }
 
 window {
-	font-weight: normal;
+    font-weight: normal;
 }
 window#waybar {
     background: rgba(0, 0, 0, 0);
 }
 /*-----module groups----*/
 .modules-left {
+    border-radius: 10px;
   margin: 0px 0 0 0px;
   font-family: Cantarell;
   font-weight: bolder;
@@ -20,11 +20,11 @@ window#waybar {
 }
 .modules-center {
   font-family: Nimbus Sans Narrow;
-	background-color: rgba(0,43,51,0.85);
+  background-color: rgba(0,43,51,0.85);
   margin: 0px 0 0 0;
 }
 .modules-right {
-	background-color: rgba(0,43,51,0.85);
+  background-color: rgba(0,43,51,0.85);
   font-family: Nimbus Sans Narrow;
   font-weight: normal;
   font-size: 1rem;
@@ -45,11 +45,11 @@ window#waybar {
 }
 #workspaces button:hover {
   box-shadow: inherit;
-	background-color: rgba(0,153,153,1);
+  background-color: rgba(49,153,153,1);
 }
 
 #workspaces button.focused {
-	background-color: rgba(0,43,51,0.85);
+  background-color: rgba(0,43,51,0.85);
 }
 
 #clock {

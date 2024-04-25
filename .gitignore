@@ -2,12 +2,16 @@
 !.gitignore
 !SalSoft/
 !alacritty/
+alacritty.toml
 alacritty/themes
 !dunst/
 !environment.d/
 !fish/
 fish/*
 !fish/config.fish
+!fish/conf.d/
+fish/conf.d/*
+!fish/conf.d/sway.fish
 !fish/functions/
 !greenpepper software/
 /greenpepper software/*
@@ -20,7 +24,6 @@ gtk-3.0/bookmarks
 !keyd/
 keyd/*
 !keyd/app.conf
-!mimeapps.list
 !mpv
 mpv/*
 !mpv/autosub.lua
@@ -38,7 +41,12 @@ qimgv/*
 !qt6ct/
 !swappy/
 !sway/
+sway/*
+!sway/config
 !sworkstyle/
+!tmux
+tmux/*
+!tmux/tmux.conf
 !waybar/
 !xdg-desktop-portal/
 !xsettingsd/
