@@ -41,8 +41,7 @@ qimgv/*
 !qt6ct/
 !swappy/
 !sway/
-sway/*
-!sway/config
+sway/calibration
 !sworkstyle/
 !tmux
 tmux/*

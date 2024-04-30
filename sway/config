@@ -78,7 +78,7 @@ bindsym Mod4+Up    seat "*" cursor move 0 -5
 bindsym Mod4+Right seat "*" cursor move +5 0
 
 # Start a terminal
-bindsym Mod4+Return exec alacritty
+bindsym Mod4+Return exec kitty
 
 bindsym Mod4+y reload
 
@@ -176,8 +176,10 @@ bindsym $mod+Shift+$right move right
 #####
 # MOUSE CURSOR PSEUDO-MODE
   ### mouse scroll wheel
-  bindsym SunProps+Next exec  echo wheel -1 | dotoolc
-  bindsym SunProps+Prior exec echo wheel +1 | dotoolc
+  bindsym SunProps+Left exec  echo hwheel -1 | dotoolc
+  bindsym SunProps+Down exec  echo wheel -1 | dotoolc
+  bindsym SunProps+Up   exec  echo wheel +1 | dotoolc
+  bindsym SunProps+Right exec echo hwheel +1 | dotoolc
 
   ### mid speed movement via keyd
   bindsym XF86Launch1 seat "-" cursor move -$fast -$fast
@@ -191,13 +193,13 @@ bindsym $mod+Shift+$right move right
   bindsym XF86Launch9 seat "-" cursor move +$fast +$fast
   ### fine tuned mouse movement ( meant for mouse keyd "mode")
   bindsym SunProps+F1    seat "-" cursor move -$slow -$slow
-  bindsym SunProps+up    seat "-" cursor move  0     -$slow
+  bindsym SunProps+F2    seat "-" cursor move  0     -$slow
   bindsym SunProps+F3    seat "-" cursor move +$slow -$slow
-  bindsym SunProps+left  seat "-" cursor move -$slow  0
+  bindsym SunProps+F4    seat "-" cursor move -$slow  0
   bindsym SunProps+F5    seat "-" cursor release button1
-  bindsym SunProps+right seat "-" cursor move +$slow  0
+  bindsym SunProps+F6    seat "-" cursor move +$slow  0
   bindsym SunProps+F7    seat "-" cursor move -$slow +$slow
-  bindsym SunProps+down  seat "-" cursor move  0     +$slow
+  bindsym SunProps+F8    seat "-" cursor move  0     +$slow
   bindsym SunProps+F9    seat "-" cursor move +$slow +$slow
   ## press/release mouse button1
   bindsym XF86MenuKB seat "-" cursor press button1

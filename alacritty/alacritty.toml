@@ -4,5 +4,6 @@ import = ["/home/ivan/.config/alacritty/themes/themes/monokai_charcoal.toml"]
 size = 23
 
 [font.normal]
-family = "JetBrainsMonoNL NF"
+family = "Iosevka NFM"
 style = "Regular"
+
