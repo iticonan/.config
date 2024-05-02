@@ -176,10 +176,10 @@ bindsym $mod+Shift+$right move right
 #####
 # MOUSE CURSOR PSEUDO-MODE
   ### mouse scroll wheel
-  bindsym SunProps+Left exec  echo hwheel -1 | dotoolc
-  bindsym SunProps+Down exec  echo wheel -1 | dotoolc
-  bindsym SunProps+Up   exec  echo wheel +1 | dotoolc
-  bindsym SunProps+Right exec echo hwheel +1 | dotoolc
+  bindsym SunProps+Home exec echo hwheel -1 | dotoolc
+  bindsym SunProps+End  exec echo hwheel +1 | dotoolc
+  bindsym SunProps+Next  exec echo wheel -1 | dotoolc
+  bindsym SunProps+Prior exec echo wheel +1 | dotoolc
 
   ### mid speed movement via keyd
   bindsym XF86Launch1 seat "-" cursor move -$fast -$fast
@@ -192,15 +192,15 @@ bindsym $mod+Shift+$right move right
   bindsym XF86Launch8 seat "-" cursor move   0    +$fast
   bindsym XF86Launch9 seat "-" cursor move +$fast +$fast
   ### fine tuned mouse movement ( meant for mouse keyd "mode")
-  bindsym SunProps+F1    seat "-" cursor move -$slow -$slow
-  bindsym SunProps+F2    seat "-" cursor move  0     -$slow
-  bindsym SunProps+F3    seat "-" cursor move +$slow -$slow
-  bindsym SunProps+F4    seat "-" cursor move -$slow  0
-  bindsym SunProps+F5    seat "-" cursor release button1
-  bindsym SunProps+F6    seat "-" cursor move +$slow  0
-  bindsym SunProps+F7    seat "-" cursor move -$slow +$slow
-  bindsym SunProps+F8    seat "-" cursor move  0     +$slow
-  bindsym SunProps+F9    seat "-" cursor move +$slow +$slow
+  bindsym XF86Launch1+Shift  seat "-" cursor move -$slow -$slow
+  bindsym XF86Launch2+Shift  seat "-" cursor move  0     -$slow
+  bindsym XF86Launch3+Shift  seat "-" cursor move +$slow -$slow
+  bindsym XF86Launch4+Shift  seat "-" cursor move -$slow  0
+  bindsym XF86Launch5+Shift  seat "-" cursor release button1
+  bindsym XF86Launch6+Shift  seat "-" cursor move +$slow  0
+  bindsym XF86Launch7+Shift  seat "-" cursor move -$slow +$slow
+  bindsym XF86Launch8+Shift  seat "-" cursor move  0     +$slow
+  bindsym XF86Launch9+Shift  seat "-" cursor move +$slow +$slow
   ## press/release mouse button1
   bindsym XF86MenuKB seat "-" cursor press button1
   bindsym XF86Xfer seat "-" cursor release button1
