@@ -186,7 +186,7 @@ bindsym $mod+Shift+$right move right
   bindsym XF86Launch2 seat "-" cursor move   0    -$fast
   bindsym XF86Launch3 seat "-" cursor move +$fast -$fast
   bindsym XF86Launch4 seat "-" cursor move -$fast  0
-  bindsym XF86Launch5 seat "-" cursor release button1
+  #bindsym XF86Launch5+Shift exec echo click middle | dotoolc
   bindsym XF86Launch6 seat "-" cursor move +$fast  0
   bindsym XF86Launch7 seat "-" cursor move -$fast +$fast
   bindsym XF86Launch8 seat "-" cursor move   0    +$fast
@@ -196,7 +196,7 @@ bindsym $mod+Shift+$right move right
   bindsym XF86Launch2+Shift  seat "-" cursor move  0     -$slow
   bindsym XF86Launch3+Shift  seat "-" cursor move +$slow -$slow
   bindsym XF86Launch4+Shift  seat "-" cursor move -$slow  0
-  bindsym XF86Launch5+Shift  seat "-" cursor release button1
+  bindsym XF86Launch5+Shift  exec echo click middle | dotoolc
   bindsym XF86Launch6+Shift  seat "-" cursor move +$slow  0
   bindsym XF86Launch7+Shift  seat "-" cursor move -$slow +$slow
   bindsym XF86Launch8+Shift  seat "-" cursor move  0     +$slow
