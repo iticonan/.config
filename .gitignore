@@ -24,6 +24,9 @@ gtk-3.0/bookmarks
 !keyd/
 keyd/*
 !keyd/app.conf
+!kitty
+kitty/theme
+kitty/kitty-themes
 !mpv
 mpv/*
 !mpv/autosub.lua
