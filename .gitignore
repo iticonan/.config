@@ -26,7 +26,8 @@ gtk-3.0/bookmarks
 keyd/*
 !keyd/app.conf
 !kitty
-kitty/theme
+kitty/kitty.conf
+kitty/theme.conf
 kitty/kitty-themes
 !mpv
 mpv/*
