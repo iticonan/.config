@@ -51,7 +51,8 @@
     },
     "clock": {
       "format": "{:%a%d<span font-family='Grape Nuts'><b>%H:%M </b></span>}",
-      "format-alt": " {:%A, %B %d, %Y (%R)}  ",
+      "format-alt": "  {:%a %d%B%Y %R}" ,
+      "locale": "en_GB.UTF-8",
       "tooltip-format": "<tt><small>{calendar}</small></tt>",
       "today-format": "<span color='#ff4499'><b><u>{}</u></b></span>",
       "format-calendar": "<span color='#ffead3'><b>{}</b></span>",
@@ -60,7 +61,7 @@
       "calendar": {
         "mode"          : "year",
         "mode-mon-col"  : 3,
-        "weeks-pos"      : "right",
+        "weeks-pos"     : "right",
         "on-scroll"     : 1,
         "on-click-right": "mode",
         "format": {
@@ -115,7 +116,7 @@
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": [" ", " ", " ", " ", " "]
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󱊣"]
     },
     "battery#bat2": {
         "bat": "BAT2"
@@ -144,7 +145,7 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": [" ", " ","󰕾 ", "  "]
+            "default": [" ", " ","󰕾 ", "  "]
         },
         "on-click": ""
     },

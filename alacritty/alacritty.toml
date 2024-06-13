@@ -1,9 +1,9 @@
 import = ["/home/ivan/.config/alacritty/themes/themes/monokai_charcoal.toml"]
 
 [font]
-size = 23
+size = 20
 
 [font.normal]
-family = "Iosevka NFM"
-style = "Regular"
+family = "VictorMono Nerd Font"
+style = "Retina"
 

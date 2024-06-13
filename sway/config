@@ -11,7 +11,7 @@ exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSO
   set $right l
   set $gnome-schema org.gnome.desktop.interface
   set $slow 3
-  set $fast 33
+  set $fast 24
 
 exec_always {
     gsettings set $gnome-schema color-scheme 'prefer-dark'
@@ -65,7 +65,7 @@ bindsym --locked Mod4+period          exec wpctl set-volume -l 1.5 @DEFAULT_AUDI
 bindsym XF86AudioMicMute              exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym Mod4+n                        exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym Print  exec grim -g "$(slurp)" - | swappy -f -
-bindsym Mod4+bracketleft exec grim -g "$(slurp)" - | swappy -f -
+bindsym Mod4+7 exec grim -g "$(slurp)" - | swappy -f -
 bindsym --locked XF86MonBrightnessUp exec light -T 1.4
 bindsym --locked Mod4+q              exec light -T 1.4
 bindsym --locked XF86MonBrightnessDown exec light -T 0.72
@@ -80,6 +80,9 @@ bindsym Mod4+Right seat "*" cursor move +5 0
 # Start a terminal
 bindsym Mod4+Return exec kitty
 
+# Move focus to the parent container
+bindsym Mod4+t focus parent
+
 bindsym Mod4+y reload
 
 bindsym Mod4+u fullscreen
@@ -87,19 +90,16 @@ bindsym Mod4+u fullscreen
 bindsym Mod4+i mode "resize"
 
 # Launcher. Note: it's recommended that you pass the final command to sway
-bindsym Mod4+o exec bemenu-run --fn "Terminus Normal 20" | xargs swaymsg exec --
-
-# Move focus to the parent container
-bindsym Mod4+p focus parent
-
+# bindsym Mod4+o exec bemenu-run --fn "VictorMono Nerd Font 20" | xargs swaymsg exec --
+bindsym Mod4+o exec fuzzel -f=VictorMonoNerdFont:size=17 --icon-theme=Papirus --anchor=top --show-actions --layer=overlay --background=000000dd
 # Exit sway (log out of Wayland session)
-bindsym Mod4+Shift+y exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+bindsym Mod4+Mod1+y exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 # Kill focused window
-bindsym Mod4+Shift+q kill
+bindsym Mod4+Mod1+q kill
 
 # Move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Mod1+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
@@ -112,10 +112,10 @@ bindsym $mod+$up focus up
 bindsym $mod+$right focus right
 
 # Move the focused window with the same, but add Shift
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+bindsym $mod+Mod1+$left move left
+bindsym $mod+Mod1+$down move down
+bindsym $mod+Mod1+$up move up
+bindsym $mod+Mod1+$right move right
 
 ###
 # Workspaces (number is needed for sworkstyle, TODO: somehow label workspaces by letter)
@@ -134,34 +134,33 @@ bindsym $mod+Shift+$right move right
   bindsym $mod+x workspace number 11
   bindsym $mod+c workspace number 12
   # Move focused container to workspace
-  bindsym $mod+Shift+2 move container to workspace number 1
-  bindsym $mod+Shift+3 move container to workspace number 2
-  bindsym $mod+Shift+4 move container to workspace number 3
-  bindsym $mod+Shift+w move container to workspace number 4
-  bindsym $mod+Shift+e move container to workspace number 5
-  bindsym $mod+Shift+r move container to workspace number 6
-  bindsym $mod+Shift+s move container to workspace number 7
-  bindsym $mod+Shift+d move container to workspace number 8
-  bindsym $mod+Shift+f move container to workspace number 9
-  bindsym $mod+Shift+z move container to workspace number 10
-  bindsym $mod+Shift+x move container to workspace number 11
-  bindsym $mod+Shift+c move container to workspace number 12
+  bindsym $mod+Mod1+2 move container to workspace number 1
+  bindsym $mod+Mod1+3 move container to workspace number 2
+  bindsym $mod+Mod1+4 move container to workspace number 3
+  bindsym $mod+Mod1+w move container to workspace number 4
+  bindsym $mod+Mod1+e move container to workspace number 5
+  bindsym $mod+Mod1+r move container to workspace number 6
+  bindsym $mod+Mod1+s move container to workspace number 7
+  bindsym $mod+Mod1+d move container to workspace number 8
+  bindsym $mod+Mod1+f move container to workspace number 9
+  bindsym $mod+Mod1+z move container to workspace number 10
+  bindsym $mod+Mod1+x move container to workspace number 11
+  bindsym $mod+Mod1+c move container to workspace number 12
   # Note: workspaces can have any name you want, not just numbers.
   # We just use 1-10 as the default.
  #
 
-###
-# LAYOUT:
-  # split focused window:     [g]  >   |
-  #                       [v] [b]  > _ *
-  bindsym $mod+g split horizontal
-  bindsym $mod+v split vertical
-  bindsym $mod+slash layout toggle split
+  ###
+  # LAYOUT:
+  # split focused window   [g]  | 'cause right of right index 
+  #  (qwerty version)      [/]  _ 'cause down for left pinkie 
+  bindsym $mod+g     split horizontal
+  bindsym $mod+slash split vertical
 
   # Switch the current container between different layout styles
-  bindsym $mod+t          layout tabbed
-  bindsym $mod+apostrophe layout stacking
-
+  bindsym $mod+p          layout tabbed
+  bindsym $mod+semicolon  layout toggle split
+  bindsym $mod+apostrophe layout toggle split
 
   ###### Floating Window Stuff
   # 'normal' means:
@@ -169,7 +168,7 @@ bindsym $mod+Shift+$right move right
   # Resize  ``      ``   : $mod + right cursor drag. (normal)
   floating_modifier $mod normal
   # Toggle the current focus between tiling and floating mode
-  bindsym $mod+Shift+space floating toggle
+  bindsym $mod+Mod1+space floating toggle
   # Swap focus between the tiling area and the floating area
   bindsym $mod+BackSpace focus mode_toggle
 
@@ -178,8 +177,10 @@ bindsym $mod+Shift+$right move right
   ### mouse scroll wheel
   bindsym SunProps+Home exec echo hwheel -1 | dotoolc
   bindsym SunProps+End  exec echo hwheel +1 | dotoolc
-  bindsym SunProps+Next  exec echo wheel -1 | dotoolc
-  bindsym SunProps+Prior exec echo wheel +1 | dotoolc
+  bindsym XF86KbdBrightnessDown  exec echo wheel -1 | dotoolc
+  bindsym XF86KbdBrightnessUp exec echo wheel +1 | dotoolc
+  bindsym Control+XF86KbdBrightnessDown exec echo keyhold 100 ctrl; echo wheel -1 | dotoolc
+  bindsym Control+XF86KbdBrightnessUp exec {echo keydown ctrl; echo wheel 1; echo keyup ctrl} | dotoolc
 
   ### mid speed movement via keyd
   bindsym XF86Launch1 seat "-" cursor move -$fast -$fast
@@ -240,7 +241,7 @@ client.urgent           #fffb16 #dc322f  #eee8d5 #dc322f   #93a1a1
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
-    font pango:"JetBrainsMono NF" 10
+    font pango:"VictorMono Nerd Font" 10
     swaybar_command waybar
 
     # When the status_command prints a new line to stdout, swaybar updates.

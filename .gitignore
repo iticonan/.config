@@ -1,5 +1,6 @@
 /*
 !.gitignore
+mimeapps.list
 !SalSoft/
 !alacritty/
 alacritty.toml
