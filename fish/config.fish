@@ -9,3 +9,6 @@ bind --mode insert \e\[3\;5~ 'kill-word'
 bind --mode insert \cW 'backward-kill-word'
 
 zoxide init --cmd cd fish | source
+
+# Created by `pipx` on 2024-07-21 20:09:35
+set PATH $PATH /home/ivan/.local/bin

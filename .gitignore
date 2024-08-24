@@ -22,6 +22,7 @@ fish/conf.d/*
 gtk-3.0/bookmarks
 !gtk-4.0/
 !i3/
+!kanata
 !keyd/
 keyd/*
 !keyd/app.conf

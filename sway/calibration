@@ -178,3 +178,4 @@ bindsym SunProps+XF86Launch9+m 		  seat "-" cursor set 1472 1035
 bindsym SunProps+XF86Launch9+comma 		  seat "-" cursor set 1600 1035
 bindsym SunProps+XF86Launch9+period 		  seat "-" cursor set 1728 1035
 bindsym SunProps+XF86Launch9+slash 		  seat "-" cursor set 1856 1035
+
