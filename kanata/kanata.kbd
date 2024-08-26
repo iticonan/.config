@@ -32,31 +32,31 @@ S-grv S-=   [    ]   S-[  S-\  S-7   =   S-,  S-.   _    _    _  _
   psb (tap-hold 150 150 ; (layer-while-held psinkbols))
   dpd (tap-hold 120 120 [ (layer-while-held fncur))
   rgr (tap-hold 130 130 ret ralt)
-  mau (movemouse-accel-up 50 50 3 23)
-  mad (movemouse-accel-down 50 50 3 23)
-  mal (movemouse-accel-left 50 50 3 23)
-  mar (movemouse-accel-right 50 50 3 23)
+  mau (movemouse-accel-up 30 270 3 17)
+  mad (movemouse-accel-down 30 270 3 17)
+  mal (movemouse-accel-left 30 270 3 17)
+  mar (movemouse-accel-right 30 270 3 17)
   mwl (mwheel-left 150 120)
   mwd (mwheel-down 150 120)
   mwu (mwheel-up 150 120)
   mwr (mwheel-right 150 120)
   rnav (release-layer nav) ;; "layer-toggle" used below for brevity
-  w15 (tap-hold 150 150 home (multi @rnav (layer-toggle ptrtopleft) F15 w))
-  e15 (tap-hold 150 150 M-up (multi @rnav (layer-toggle ptrtopmid) F15 e))
-  r15 (tap-hold 150 150 end  (multi @rnav (layer-toggle ptrtopright) F15 r))
-  s15 (tap-hold 150 150 M-left (multi @rnav (layer-toggle ptrmidleft) F15 s))
-  d15 (tap-hold 150 150 M-down (multi @rnav (layer-toggle ptrmidmid) F15 d))
-  f15 (tap-hold 150 150 M-right (multi @rnav (layer-toggle ptrmidright) F15 f))
-  z15 (tap-hold 150 150 mute (multi @rnav (layer-toggle ptrlowleft) F15 z))
-  x15 (tap-hold 150 150 voldwn (multi @rnav (layer-toggle ptrlowmid) F15 x))
-  c15 (tap-hold 150 150 volu (multi @rnav (layer-toggle ptrlowright) F15 c))
+  gr1 (tap-hold 150 150 home (multi @rnav (layer-toggle ptrtopleft)))
+  gr2 (tap-hold 150 150 M-up (multi @rnav (layer-toggle ptrtopmid)))
+  gr3 (tap-hold 150 150 end  (multi @rnav (layer-toggle ptrtopright)))
+  gr4 (tap-hold 150 150 M-left (multi @rnav (layer-toggle ptrmidleft)))
+  gr5 (tap-hold 150 150 M-down (multi @rnav (layer-toggle ptrmidmid)))
+  gr6 (tap-hold 150 150 M-right (multi @rnav (layer-toggle ptrmidright)))
+  gr7 (tap-hold 150 150 mute (multi @rnav (layer-toggle ptrlowleft)))
+  gr8 (tap-hold 150 150 voldwn (multi @rnav (layer-toggle ptrlowmid)))
+  gr9 (tap-hold 150 150 volu (multi @rnav (layer-toggle ptrlowright)))
 )
 
 (deflayer nav
   _    _    left up  down right _    _    _    _    _    _    _    _
-  _  lrld   @w15 @e15 @r15 pgup @mwu @mwl @mau @mwr _    _    _    _
-  _    _    @s15 @d15 @f15 pgdn @mwd @mal @mad @mar _    _    _
-  _   @z15  @x15 @c15  f24  _   _    mlft mmid mrgt _    _    _
+  _  lrld   @gr1 @gr2 @gr3 pgup @mwu @mwl @mau @mwr volu _    _    _
+  _    _    @gr4 @gr5 @gr6 pgdn @mwd @mal @mad @mar vold _    _
+  _   @gr7  @gr8 @gr9  f24  _   _    mlft mmid mrgt _    _    _
   _    _    _              mlft           bspc del  del  _    _    _
 )
 
@@ -70,114 +70,184 @@ S-grv S-=   [    ]   S-[  S-\  S-7   =   S-,  S-.   _    _    _  _
 
 (deflayer fncur
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _  lrld   F1   F2   F3   F4   home pgdn pgup end  _    _    _    _
-  _    _    F5   F6   F7   F8   left down up  right _    _    _
+  _  brup   F1   F2   F3   F4   home pgdn pgup end  _    _    _    _
+  _  brdown F5   F6   F7   F8   left down up  right _    _    _
   _    F9   F10  F11  F12  _    _    _    _    _    _    _    _
   _    _    _              _              bspc del  del  _    _    _
 )
 
+(defalias 
+  x0y0 (multi ralt f1 7 (setmouse $x0 $y0))     x1y0 (multi ralt f1 8 (setmouse $x1 $y0)) 
+  x0y1 (multi ralt f1 y (setmouse $x0 $y1))     x1y1 (multi ralt f1 u (setmouse $x1 $y1))
+  x0y2 (multi ralt f1 h (setmouse $x0 $y2))     x1y2 (multi ralt f1 j (setmouse $x1 $y2))
+  x0y3 (multi ralt f1 n (setmouse $x0 $y3))     x1y3 (multi ralt f1 m (setmouse $x1 $y3))
+  x0y4 (multi ralt f4 7 (setmouse $x0 $y4))     x1y4 (multi ralt f4 8 (setmouse $x1 $y4))
+  x0y5 (multi ralt f4 y (setmouse $x0 $y5))     x1y5 (multi ralt f4 u (setmouse $x1 $y5))
+  x0y6 (multi ralt f4 h (setmouse $x0 $y6))     x1y6 (multi ralt f4 j (setmouse $x1 $y6))
+  x0y7 (multi ralt f4 n (setmouse $x0 $y7))     x1y7 (multi ralt f4 m (setmouse $x1 $y7))
+  x0y8 (multi ralt f7 7 (setmouse $x0 $y8))     x1y8 (multi ralt f7 8 (setmouse $x1 $y8))
+  x0y9 (multi ralt f7 y (setmouse $x0 $y9))     x1y9 (multi ralt f7 u (setmouse $x1 $y9))
+  x0ya (multi ralt f7 h (setmouse $x0 $ya))     x1ya (multi ralt f7 j (setmouse $x1 $ya))
+  x0yb (multi ralt f7 n (setmouse $x0 $yb))     x1yb (multi ralt f7 m (setmouse $x1 $yb))
+
+  x2y0 (multi ralt f1 9 (setmouse $x2 $y0))     x3y0 (multi ralt f1 0 (setmouse $x3 $y0)) 
+  x2y1 (multi ralt f1 i (setmouse $x2 $y1))     x3y1 (multi ralt f1 o (setmouse $x3 $y1))
+  x2y2 (multi ralt f1 k (setmouse $x2 $y2))     x3y2 (multi ralt f1 l (setmouse $x3 $y2))
+  x2y3 (multi ralt f1 , (setmouse $x2 $y3))     x3y3 (multi ralt f1 . (setmouse $x3 $y3))
+  x2y4 (multi ralt f4 9 (setmouse $x2 $y4))     x3y4 (multi ralt f4 0 (setmouse $x3 $y4))
+  x2y5 (multi ralt f4 i (setmouse $x2 $y5))     x3y5 (multi ralt f4 o (setmouse $x3 $y5))
+  x2y6 (multi ralt f4 k (setmouse $x2 $y6))     x3y6 (multi ralt f4 l (setmouse $x3 $y6))
+  x2y7 (multi ralt f4 , (setmouse $x2 $y7))     x3y7 (multi ralt f4 . (setmouse $x3 $y7))
+  x2y8 (multi ralt f7 9 (setmouse $x2 $y8))     x3y8 (multi ralt f7 0 (setmouse $x3 $y8))
+  x2y9 (multi ralt f7 i (setmouse $x2 $y9))     x3y9 (multi ralt f7 o (setmouse $x3 $y9))
+  x2ya (multi ralt f7 k (setmouse $x2 $ya))     x3ya (multi ralt f7 l (setmouse $x3 $ya))
+  x2yb (multi ralt f7 , (setmouse $x2 $yb))     x3yb (multi ralt f7 . (setmouse $x3 $yb))
+
+  x4y0 (multi ralt f1 - (setmouse $x4 $y0))     x5y0 (multi ralt f2 7 (setmouse $x5 $y0)) 
+  x4y1 (multi ralt f1 p (setmouse $x4 $y1))     x5y1 (multi ralt f2 y (setmouse $x5 $y1))
+  x4y2 (multi ralt f1 ; (setmouse $x4 $y2))     x5y2 (multi ralt f2 h (setmouse $x5 $y2))
+  x4y3 (multi ralt f1 / (setmouse $x4 $y3))     x5y3 (multi ralt f2 n (setmouse $x5 $y3))
+  x4y4 (multi ralt f4 - (setmouse $x4 $y4))     x5y4 (multi ralt f5 7 (setmouse $x5 $y4))
+  x4y5 (multi ralt f4 p (setmouse $x4 $y5))     x5y5 (multi ralt f5 y (setmouse $x5 $y5))
+  x4y6 (multi ralt f4 ; (setmouse $x4 $y6))     x5y6 (multi ralt f5 h (setmouse $x5 $y6))
+  x4y7 (multi ralt f4 / (setmouse $x4 $y7))     x5y7 (multi ralt f5 n (setmouse $x5 $y7))
+  x4y8 (multi ralt f7 0 (setmouse $x4 $y8))     x5y8 (multi ralt f8 7 (setmouse $x5 $y8))
+  x4y9 (multi ralt f7 p (setmouse $x4 $y9))     x5y9 (multi ralt f8 y (setmouse $x5 $y9))
+  x4ya (multi ralt f7 ; (setmouse $x4 $ya))     x5ya (multi ralt f8 h (setmouse $x5 $ya))
+  x4yb (multi ralt f7 / (setmouse $x4 $yb))     x5yb (multi ralt f8 n (setmouse $x5 $yb))
+
+  x6y0 (multi ralt f2 8 (setmouse $x6 $y0))     x7y0 (multi ralt f2 9 (setmouse $x7 $y0)) 
+  x6y1 (multi ralt f2 u (setmouse $x6 $y1))     x7y1 (multi ralt f2 i (setmouse $x7 $y1))
+  x6y2 (multi ralt f2 j (setmouse $x6 $y2))     x7y2 (multi ralt f2 k (setmouse $x7 $y2))
+  x6y3 (multi ralt f2 m (setmouse $x6 $y3))     x7y3 (multi ralt f2 , (setmouse $x7 $y3))
+  x6y4 (multi ralt f5 8 (setmouse $x6 $y4))     x7y4 (multi ralt f5 9 (setmouse $x7 $y4))
+  x6y5 (multi ralt f5 u (setmouse $x6 $y5))     x7y5 (multi ralt f5 i (setmouse $x7 $y5))
+  x6y6 (multi ralt f5 j (setmouse $x6 $y6))     x7y6 (multi ralt f5 k (setmouse $x7 $y6))
+  x6y7 (multi ralt f5 m (setmouse $x6 $y7))     x7y7 (multi ralt f5 , (setmouse $x7 $y7))
+  x6y8 (multi ralt f8 8 (setmouse $x6 $y8))     x7y8 (multi ralt f8 9 (setmouse $x7 $y8))
+  x6y9 (multi ralt f8 u (setmouse $x6 $y9))     x7y9 (multi ralt f8 i (setmouse $x7 $y9))
+  x6ya (multi ralt f8 j (setmouse $x6 $ya))     x7ya (multi ralt f8 k (setmouse $x7 $ya))
+  x6yb (multi ralt f8 m (setmouse $x6 $yb))     x7yb (multi ralt f8 , (setmouse $x7 $yb))
+
+  x8y0 (multi ralt f2 0 (setmouse $x8 $y0))     x9y0 (multi ralt f2 - (setmouse $x9 $y0)) 
+  x8y1 (multi ralt f2 o (setmouse $x8 $y1))     x9y1 (multi ralt f2 p (setmouse $x9 $y1))
+  x8y2 (multi ralt f2 l (setmouse $x8 $y2))     x9y2 (multi ralt f2 ; (setmouse $x9 $y2))
+  x8y3 (multi ralt f2 . (setmouse $x8 $y3))     x9y3 (multi ralt f2 / (setmouse $x9 $y3))
+  x8y4 (multi ralt f5 0 (setmouse $x8 $y4))     x9y4 (multi ralt f5 - (setmouse $x9 $y4))
+  x8y5 (multi ralt f5 o (setmouse $x8 $y5))     x9y5 (multi ralt f5 p (setmouse $x9 $y5))
+  x8y6 (multi ralt f5 l (setmouse $x8 $y6))     x9y6 (multi ralt f5 ; (setmouse $x9 $y6))
+  x8y7 (multi ralt f5 . (setmouse $x8 $y7))     x9y7 (multi ralt f5 / (setmouse $x9 $y7))
+  x8y8 (multi ralt f8 0 (setmouse $x8 $y8))     x9y8 (multi ralt f8 0 (setmouse $x9 $y8))
+  x8y9 (multi ralt f8 o (setmouse $x8 $y9))     x9y9 (multi ralt f8 p (setmouse $x9 $y9))
+  x8ya (multi ralt f8 l (setmouse $x8 $ya))     x9ya (multi ralt f8 ; (setmouse $x9 $ya))
+  x8yb (multi ralt f8 . (setmouse $x8 $yb))     x9yb (multi ralt f8 / (setmouse $x9 $yb))
+
+  xay0 (multi ralt f3 7 (setmouse $xa $y0))     xby0 (multi ralt f3 8 (setmouse $xb $y0)) 
+  xay1 (multi ralt f3 y (setmouse $xa $y1))     xby1 (multi ralt f3 u (setmouse $xb $y1))
+  xay2 (multi ralt f3 h (setmouse $xa $y2))     xby2 (multi ralt f3 j (setmouse $xb $y2))
+  xay3 (multi ralt f3 n (setmouse $xa $y3))     xby3 (multi ralt f3 m (setmouse $xb $y3))
+  xay4 (multi ralt f6 7 (setmouse $xa $y4))     xby4 (multi ralt f6 8 (setmouse $xb $y4))
+  xay5 (multi ralt f6 y (setmouse $xa $y5))     xby5 (multi ralt f6 u (setmouse $xb $y5))
+  xay6 (multi ralt f6 h (setmouse $xa $y6))     xby6 (multi ralt f6 j (setmouse $xb $y6))
+  xay7 (multi ralt f6 n (setmouse $xa $y7))     xby7 (multi ralt f6 m (setmouse $xb $y7))
+  xay8 (multi ralt f9 7 (setmouse $xa $y8))     xby8 (multi ralt f9 8 (setmouse $xb $y8))
+  xay9 (multi ralt f9 y (setmouse $xa $y9))     xby9 (multi ralt f9 u (setmouse $xb $y9))
+  xaya (multi ralt f9 h (setmouse $xa $ya))     xbya (multi ralt f9 j (setmouse $xb $ya))
+  xayb (multi ralt f9 n (setmouse $xa $yb))     xbyb (multi ralt f9 m (setmouse $xb $yb))
+
+  xcy0 (multi ralt f3 9 (setmouse $xc $y0))     xdy0 (multi ralt f3 0 (setmouse $xd $y0)) 
+  xcy1 (multi ralt f3 i (setmouse $xc $y1))     xdy1 (multi ralt f3 o (setmouse $xd $y1))
+  xcy2 (multi ralt f3 k (setmouse $xc $y2))     xdy2 (multi ralt f3 l (setmouse $xd $y2))
+  xcy3 (multi ralt f3 , (setmouse $xc $y3))     xdy3 (multi ralt f3 . (setmouse $xd $y3))
+  xcy4 (multi ralt f6 9 (setmouse $xc $y4))     xdy4 (multi ralt f6 0 (setmouse $xd $y4))
+  xcy5 (multi ralt f6 i (setmouse $xc $y5))     xdy5 (multi ralt f6 o (setmouse $xd $y5))
+  xcy6 (multi ralt f6 k (setmouse $xc $y6))     xdy6 (multi ralt f6 l (setmouse $xd $y6))
+  xcy7 (multi ralt f6 , (setmouse $xc $y7))     xdy7 (multi ralt f6 . (setmouse $xd $y7))
+  xcy8 (multi ralt f9 9 (setmouse $xc $y8))     xdy8 (multi ralt f9 0 (setmouse $xd $y8))
+  xcy9 (multi ralt f9 i (setmouse $xc $y9))     xdy9 (multi ralt f9 o (setmouse $xd $y9))
+  xcya (multi ralt f9 k (setmouse $xc $ya))     xdya (multi ralt f9 l (setmouse $xd $ya))
+  xcyb (multi ralt f9 , (setmouse $xc $yb))     xdyb (multi ralt f9 . (setmouse $xd $yb))
+
+  xey0 (multi ralt f3 - (setmouse $xe $y0))     
+  xey1 (multi ralt f3 p (setmouse $xe $y1))     
+  xey2 (multi ralt f3 ; (setmouse $xe $y2))     
+  xey3 (multi ralt f3 / (setmouse $xe $y3))     
+  xey4 (multi ralt f6 - (setmouse $xe $y4))     
+  xey5 (multi ralt f6 p (setmouse $xe $y5))     
+  xey6 (multi ralt f6 ; (setmouse $xe $y6))     
+  xey7 (multi ralt f6 / (setmouse $xe $y7))     
+  xey8 (multi ralt f9 0 (setmouse $xe $y8))     
+  xey9 (multi ralt f9 p (setmouse $xe $y9))     
+  xeya (multi ralt f9 ; (setmouse $xe $ya))     
+  xeyb (multi ralt f9 / (setmouse $xe $yb))     
+) 
+
 ;; TOP AREA
 (deflayer ptrtopleft
-_ 1 2 3 4 5 6 
-(setmouse $x0 $y0) (setmouse $x1 $y0) (setmouse $x2 $y0) (setmouse $x3 $y0)  (setmouse $x4 $y0) _ _
-_ q w e r t
-(setmouse $x0 $y1) (setmouse $x1 $y1) (setmouse $x2 $y1) (setmouse $x3 $y1)  (setmouse $x4 $y1) [ ] \
-_ a s d f g
-(setmouse $x0 $y2) (setmouse $x1 $y2) (setmouse $x2 $y2) (setmouse $x3 $y2)  (setmouse $x4 $y2) ' _
-_ z x c v b
-(setmouse $x0 $y3) (setmouse $x1 $y3) (setmouse $x2 $y3) (setmouse $x3 $y3)  (setmouse $x4 $y3) _ _
+_ 1 2 3 4 5  6    @x0y0 @x1y0 @x2y0 @x3y0  @x4y0 _ _
+_ q w e r t @x0y1 @x1y1 @x2y1 @x3y1 @x4y1  [ ] \
+_ a s d f g @x0y2 @x1y2 @x2y2 @x3y2 @x4y2  ' _
+_ z x c v b @x0y3 @x1y3 @x2y3 @x3y3 @x4y3  _ _
 _ _ _ spc  _ _ _ _ _ _
 )
 (deflayer ptrtopmid
-_ 1 2 3 4 5 6 
-(setmouse $x5 $y0) (setmouse $x6 $y0) (setmouse $x7 $y0) (setmouse $x8 $y0)  (setmouse $x9 $y0) _ _
-_ q w e r t
-(setmouse $x5 $y1) (setmouse $x6 $y1) (setmouse $x7 $y1) (setmouse $x8 $y1)  (setmouse $x9 $y1) [ ] \
-_ a s d f g
-(setmouse $x5 $y2) (setmouse $x6 $y2) (setmouse $x7 $y2) (setmouse $x8 $y2)  (setmouse $x9 $y2) ' _
-_ z x c v b
-(setmouse $x5 $y3) (setmouse $x6 $y3) (setmouse $x7 $y3) (setmouse $x8 $y3)  (setmouse $x9 $y3) _ _
+_ 1 2 3 4 5 6     @x5y0 @x6y0 @x7y0 @x8y0 @x9y0 _ _
+_ q w e r t @x5y1 @x6y1 @x7y1 @x8y1 @x9y1 [ ] \
+_ a s d f g @x5y2 @x6y2 @x7y2 @x8y2 @x9y2 ' _
+_ z x c v b @x5y3 @x6y3 @x7y3 @x8y3 @x9y3 _ _
 _ _ _ spc  _ _ _ _ _ _
 )
 (deflayer ptrtopright
-_ 1 2 3 4 5 6 
-(setmouse $xa $y0) (setmouse $xb $y0) (setmouse $xc $y0) (setmouse $xd $y0)  (setmouse $xe $y0) _ _
-_ q w e r t                                                                                   
-(setmouse $xa $y1) (setmouse $xb $y1) (setmouse $xc $y1) (setmouse $xd $y1)  (setmouse $xe $y1) [ ] \
-_ a s d f g                                                                                   
-(setmouse $xa $y2) (setmouse $xb $y2) (setmouse $xc $y2) (setmouse $xd $y2)  (setmouse $xe $y2) ' _
-_ z x c v b                                                                                   
-(setmouse $xa $y3) (setmouse $xb $y3) (setmouse $xc $y3) (setmouse $xd $y3)  (setmouse $xe $y3) _ _
+_ 1 2 3 4 5 6     @xay0 @xby0 @xcy0 @xdy0 @xey0 _ _
+_ q w e r t @xay1 @xby1 @xcy1 @xdy1 @xey1  [ ] \
+_ a s d f g @xay2 @xby2 @xcy2 @xdy2 @xey2  ' _
+_ z x c v b @xay3 @xby3 @xcy3 @xdy3 @xey3  _ _
 _ _ _ spc  _ _ _ _ _ _
 )
 
 ;;;;; MID AREA 
 (deflayer ptrmidleft
-_ 1 2 3 4 5 6 
-(setmouse $x0 $y4) (setmouse $x1 $y4) (setmouse $x2 $y4) (setmouse $x3 $y4)  (setmouse $x4 $y4) _ _
-_ q w e r t
-(setmouse $x0 $y5) (setmouse $x1 $y5) (setmouse $x2 $y5) (setmouse $x3 $y5)  (setmouse $x4 $y5) [ ] \
-_ a s d f g
-(setmouse $x0 $y6) (setmouse $x1 $y6) (setmouse $x2 $y6) (setmouse $x3 $y6)  (setmouse $x4 $y6) ' _
-_ z x c v b
-(setmouse $x0 $y7) (setmouse $x1 $y7) (setmouse $x2 $y7) (setmouse $x3 $y7)  (setmouse $x4 $y7) _ _
+_ 1 2 3 4 5 6     @x0y4 @x1y4 @x2y4 @x3y4 @x4y4 _ _
+_ q w e r t @x0y5 @x1y5 @x2y5 @x3y5 @x4y5 [ ] \
+_ a s d f g @x0y6 @x1y6 @x2y6 @x3y6 @x4y6 ' _
+_ z x c v b @x0y7 @x1y7 @x2y7 @x3y7 @x4y7 _ _
 _ _ _ spc  _ _ _ _ _ _
 )
 (deflayer ptrmidmid
-_ 1 2 3 4 5 6 
-(setmouse $x5 $y4) (setmouse $x6 $y4) (setmouse $x7 $y4) (setmouse $x8 $y4)  (setmouse $x9 $y4) _ _
-_ q w e r t
-(setmouse $x5 $y5) (setmouse $x6 $y5) (setmouse $x7 $y5) (setmouse $x8 $y5)  (setmouse $x9 $y5) [ ] \
-_ a s d f g
-(setmouse $x5 $y6) (setmouse $x6 $y6) (setmouse $x7 $y6) (setmouse $x8 $y6)  (setmouse $x9 $y6) ' _
-_ z x c v b
-(setmouse $x5 $y7) (setmouse $x6 $y7) (setmouse $x7 $y7) (setmouse $x8 $y7)  (setmouse $x9 $y7) _ _
+_ 1 2 3 4 5 6     @x5y4 @x6y4 @x7y4 @x8y4 @x9y4 _ _
+_ q w e r t @x5y5 @x6y5 @x7y5 @x8y5 @x9y5 [ ] \
+_ a s d f g @x5y6 @x6y6 @x7y6 @x8y6 @x9y6 ' _
+_ z x c v b @x5y7 @x6y7 @x7y7 @x8y7 @x9y7 _ _
 _ _ _ spc  _ _ _ _ _ _
 )
 (deflayer ptrmidright
-_ 1 2 3 4 5 6 
-(setmouse $xa $y4) (setmouse $xb $y4) (setmouse $xc $y4) (setmouse $xd $y4)  (setmouse $xe $y4) _ _
-_ q w e r t
-(setmouse $xa $y5) (setmouse $xb $y5) (setmouse $xc $y5) (setmouse $xd $y5)  (setmouse $xe $y5) [ ] \
-_ a s d f g
-(setmouse $xa $y6) (setmouse $xb $y6) (setmouse $xc $y6) (setmouse $xd $y6)  (setmouse $xe $y6) ' _
-_ z x c v b
-(setmouse $xa $y7) (setmouse $xb $y7) (setmouse $xc $y7) (setmouse $xd $y7)  (setmouse $xe $y7) _ _
+_ 1 2 3 4 5 6     @xay4 @xby4 @xcy4 @xdy4 @xey4 _ _
+_ q w e r t @xay5 @xby5 @xcy5 @xdy5 @xey5 [ ] \
+_ a s d f g @xay6 @xby6 @xcy6 @xdy6 @xey6 ' _
+_ z x c v b @xay7 @xby7 @xcy7 @xdy7 @xey7 _ _
 _ _ _ spc  _ _ _ _ _ _
 )
 
 ;;;;; LOW AREA 
 (deflayer ptrlowleft
-_ 1 2 3 4 5 6 
-(setmouse $x0 $y8) (setmouse $x1 $y8) (setmouse $x2 $y8) (setmouse $x3 $y8)  (setmouse $x4 $y8) _ _
-_ q w e r t
-(setmouse $x0 $y9) (setmouse $x1 $y9) (setmouse $x2 $y9) (setmouse $x3 $y9)  (setmouse $x4 $y9) [ ] \
-_ a s d f g
-(setmouse $x0 $ya) (setmouse $x1 $ya) (setmouse $x2 $ya) (setmouse $x3 $ya)  (setmouse $x4 $ya) ' _
-_ z x c v b
-(setmouse $x0 $yb) (setmouse $x1 $yb) (setmouse $x2 $yb) (setmouse $x3 $yb)  (setmouse $x4 $yb) _ _
+_ 1 2 3 4 5 6     @x0y8 @x1y8 @x2y8 @x3y8 @x4y8 _ _
+_ q w e r t @x0y9 @x1y9 @x2y9 @x3y9 @x4y9 [ ] \
+_ a s d f g @x0ya @x1ya @x2ya @x3ya @x4ya ' _
+_ z x c v b @x0yb @x1yb @x2yb @x3yb @x4yb _ _
 _ _ _ spc  _ _ _ _ _ _
 )
 (deflayer ptrlowmid
-_ 1 2 3 4 5 6 
-(setmouse $x5 $y8) (setmouse $x6 $y8) (setmouse $x7 $y8) (setmouse $x8 $y8)  (setmouse $x9 $y8) _ _
-_ q w e r t
-(setmouse $x5 $y9) (setmouse $x6 $y9) (setmouse $x7 $y9) (setmouse $x8 $y9)  (setmouse $x9 $y9) [ ] \
-_ a s d f g
-(setmouse $x5 $ya) (setmouse $x6 $ya) (setmouse $x7 $ya) (setmouse $x8 $ya)  (setmouse $x9 $ya) ' _
-_ z x c v b
-(setmouse $x5 $yb) (setmouse $x6 $yb) (setmouse $x7 $yb) (setmouse $x8 $yb)  (setmouse $x9 $yb) _ _
+_ 1 2 3 4 5 6     @x5y8 @x6y8 @x7y8 @x8y8 @x9y8 _ _
+_ q w e r t @x5y9 @x6y9 @x7y9 @x8y9 @x9y9 [ ] \
+_ a s d f g @x5ya @x6ya @x7ya @x8ya @x9ya ' _
+_ z x c v b @x5yb @x6yb @x7yb @x8yb @x9yb _ _
 _ _ _ spc  _ _ _ _ _ _
 )
 (deflayer ptrlowright
-_ 1 2 3 4 5 6 
-(setmouse $xa $y8) (setmouse $xb $y8) (setmouse $xc $y8) (setmouse $xd $y8)  (setmouse $xe $y8) _ _
-_ q w e r t
-(setmouse $xa $y9) (setmouse $xb $y9) (setmouse $xc $y9) (setmouse $xd $y9)  (setmouse $xe $y9) [ ] \
-_ a s d f g
-(setmouse $xa $ya) (setmouse $xb $ya) (setmouse $xc $ya) (setmouse $xd $ya)  (setmouse $xe $ya) ' _
-_ z x c v b
-(setmouse $xa $yb) (setmouse $xb $yb) (setmouse $xc $yb) (setmouse $xd $yb)  (setmouse $xe $yb) _ _
+_ 1 2 3 4 5 6     @xay8 @xby8 @xcy8 @xdy8 @xey8 _ _
+_ q w e r t @xay9 @xby9 @xcy9 @xdy9 @xey9 [ ] \
+_ a s d f g @xaya @xbya @xcya @xdya @xeya ' _
+_ z x c v b @xayb @xbyb @xcyb @xdyb @xeyb _ _
 _ _ _ spc  _ _ _ _ _ _
 )
 
@@ -209,12 +279,4 @@ _ _ _ spc  _ _ _ _ _ _
  y9 52930
  ya 57971
  yb 63012
-)
-
-(deflayer malt
-  grv  A-1  A-2  A-3  A-4  A-5  A-6  A-7  A-8  A-9  A-0  -    =    bspc
-  tab  A-q  A-w  A-e  A-r  A-t  A-y  A-u  A-i  A-o  A-p  _    ]    \
-  esc  A-a  A-s  A-d  A-f  A-g  A-h  A-j  A-k  A-l  _    _    ret
-  lsft A-z  A-x  A-c  A-v  A-b  A-n  A-m  A-,  A-.  @sft rsft _ 
-  lctl lmet _           A-spc             _    _     _    _   _    _
 )
