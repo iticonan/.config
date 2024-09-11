@@ -2,9 +2,6 @@
    process-unmapped-keys yes
    windows-altgr cancel-lctl-press
 )
-( deflocalkeys-linux
-  props   130
-)
 
 (defsrc
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -17,25 +14,26 @@
   @gxt 1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @tab q    w    e    r    t    y    u    i    o    p    @dpd ]    \
   @cap a    s    d    f    g    h    j    k    l    @psb '    ret
-  lsft z    x    c    v    b    n    m    ,    .    @s2f rsft _ 
-  lctl lmet _               spc           @rgr rctl rctl  _    _    _
+  @sf1 z    x    c    v    b    n    m    ,    .    @s2f @sfw _ 
+  lctl lmet _               spc           @rgr @cld @cld _   _    _
 )
 (deflayer psinkbols
   _    _    _    _    _    _    _    _    _    _    _    _    _  _
 S-grv S-=   [    ]   S-[  S-\  S-7   =   S-,  S-.   _    _    _  _
-  _   min  S-9  S-0  S-]  S-;  S-3  S-6  S-4  S-8   _    _    _
+  _   min  S-9  S-0  S-]  S-;  left down up right   _    _    _
   grv S-2  S-'   '   S-1   _   S-/  S-- S-5   \     _    _    _
   _    _    _              _              _    _    _    _    _  _
 )
 
 (defalias
-  gxt (tap-hold 200 200 grv (layer-while-held xtra))
-  tab (tap-hold-press 150 150 tab (layer-while-held nav))
-  cap (tap-hold-press 170 170 esc (layer-while-held wmact))
-  s2f (tap-hold-press 100 120 / rsft)
-  psb (tap-hold-press 120 120 ; (layer-while-held psinkbols))
-  dpd (tap-hold 120 120 [ (layer-while-held fncur))
-  rgr (tap-hold 100 120 ret ralt)
+  gxt (multi f24 (tap-hold 120 120 grv (layer-while-held xtra)))
+  tab (multi f24 (tap-hold-press 120 120 tab (layer-while-held nav)))
+  cap (multi f24 (tap-hold-press 120 120 esc (layer-while-held wmdo)))
+  s2f (multi f24 (tap-hold 120 120 / (layer-while-held fncur)))
+  psb (multi f24 (tap-hold 120 120 ; (layer-while-held psinkbols)))
+  cld (multi f24 (tap-hold 120 120 C-/ (multi rctl))) 
+  dpd (tap-hold 120 120 [ (layer-while-held nav))
+  rgr (multi f24 (tap-hold 120 120 ret ralt))
   mau (movemouse-accel-up 30 270 3 17)
   mad (movemouse-accel-down 30 270 3 17)
   mal (movemouse-accel-left 30 270 3 17)
@@ -45,29 +43,32 @@ S-grv S-=   [    ]   S-[  S-\  S-7   =   S-,  S-.   _    _    _  _
   mwu (mwheel-up 150 120)
   mwr (mwheel-right 150 120)
   prv C-S-tab
-  nxt C-tab
-  rnav (release-layer nav) ;; "layer-toggle" used below for brevity
-  gr1 (tap-hold 150 150 home (multi @rnav (layer-toggle ptrtopleft)))
-  gr2 (tap-hold 150 150 M-up (multi @rnav (layer-toggle ptrtopmid)))
-  gr3 (tap-hold 150 150 end  (multi @rnav (layer-toggle ptrtopright)))
-  gr4 (tap-hold 150 150 M-left (multi @rnav (layer-toggle ptrmidleft)))
-  gr5 (tap-hold 150 150 M-down (multi @rnav (layer-toggle ptrmidmid)))
-  gr6 (tap-hold 150 150 M-right (multi @rnav (layer-toggle ptrmidright)))
-  gr7 (tap-hold 150 150 mute (multi @rnav (layer-toggle ptrlowleft)))
-  gr8 (tap-hold 150 150 voldwn (multi @rnav (layer-toggle ptrlowmid)))
-  gr9 (tap-hold 150 150 volu (multi @rnav (layer-toggle ptrlowright)))
+  sf1 (one-shot 500 lsft)
+  sfw (caps-word 1500)
+  nlk (layer-switch nav)
+  fcn (multi lctl (layer-while-held qwerty))
+  qwt (tap-hold 150 150 (layer-switch qwerty) (layer-while-held wmdo))
+  gr1 (tap-hold 150 150 home (multi (layer-toggle ptrtopleft)))
+  gr2 (tap-hold 150 150 M-up (multi (layer-toggle ptrtopmid)))
+  gr3 (tap-hold 150 150 end  (multi (layer-toggle ptrtopright)))
+  gr4 (tap-hold 150 150 M-left (multi (layer-toggle ptrmidleft)))
+  gr5 (tap-hold 150 150 M-down (multi (layer-toggle ptrmidmid)))
+  gr6 (tap-hold 150 150 M-right (multi (layer-toggle ptrmidright)))
+  gr7 (tap-hold 0 150 M-C-d (multi (layer-toggle ptrlowleft)))
+  gr8 (tap-hold 0 150 M-C-left (multi (layer-toggle ptrlowmid)))
+  gr9 (tap-hold 0 180 M-C-right (multi (layer-toggle ptrlowright)))
 )
 
 (deflayer nav
-  _    _   left  up  down rght  _    _    _    _    _    _    _    _
-  _   lrld @gr1 @gr2 @gr3 pgup @mwu @mwl @mau @mwr mute blup  _    _
-  _   M-F5 @gr4 @gr5 @gr6 pgdn @mwd @mal @mad @mar mrgt bldn  _
-  _   @gr7 @gr8 @gr9 prnt  _   brdn brup mmid vold volu M-mute _
-  _    _   _              mlft           bspc del  del   _     _    _
+  _      _   left  up  down rght  _    _    _    _    _    _    _    _
+  @nlk lrld @gr1 @gr2 @gr3 pgup @mwu @mwl @mau @mwr prnt @nlk  _    _
+  @qwt M-F5 @gr4 @gr5 @gr6 pgdn @mwd @mal @mad @mar mrgt mute  _
+  _    @gr7 @gr8 @gr9 M-C-F4 _  brdn brup mmid vold volu M-mute _
+  @fcn _    _              mlft           bspc del  del   _     _    _
 )
 
-(deflayer wmact
-  _    _    _     @prv @nxt  _    _    prnt @prv @nxt  _    _    _    _
+(deflayer wmdo
+  _    _    _     @prv C-tab _    _    prnt @prv C-tab _    _    _    _
   _   M-`   M-1   M-2  M-3  M-4  M-[   kp7  kp8   kp9  _    _    _    _
   _    _    M-5   M-6  M-7  M-8  M-'   kp4  kp5   kp6  _    _    _
   _   M-9   M-0   M--  M-=   _   M-;   kp1  kp2   kp3  _    _    _
@@ -77,8 +78,8 @@ S-grv S-=   [    ]   S-[  S-\  S-7   =   S-,  S-.   _    _    _  _
 (deflayer fncur
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _  brup   F1   F2   F3   F4   home pgdn pgup end  _    _    _    _
-  _  brdown F5   F6   F7   F8   left down up  right _    _    _
-  _    F9   F10  F11  F12  _    _    _    _    _    _    _    _
+  _  brdown F5   F6   F7   F8   S-3  S-6  S-4  S-8  _    _    _
+  _    F9   F10  F11  F12  _  S-left S-down S-up S-right _    _    _
   _    _    _              _              bspc del  del  _    _    _
 )
 
