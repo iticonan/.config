@@ -45,7 +45,7 @@ input type:keyboard {
     xkb_layout "us"
     xkb_variant altgr-intl 
     xkb_options "numpad:mac"
-    repeat_delay 200
+    repeat_delay 270
     repeat_rate 35
 }
 
@@ -80,14 +80,14 @@ bindsym --locked Mod4+a                exec light -T 0.72
 # Start a terminal
 bindsym Mod4+Return exec kitty
 
-# Move focus to the parent container
-bindsym Mod4+x focus parent
-
 bindsym Mod4+F5 reload
+bindsym Mod4+Shift+r reload  # backup in case no fn keys available
 
 bindsym F11 fullscreen
+bindsym Mod4+Shift+f fullscreen
 
-bindsym Mod4+v mode "resize"
+bindsym Mod4+backslash mode "resize"
+bindsym Mod4+Shift+s mode "resize"
 
 # Launcher. Note: it's recommended that you pass the final command to sway
 # bindsym Mod4+o exec bemenu-run --fn "VictorMono Nerd Font 20" | xargs swaymsg exec --
@@ -154,12 +154,15 @@ bindsym $mod+Shift+$right move right
   # LAYOUT:
   # split focused window   [g]  | 'cause right of right index 
   #  (qwerty version)      [/]  _ 'cause down for left pinkie 
-  bindsym $mod+g     split horizontal
-  bindsym $mod+slash split vertical
-
+  bindsym $mod+Right split horizontal
+  bindsym $mod+Down  split vertical
   # Switch the current container between different layout styles
-  bindsym $mod+bracketleft layout tabbed
-  bindsym $mod+apostrophe  layout toggle split
+  bindsym $mod+Up    layout tabbed
+  bindsym $mod+Left  layout toggle split
+  # Move focus to the parent container
+  bindsym $mod+bracketleft focus parent
+  bindsym $mod+bracketright focus child
+
 
   ###### Floating Window Stuff
   # 'normal' means:
@@ -167,8 +170,7 @@ bindsym $mod+Shift+$right move right
   # Resize  ``      ``   : $mod + right cursor drag. (normal)
   floating_modifier $mod normal
   # Toggle the current focus between tiling and floating mode
-  bindsym $mod+Up floating disable
-  bindsym $mod+Down floating enable
+  bindsym $mod+apostrophe floating toggle
   # Swap focus between the tiling area and the floating area
   bindsym $mod+BackSpace focus mode_toggle
 

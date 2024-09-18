@@ -15,22 +15,23 @@
   @tab q    w    e    r    t    y    u    i    o    p    @dpd ]    \
   @cap a    s    d    f    g    h    j    k    l    @psb '    ret
   @sf1 z    x    c    v    b    n    m    ,    .    @s2f @sfw _ 
-  lctl lmet _               spc           @rgr @cld @cld _   _    _
+  lctl @wrn _               spc           @rgr @cld @cld _   _    _
 )
 (deflayer psinkbols
-  _    _    _    _    _    _    _    _    _    _    _    _    _  _
-S-grv S-=   [    ]   S-[  S-\  S-7   =   S-,  S-.   _    _    _  _
-  _   min  S-9  S-0  S-]  S-;  left down up right   _    _    _
-  grv S-2  S-'   '   S-1   _   S-/  S-- S-5   \     _    _    _
-  _    _    _              _              _    _    _    _    _  _
+  _    _    _    _    _    _    _    _    _    _    _    _    _   _
+ S-`  S-=  S-[  S-]  S-7  S-\  S-1   =   @lpt @gnt  _    _    _   _
+  _   min  S-9  S-0   '   S-'   ◀    ▼    ▲    ▶    _    _    _
+  \    [    ]   S-;  S-2   _   S-/  S--  S-5  S-4   _    _    _
+  _    _    _              _              _    _    _    _    _   _
 )
 
 (defalias
+  wrn (tap-hold 120 120 A-a lmet)
   gxt (multi f24 (tap-hold 120 120 grv (layer-while-held xtra)))
   tab (multi f24 (tap-hold-press 120 120 tab (layer-while-held nav)))
   cap (multi f24 (tap-hold-press 120 120 esc (layer-while-held wmdo)))
   s2f (multi f24 (tap-hold 120 120 / (layer-while-held fncur)))
-  psb (multi f24 (tap-hold 120 120 ; (layer-while-held psinkbols)))
+  psb (tap-hold 100 120 ; (layer-while-held psinkbols))
   cld (multi f24 (tap-hold 120 120 C-/ (multi rctl))) 
   dpd (tap-hold 120 120 [ (layer-while-held nav))
   rgr (multi f24 (tap-hold 120 120 ret ralt))
@@ -38,19 +39,25 @@ S-grv S-=   [    ]   S-[  S-\  S-7   =   S-,  S-.   _    _    _  _
   mad (movemouse-accel-down 30 270 3 17)
   mal (movemouse-accel-left 30 270 3 17)
   mar (movemouse-accel-right 30 270 3 17)
+  hpr (fork home (unmod  lctl lsft Tab) (lalt lmet))
+  enx (fork end  (unmod  lctl      Tab) (lalt lmet))
+  lpt (fork S-, (unmod  lctl lsft Tab) (ralt))
+  gnt (fork S-. (unmod  lctl      Tab) (ralt))
   mwl (mwheel-left 150 120)
   mwd (mwheel-down 150 120)
   mwu (mwheel-up 150 120)
   mwr (mwheel-right 150 120)
-  prv C-S-tab
   sf1 (one-shot 500 lsft)
-  sfw (caps-word 1500)
+  sfw (tap-hold 100 100 (caps-word-custom 2000
+    (a b c d e f g h i j k l m n o p q r s t u v w x y z -)
+    (0 1 2 3 4 5 6 7 8 9 kp0 kp1 kp2 kp3 kp4 kp5 kp6 kp7 kp8 kp9 bspc del up down left rght )
+  ) rsft)
   nlk (layer-switch nav)
   fcn (multi lctl (layer-while-held qwerty))
   qwt (tap-hold 150 150 (layer-switch qwerty) (layer-while-held wmdo))
-  gr1 (tap-hold 150 150 home (multi (layer-toggle ptrtopleft)))
+  gr1 (tap-hold 150 150 @hpr (multi (layer-toggle ptrtopleft)))
   gr2 (tap-hold 150 150 M-up (multi (layer-toggle ptrtopmid)))
-  gr3 (tap-hold 150 150 end  (multi (layer-toggle ptrtopright)))
+  gr3 (tap-hold 150 150 @enx (multi (layer-toggle ptrtopright)))
   gr4 (tap-hold 150 150 M-left (multi (layer-toggle ptrmidleft)))
   gr5 (tap-hold 150 150 M-down (multi (layer-toggle ptrmidmid)))
   gr6 (tap-hold 150 150 M-right (multi (layer-toggle ptrmidright)))
@@ -61,32 +68,32 @@ S-grv S-=   [    ]   S-[  S-\  S-7   =   S-,  S-.   _    _    _  _
 
 (deflayer nav
   _      _   left  up  down rght  _    _    _    _    _    _    _    _
-  @nlk lrld @gr1 @gr2 @gr3 pgup @mwu @mwl @mau @mwr prnt @nlk  _    _
-  @qwt M-F5 @gr4 @gr5 @gr6 pgdn @mwd @mal @mad @mar mrgt mute  _
-  _    @gr7 @gr8 @gr9 M-C-F4 _  brdn brup mmid vold volu M-mute _
-  @fcn _    _              mlft           bspc del  del   _     _    _
+  @nlk lrld @gr1 @gr2 @gr3 pgup @mwu @mwl @mau @mwr mute  @nlk  _    _
+  @qwt M-F5 @gr4 @gr5 @gr6 pgdn @mwd @mal @mad @mar mmid M-mute _
+  _    @gr7 @gr8 @gr9 M-C-F4 _  brdn brup vold volu mrgt   _    _
+  @fcn _    _              mlft           bspc del  del    _    _    _
 )
 
 (deflayer wmdo
-  _    _    _     @prv C-tab _    _    prnt @prv C-tab _    _    _    _
-  _   M-`   M-1   M-2  M-3  M-4  M-[   kp7  kp8   kp9  _    _    _    _
-  _    _    M-5   M-6  M-7  M-8  M-'   kp4  kp5   kp6  _    _    _
-  _   M-9   M-0   M--  M-=   _   M-;   kp1  kp2   kp3  _    _    _
+  _    _     _   C-S-↹ C-↹   _    _     _    _     _   _    _    _    _
+  _    _    M-1   M-2  M-3  M-4  M-'   kp7  kp8   kp9  _    _    _    _
+  _    _    M-5   M-6  M-7  M-8  M-[   kp4  kp5   kp6  _    _    _
+  _   M-9   M-0   M--  M-=   _   M-]   kp1  kp2   kp3  _    _    _
   _    _     _               _              kp0    _   _    _    _    _
 )
 
 (deflayer fncur
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _  brup   F1   F2   F3   F4   home pgdn pgup end  _    _    _    _
-  _  brdown F5   F6   F7   F8   S-3  S-6  S-4  S-8  _    _    _
-  _    F9   F10  F11  F12  _  S-left S-down S-up S-right _    _    _
+  _    ins  F1   F2   F3   F4   _   C-S-↹ C-↹  S-`  _    _    _    _
+  _    prnt F5   F6   F7   F8   S-6  S-3  S-8  `    _    _    _
+  _    F9   F10  F11  F12  _    S-◀  S-▼  S-▲  S-▶  _    _    _
   _    _    _              _              bspc del  del  _    _    _
 )
 
 (deflayer xtra
   _   volu brdn @mau brup @mwu _    _    _    _    _    _    _    _
   _   vold @mal @mad @mar @mwd _    _    _    _    _    _    _    _
-  _   mute  _    _    _   _    _    prev pp   next    _    _    _
+  _   mute  _    _    _   _    _    prev pp   next _    _    _
   _    _    _    _    _   _    _    _    _    _    _    _    _
   _   mrgt mmid          mlft            _    _    _    _    _    _
 )
