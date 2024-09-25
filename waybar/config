@@ -123,7 +123,7 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "<span size='x-small'>{essid}</span> <span size='small'>{signalStrength}٪</span>" ,
+        "format-wifi": "<span size='x-small'></span> <span size='small'>{signalStrength}٪</span>" ,
         "format-ethernet": "{ipaddr}/{cidr} 󰈀",
         "tooltip-format": "{ifname} via {gwaddr} 󰑩 ",
         "format-linked": "{ifname} (No IP) 󰌙 ",

@@ -72,11 +72,6 @@ bindsym --locked Mod4+q              exec light -T 1.4
 bindsym --locked XF86MonBrightnessDown exec light -T 0.72
 bindsym --locked Mod4+a                exec light -T 0.72
 
-# TODO: (low priority) do windows tiling behaviour. Currently just moves cursor
-#bindsym Mod4+Left  seat "*" cursor move -5 0
-#bindsym Mod4+Down  seat "*" cursor move 0 +5
-#bindsym Mod4+Right seat "*" cursor move +5 0
-
 # Start a terminal
 bindsym Mod4+Return exec kitty
 
@@ -87,7 +82,6 @@ bindsym F11 fullscreen
 bindsym Mod4+Shift+f fullscreen
 
 bindsym Mod4+backslash mode "resize"
-bindsym Mod4+Shift+s mode "resize"
 
 # Launcher. Note: it's recommended that you pass the final command to sway
 # bindsym Mod4+o exec bemenu-run --fn "VictorMono Nerd Font 20" | xargs swaymsg exec --
@@ -110,12 +104,20 @@ bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
 
 # Move the focused window with the same, but add Shift
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
+bindsym $mod+Mod5+Left  move left
+bindsym $mod+Mod5+Down  move down
+bindsym $mod+Mod5+Up    move up
+bindsym $mod+Mod5+Right move right
 
 ###
 # Workspaces (number is needed for sworkstyle, TODO: somehow label workspaces by letter)
@@ -154,15 +156,19 @@ bindsym $mod+Shift+$right move right
   # LAYOUT:
   # split focused window   [g]  | 'cause right of right index 
   #  (qwerty version)      [/]  _ 'cause down for left pinkie 
-  bindsym $mod+Right split horizontal
-  bindsym $mod+Down  split vertical
+  bindsym $mod+Mod1+Right split horizontal
+  bindsym $mod+Mod1+Down  split vertical
   # Switch the current container between different layout styles
-  bindsym $mod+Up    layout tabbed
-  bindsym $mod+Left  layout toggle split
+  bindsym $mod+Mod1+Up    layout tabbed
+  bindsym $mod+Mod1+Left  layout toggle split
   # Move focus to the parent container
   bindsym $mod+bracketleft focus parent
   bindsym $mod+bracketright focus child
 
+  bindsym Mod5+Left  resize shrink width 10px
+  bindsym Mod5+Down  resize shrink height 10px
+  bindsym Mod5+Up    resize grow height 10px
+  bindsym Mod5+Right resize grow width 10px
 
   ###### Floating Window Stuff
   # 'normal' means:
