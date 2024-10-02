@@ -45,7 +45,7 @@ input type:keyboard {
     xkb_layout "us"
     xkb_variant altgr-intl 
     xkb_options "numpad:mac"
-    repeat_delay 270
+    repeat_delay 280
     repeat_rate 35
 }
 
