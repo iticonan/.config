@@ -123,25 +123,25 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "<span size='x-small'></span> <span size='small'>{signalStrength}٪</span>" ,
+        "format-wifi": " <span size='small'>{signalStrength}٪</span>" ,
         "format-ethernet": "{ipaddr}/{cidr} 󰈀",
         "tooltip-format": "{ifname} via {gwaddr} 󰑩 ",
         "format-linked": "{ifname} (No IP) 󰌙 ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": "{ifname}:<span size='x-small'>{essid}</span>:{ipaddr}/{cidr}"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{icon}<span size='small'> {volume}٪</span> {format_source}",
-        "format-bluetooth": "{volume}٪{icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-bluetooth": "{volume}٪{icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted": " {format_source}",
         "format-source": "<span color='red' size='small'>{volume}٪</span> ",
         "format-source-muted": "<span size='small'>󰍭</span>",
         "format-icons": {
             "headphone": "",
-            "hands-free": "",
-            "headset": "",
+            "hands-free": " ",
+            "headset": " ",
             "phone": "",
             "portable": "",
             "car": "",
