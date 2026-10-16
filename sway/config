@@ -5,14 +5,11 @@ exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSO
 
 ### Variables
   set $mod Mod4
-  set $left h
-  set $down j
-  set $up k
-  set $right l
   set $gnome-schema org.gnome.desktop.interface
   set $slow 3
   set $fast 24
 
+seat * xcursor_theme Empty-Butterfly-Purple-vr5 64
 exec_always {
     gsettings set $gnome-schema color-scheme 'prefer-dark'
     #gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
@@ -20,16 +17,27 @@ exec_always {
 }
 exec sworkstyle &> /tmp/sworkstyle.log
 exec amixer set Capture off
-exec keyd-application-mapper &
 
 ## Gaps
   gaps inner 0
   gaps outer 0
   default_border pixel 1
   smart_gaps on
-  for_window [app_id="gnome-calendar"] floating enabled
-  for_window [app_id="org.gnome.Calculator"] floating enabled
-  for_window [title="Select directory"] floating enabled
+  smart_borders on
+
+assign [app_id="zen"] 1
+assign [app_id="kitty"] 2
+assign [app_id="chromium"] 2
+assign [app_id="firefox"] 4
+
+for_window [app_id="zen"] move to workspace number 1
+for_window [app_id="kitty"] move to workspace number 2
+for_window [app_id="chromium"] move to workspace number 3
+for_window [app_id="firefox"] move to workspace number 4
+for_window [app_id="gnome-calendar"] floating enabled
+for_window [app_id="org.gnome.Calculator"] floating enabled
+for_window [title="Select directory"] floating enabled
+for_window [app_id="org.freecad.FreeCAD" title="Bind Spreadsheet Cells"] floating enabled
 
 font pango:monospace 0.01
 titlebar_border_thickness 0
@@ -85,11 +93,11 @@ bindsym Mod4+Shift+r reload  # backup in case no fn keys available
 bindsym F11 fullscreen
 bindsym Mod4+Shift+f fullscreen
 
-bindsym Mod4+backslash mode "resize"
+bindsym Mod4+grave mode "resize"
 
 # Launcher. Note: it's recommended that you pass the final command to sway
 # bindsym Mod4+o exec bemenu-run --fn "VictorMono Nerd Font 20" | xargs swaymsg exec --
-bindsym Mod4+r exec fuzzel -f=VictorMonoNerdFont:size=17 --icon-theme=Papirus --anchor=top --show-actions --layer=overlay --background=000000dd
+bindsym Mod4+r exec fuzzel -f=VictorMonoNerdFont:size=17 --icon-theme=Papirus --anchor=top --show-actions --layer=overlay --background=000000dd | xargs swaymsg exec --
 # Exit sway (log out of Wayland session)
 bindsym Mod4+Shift+y exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
@@ -97,34 +105,30 @@ bindsym Mod4+Shift+y exec swaynag -t warning -m 'You pressed the exit shortcut. 
 bindsym Mod1+F4 kill
 
 # Move the currently focused window to the scratchpad
-bindsym $mod+grave move scratchpad
+bindsym $mod+backslash move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple SCRATCHPAD WINDOWS, THIS COMMAND CYCLES through them.
 bindsym Mod5+h scratchpad show
 
 # Move window focus around
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
 bindsym $mod+Left  focus left
 bindsym $mod+Down  focus down
 bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
 
-# Move the focused window with the same, but add Shift
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+# Move the focused window with the same, but add Shift (or alt-gr)
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 bindsym $mod+Mod5+Left  move left
 bindsym $mod+Mod5+Down  move down
 bindsym $mod+Mod5+Up    move up
 bindsym $mod+Mod5+Right move right
 
 ###
-# Workspaces (number is needed for sworkstyle, TODO: somehow label workspaces by letter)
+# Workspaces (number is needed for sworkstyle)
 #
   # Switch to workspace
   bindsym $mod+1 workspace number 1
@@ -184,50 +188,10 @@ bindsym $mod+Mod5+Right move right
   # Swap focus between the tiling area and the floating area
   bindsym $mod+space focus mode_toggle
 
-#####
-# MOUSE CURSOR PSEUDO-MODE
-  ### mouse scroll wheel
-  bindsym SunProps+Home exec echo hwheel -1 | dotoolc
-  bindsym SunProps+End  exec echo hwheel +1 | dotoolc
-  bindsym XF86KbdBrightnessDown  exec echo wheel -1 | dotoolc
-  bindsym XF86KbdBrightnessUp exec echo wheel +1 | dotoolc
-  bindsym Control+XF86KbdBrightnessDown exec echo keyhold 100 ctrl; echo wheel -1 | dotoolc
-  bindsym Control+XF86KbdBrightnessUp exec {echo keydown ctrl; echo wheel 1; echo keyup ctrl} | dotoolc
-
-  ### mid speed movement via keyd
-#  bindsym XF86Launch1 seat "-" cursor move -$fast -$fast
-#  bindsym XF86Launch2 seat "-" cursor move   0    -$fast
-#  bindsym XF86Launch3 seat "-" cursor move +$fast -$fast
-#  bindsym XF86Launch4 seat "-" cursor move -$fast  0
-#  #bindsym XF86Launch5+Shift exec echo click middle | dotoolc
-#  bindsym XF86Launch6 seat "-" cursor move +$fast  0
-#  bindsym XF86Launch7 seat "-" cursor move -$fast +$fast
-#  bindsym XF86Launch8 seat "-" cursor move   0    +$fast
-#  bindsym XF86Launch9 seat "-" cursor move +$fast +$fast
-#  ### fine tuned mouse movement ( meant for mouse keyd "mode")
-#  bindsym XF86Launch1+Shift  seat "-" cursor move -$slow -$slow
-#  bindsym XF86Launch2+Shift  seat "-" cursor move  0     -$slow
-#  bindsym XF86Launch3+Shift  seat "-" cursor move +$slow -$slow
-#  bindsym XF86Launch4+Shift  seat "-" cursor move -$slow  0
-#  bindsym XF86Launch5+Shift  exec echo click middle | dotoolc
-#  bindsym XF86Launch6+Shift  seat "-" cursor move +$slow  0
-#  bindsym XF86Launch7+Shift  seat "-" cursor move -$slow +$slow
-#  bindsym XF86Launch8+Shift  seat "-" cursor move  0     +$slow
-#  bindsym XF86Launch9+Shift  seat "-" cursor move +$slow +$slow
-#  ## press/release mouse button1
-#  bindsym XF86MenuKB seat "-" cursor press button1
-#  bindsym XF86Xfer seat "-" cursor release button1
-
 ###
 # Resizing containers:
 #
 mode "resize" {
-    bindsym $left resize shrink width 10px
-    bindsym $down resize shrink height 10px
-    bindsym $up resize grow height 10px
-    bindsym $right resize grow width 10px
-
-    # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
     bindsym Down resize shrink height 10px
     bindsym Up resize grow height 10px
@@ -243,10 +207,10 @@ mode "resize" {
 #
 # Window colorReturn seat "-" cursor press button2s
 # color class           border  backgrd  text    indicator child_border
-client.focused          #ffffff #93a1a1  #073692 #93a1a1   #4274ca
-client.focused_inactive #252b23 #586e75  #eee8d5 #657b83   #135051
-client.unfocused        #073642 #002b36  #839496 #073642   #000000
-client.urgent           #fffb16 #dc322f  #eee8d5 #dc322f   #93a1a1
+client.focused          #00AC05 #93A1A1  #073692 #93A1A1   #FFAC05
+client.focused_inactive #0FAC05 #586E75  #EEE8D5 #657B83   #135051
+client.unfocused        #0FAC05 #002B36  #839496 #073642   #000000
+client.urgent           #0FAC05 #DC322F  #EEE8D5 #DC322F   #93A1A1
 
 #
 # Status Bar:
@@ -279,11 +243,7 @@ bar {
 }
 
 include etc/sway/config.d/*
-#caps as arros fails bu would maybe work via custom x input file)
-#set $caps Mod2 
-#bindsym $caps+h exec wtype -k 'left'; bindsym $caps+j exec wtype -k 'down'
-#bindsym $caps+k exec wtype -k 'up'; bindsym $caps+l exec wtype -k 'right'
-# bindsym $mod3+e exec wtype -M 'ctrl' -M 'shift' -P 'Right' -m 'shift' -m 'ctrl' 
+#2025-08: removed old references to keyd and dotoolc. kanata works better
 
 # ########------
 # leftover from default leaving just in case

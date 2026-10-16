@@ -1,180 +1,234 @@
-bindsym XF86Launch7+XF86Tools+1 		  seat "-" cursor set 64 45
-bindsym XF86Launch7+XF86Tools+2 		  seat "-" cursor set 192 45
-bindsym XF86Launch7+XF86Tools+3 		  seat "-" cursor set 320 45
-bindsym XF86Launch7+XF86Tools+4 		  seat "-" cursor set 448 45
-bindsym XF86Launch7+XF86Tools+5 		  seat "-" cursor set 576 45
-bindsym XF86Launch7+XF86Tools+q 		  seat "-" cursor set 64 135
-bindsym XF86Launch7+XF86Tools+w 		  seat "-" cursor set 192 135
-bindsym XF86Launch7+XF86Tools+e 		  seat "-" cursor set 320 135
-bindsym XF86Launch7+XF86Tools+r 		  seat "-" cursor set 448 135
-bindsym XF86Launch7+XF86Tools+t 		  seat "-" cursor set 576 135
-bindsym XF86Launch7+XF86Tools+a 		  seat "-" cursor set 64 225
-bindsym XF86Launch7+XF86Tools+s 		  seat "-" cursor set 192 225
-bindsym XF86Launch7+XF86Tools+d 		  seat "-" cursor set 320 225
-bindsym XF86Launch7+XF86Tools+f 		  seat "-" cursor set 448 225
-bindsym XF86Launch7+XF86Tools+g 		  seat "-" cursor set 576 225
-bindsym XF86Launch7+XF86Tools+z 		  seat "-" cursor set 64 315
-bindsym XF86Launch7+XF86Tools+x 		  seat "-" cursor set 192 315
-bindsym XF86Launch7+XF86Tools+c 		  seat "-" cursor set 320 315
-bindsym XF86Launch7+XF86Tools+v 		  seat "-" cursor set 448 315
-bindsym XF86Launch7+XF86Tools+b 		  seat "-" cursor set 576 315
-bindsym XF86Launch7+XF86Launch5+1 		  seat "-" cursor set 704 45
-bindsym XF86Launch7+XF86Launch5+2 		  seat "-" cursor set 832 45
-bindsym XF86Launch7+XF86Launch5+3 		  seat "-" cursor set 960 45
-bindsym XF86Launch7+XF86Launch5+4 		  seat "-" cursor set 1088 45
-bindsym XF86Launch7+XF86Launch5+5 		  seat "-" cursor set 1216 45
-bindsym XF86Launch7+XF86Launch5+q 		  seat "-" cursor set 704 135
-bindsym XF86Launch7+XF86Launch5+w 		  seat "-" cursor set 832 135
-bindsym XF86Launch7+XF86Launch5+e 		  seat "-" cursor set 960 135
-bindsym XF86Launch7+XF86Launch5+r 		  seat "-" cursor set 1088 135
-bindsym XF86Launch7+XF86Launch5+t 		  seat "-" cursor set 1216 135
-bindsym XF86Launch7+XF86Launch5+a 		  seat "-" cursor set 704 225
-bindsym XF86Launch7+XF86Launch5+s 		  seat "-" cursor set 832 225
-bindsym XF86Launch7+XF86Launch5+d 		  seat "-" cursor set 960 225
-bindsym XF86Launch7+XF86Launch5+f 		  seat "-" cursor set 1088 225
-bindsym XF86Launch7+XF86Launch5+g 		  seat "-" cursor set 1216 225
-bindsym XF86Launch7+XF86Launch5+z 		  seat "-" cursor set 704 315
-bindsym XF86Launch7+XF86Launch5+x 		  seat "-" cursor set 832 315
-bindsym XF86Launch7+XF86Launch5+c 		  seat "-" cursor set 960 315
-bindsym XF86Launch7+XF86Launch5+v 		  seat "-" cursor set 1088 315
-bindsym XF86Launch7+XF86Launch5+b 		  seat "-" cursor set 1216 315
-bindsym XF86Launch7+XF86Launch6+1 		  seat "-" cursor set 1344 45
-bindsym XF86Launch7+XF86Launch6+2 		  seat "-" cursor set 1472 45
-bindsym XF86Launch7+XF86Launch6+3 		  seat "-" cursor set 1600 45
-bindsym XF86Launch7+XF86Launch6+4 		  seat "-" cursor set 1728 45
-bindsym XF86Launch7+XF86Launch6+5 		  seat "-" cursor set 1856 45
-bindsym XF86Launch7+XF86Launch6+q 		  seat "-" cursor set 1344 135
-bindsym XF86Launch7+XF86Launch6+w 		  seat "-" cursor set 1472 135
-bindsym XF86Launch7+XF86Launch6+e 		  seat "-" cursor set 1600 135
-bindsym XF86Launch7+XF86Launch6+r 		  seat "-" cursor set 1728 135
-bindsym XF86Launch7+XF86Launch6+t 		  seat "-" cursor set 1856 135
-bindsym XF86Launch7+XF86Launch6+a 		  seat "-" cursor set 1344 225
-bindsym XF86Launch7+XF86Launch6+s 		  seat "-" cursor set 1472 225
-bindsym XF86Launch7+XF86Launch6+d 		  seat "-" cursor set 1600 225
-bindsym XF86Launch7+XF86Launch6+f 		  seat "-" cursor set 1728 225
-bindsym XF86Launch7+XF86Launch6+g 		  seat "-" cursor set 1856 225
-bindsym XF86Launch7+XF86Launch6+z 		  seat "-" cursor set 1344 315
-bindsym XF86Launch7+XF86Launch6+x 		  seat "-" cursor set 1472 315
-bindsym XF86Launch7+XF86Launch6+c 		  seat "-" cursor set 1600 315
-bindsym XF86Launch7+XF86Launch6+v 		  seat "-" cursor set 1728 315
-bindsym XF86Launch7+XF86Launch6+b 		  seat "-" cursor set 1856 315
-bindsym XF86Launch8+XF86Tools+1 		  seat "-" cursor set 64 405
-bindsym XF86Launch8+XF86Tools+2 		  seat "-" cursor set 192 405
-bindsym XF86Launch8+XF86Tools+3 		  seat "-" cursor set 320 405
-bindsym XF86Launch8+XF86Tools+4 		  seat "-" cursor set 448 405
-bindsym XF86Launch8+XF86Tools+5 		  seat "-" cursor set 576 405
-bindsym XF86Launch8+XF86Tools+q 		  seat "-" cursor set 64 495
-bindsym XF86Launch8+XF86Tools+w 		  seat "-" cursor set 192 495
-bindsym XF86Launch8+XF86Tools+e 		  seat "-" cursor set 320 495
-bindsym XF86Launch8+XF86Tools+r 		  seat "-" cursor set 448 495
-bindsym XF86Launch8+XF86Tools+t 		  seat "-" cursor set 576 495
-bindsym XF86Launch8+XF86Tools+a 		  seat "-" cursor set 64 585
-bindsym XF86Launch8+XF86Tools+s 		  seat "-" cursor set 192 585
-bindsym XF86Launch8+XF86Tools+d 		  seat "-" cursor set 320 585
-bindsym XF86Launch8+XF86Tools+f 		  seat "-" cursor set 448 585
-bindsym XF86Launch8+XF86Tools+g 		  seat "-" cursor set 576 585
-bindsym XF86Launch8+XF86Tools+z 		  seat "-" cursor set 64 675
-bindsym XF86Launch8+XF86Tools+x 		  seat "-" cursor set 192 675
-bindsym XF86Launch8+XF86Tools+c 		  seat "-" cursor set 320 675
-bindsym XF86Launch8+XF86Tools+v 		  seat "-" cursor set 448 675
-bindsym XF86Launch8+XF86Tools+b 		  seat "-" cursor set 576 675
-bindsym XF86Launch8+XF86Launch5+1 		  seat "-" cursor set 704 405
-bindsym XF86Launch8+XF86Launch5+2 		  seat "-" cursor set 832 405
-bindsym XF86Launch8+XF86Launch5+3 		  seat "-" cursor set 960 405
-bindsym XF86Launch8+XF86Launch5+4 		  seat "-" cursor set 1088 405
-bindsym XF86Launch8+XF86Launch5+5 		  seat "-" cursor set 1216 405
-bindsym XF86Launch8+XF86Launch5+q 		  seat "-" cursor set 704 495
-bindsym XF86Launch8+XF86Launch5+w 		  seat "-" cursor set 832 495
-bindsym XF86Launch8+XF86Launch5+e 		  seat "-" cursor set 960 495
-bindsym XF86Launch8+XF86Launch5+r 		  seat "-" cursor set 1088 495
-bindsym XF86Launch8+XF86Launch5+t 		  seat "-" cursor set 1216 495
-bindsym XF86Launch8+XF86Launch5+a 		  seat "-" cursor set 704 585
-bindsym XF86Launch8+XF86Launch5+s 		  seat "-" cursor set 832 585
-bindsym XF86Launch8+XF86Launch5+d 		  seat "-" cursor set 960 585
-bindsym XF86Launch8+XF86Launch5+f 		  seat "-" cursor set 1088 585
-bindsym XF86Launch8+XF86Launch5+g 		  seat "-" cursor set 1216 585
-bindsym XF86Launch8+XF86Launch5+z 		  seat "-" cursor set 704 675
-bindsym XF86Launch8+XF86Launch5+x 		  seat "-" cursor set 832 675
-bindsym XF86Launch8+XF86Launch5+c 		  seat "-" cursor set 960 675
-bindsym XF86Launch8+XF86Launch5+v 		  seat "-" cursor set 1088 675
-bindsym XF86Launch8+XF86Launch5+b 		  seat "-" cursor set 1216 675
-bindsym XF86Launch8+XF86Launch6+1 		  seat "-" cursor set 1344 405
-bindsym XF86Launch8+XF86Launch6+2 		  seat "-" cursor set 1472 405
-bindsym XF86Launch8+XF86Launch6+3 		  seat "-" cursor set 1600 405
-bindsym XF86Launch8+XF86Launch6+4 		  seat "-" cursor set 1728 405
-bindsym XF86Launch8+XF86Launch6+5 		  seat "-" cursor set 1856 405
-bindsym XF86Launch8+XF86Launch6+q 		  seat "-" cursor set 1344 495
-bindsym XF86Launch8+XF86Launch6+w 		  seat "-" cursor set 1472 495
-bindsym XF86Launch8+XF86Launch6+e 		  seat "-" cursor set 1600 495
-bindsym XF86Launch8+XF86Launch6+r 		  seat "-" cursor set 1728 495
-bindsym XF86Launch8+XF86Launch6+t 		  seat "-" cursor set 1856 495
-bindsym XF86Launch8+XF86Launch6+a 		  seat "-" cursor set 1344 585
-bindsym XF86Launch8+XF86Launch6+s 		  seat "-" cursor set 1472 585
-bindsym XF86Launch8+XF86Launch6+d 		  seat "-" cursor set 1600 585
-bindsym XF86Launch8+XF86Launch6+f 		  seat "-" cursor set 1728 585
-bindsym XF86Launch8+XF86Launch6+g 		  seat "-" cursor set 1856 585
-bindsym XF86Launch8+XF86Launch6+z 		  seat "-" cursor set 1344 675
-bindsym XF86Launch8+XF86Launch6+x 		  seat "-" cursor set 1472 675
-bindsym XF86Launch8+XF86Launch6+c 		  seat "-" cursor set 1600 675
-bindsym XF86Launch8+XF86Launch6+v 		  seat "-" cursor set 1728 675
-bindsym XF86Launch8+XF86Launch6+b 		  seat "-" cursor set 1856 675
-bindsym XF86Launch9+XF86Tools+1 		  seat "-" cursor set 64 765
-bindsym XF86Launch9+XF86Tools+2 		  seat "-" cursor set 192 765
-bindsym XF86Launch9+XF86Tools+3 		  seat "-" cursor set 320 765
-bindsym XF86Launch9+XF86Tools+4 		  seat "-" cursor set 448 765
-bindsym XF86Launch9+XF86Tools+5 		  seat "-" cursor set 576 765
-bindsym XF86Launch9+XF86Tools+q 		  seat "-" cursor set 64 855
-bindsym XF86Launch9+XF86Tools+w 		  seat "-" cursor set 192 855
-bindsym XF86Launch9+XF86Tools+e 		  seat "-" cursor set 320 855
-bindsym XF86Launch9+XF86Tools+r 		  seat "-" cursor set 448 855
-bindsym XF86Launch9+XF86Tools+t 		  seat "-" cursor set 576 855
-bindsym XF86Launch9+XF86Tools+a 		  seat "-" cursor set 64 945
-bindsym XF86Launch9+XF86Tools+s 		  seat "-" cursor set 192 945
-bindsym XF86Launch9+XF86Tools+d 		  seat "-" cursor set 320 945
-bindsym XF86Launch9+XF86Tools+f 		  seat "-" cursor set 448 945
-bindsym XF86Launch9+XF86Tools+g 		  seat "-" cursor set 576 945
-bindsym XF86Launch9+XF86Tools+z 		  seat "-" cursor set 64 1035
-bindsym XF86Launch9+XF86Tools+x 		  seat "-" cursor set 192 1035
-bindsym XF86Launch9+XF86Tools+c 		  seat "-" cursor set 320 1035
-bindsym XF86Launch9+XF86Tools+v 		  seat "-" cursor set 448 1035
-bindsym XF86Launch9+XF86Tools+b 		  seat "-" cursor set 576 1035
-bindsym XF86Launch9+XF86Launch5+1 		  seat "-" cursor set 704 765
-bindsym XF86Launch9+XF86Launch5+2 		  seat "-" cursor set 832 765
-bindsym XF86Launch9+XF86Launch5+3 		  seat "-" cursor set 960 765
-bindsym XF86Launch9+XF86Launch5+4 		  seat "-" cursor set 1088 765
-bindsym XF86Launch9+XF86Launch5+5 		  seat "-" cursor set 1216 765
-bindsym XF86Launch9+XF86Launch5+q 		  seat "-" cursor set 704 855
-bindsym XF86Launch9+XF86Launch5+w 		  seat "-" cursor set 832 855
-bindsym XF86Launch9+XF86Launch5+e 		  seat "-" cursor set 960 855
-bindsym XF86Launch9+XF86Launch5+r 		  seat "-" cursor set 1088 855
-bindsym XF86Launch9+XF86Launch5+t 		  seat "-" cursor set 1216 855
-bindsym XF86Launch9+XF86Launch5+a 		  seat "-" cursor set 704 945
-bindsym XF86Launch9+XF86Launch5+s 		  seat "-" cursor set 832 945
-bindsym XF86Launch9+XF86Launch5+d 		  seat "-" cursor set 960 945
-bindsym XF86Launch9+XF86Launch5+f 		  seat "-" cursor set 1088 945
-bindsym XF86Launch9+XF86Launch5+g 		  seat "-" cursor set 1216 945
-bindsym XF86Launch9+XF86Launch5+z 		  seat "-" cursor set 704 1035
-bindsym XF86Launch9+XF86Launch5+x 		  seat "-" cursor set 832 1035
-bindsym XF86Launch9+XF86Launch5+c 		  seat "-" cursor set 960 1035
-bindsym XF86Launch9+XF86Launch5+v 		  seat "-" cursor set 1088 1035
-bindsym XF86Launch9+XF86Launch5+b 		  seat "-" cursor set 1216 1035
-bindsym XF86Launch9+XF86Launch6+1 		  seat "-" cursor set 1344 765
-bindsym XF86Launch9+XF86Launch6+2 		  seat "-" cursor set 1472 765
-bindsym XF86Launch9+XF86Launch6+3 		  seat "-" cursor set 1600 765
-bindsym XF86Launch9+XF86Launch6+4 		  seat "-" cursor set 1728 765
-bindsym XF86Launch9+XF86Launch6+5 		  seat "-" cursor set 1856 765
-bindsym XF86Launch9+XF86Launch6+q 		  seat "-" cursor set 1344 855
-bindsym XF86Launch9+XF86Launch6+w 		  seat "-" cursor set 1472 855
-bindsym XF86Launch9+XF86Launch6+e 		  seat "-" cursor set 1600 855
-bindsym XF86Launch9+XF86Launch6+r 		  seat "-" cursor set 1728 855
-bindsym XF86Launch9+XF86Launch6+t 		  seat "-" cursor set 1856 855
-bindsym XF86Launch9+XF86Launch6+a 		  seat "-" cursor set 1344 945
-bindsym XF86Launch9+XF86Launch6+s 		  seat "-" cursor set 1472 945
-bindsym XF86Launch9+XF86Launch6+d 		  seat "-" cursor set 1600 945
-bindsym XF86Launch9+XF86Launch6+f 		  seat "-" cursor set 1728 945
-bindsym XF86Launch9+XF86Launch6+g 		  seat "-" cursor set 1856 945
-bindsym XF86Launch9+XF86Launch6+z 		  seat "-" cursor set 1344 1035
-bindsym XF86Launch9+XF86Launch6+x 		  seat "-" cursor set 1472 1035
-bindsym XF86Launch9+XF86Launch6+c 		  seat "-" cursor set 1600 1035
-bindsym XF86Launch9+XF86Launch6+v 		  seat "-" cursor set 1728 1035
-bindsym XF86Launch9+XF86Launch6+b 		  seat "-" cursor set 1856 1035
+bindsym XF86Tools+XF86Launch5 	 seat - cursor move -42 0
+bindsym XF86Launch5+XF86Launch6 	 seat - cursor move 42 0
+bindsym XF86Launch7+XF86Launch8 	 seat - cursor move 0 -30
+bindsym XF86Launch8+XF86Launch9 	 seat - cursor move 0 30
+bindsym XF86Tools+XF86Launch7+u 	 seat - cursor move -42 -30
+bindsym XF86Launch6+XF86Launch7+o 	 seat - cursor move 42 -30
+bindsym XF86Tools+XF86Launch9+m 	 seat - cursor move -42 30
+bindsym XF86Launch6+XF86Launch9+period 	 seat - cursor move 42 30
+bindsym XF86Tools+XF86Launch7+1 		  seat "-" cursor set 64 45
+bindsym XF86Tools+XF86Launch7+2 		  seat "-" cursor set 192 45
+bindsym XF86Tools+XF86Launch7+3 		  seat "-" cursor set 320 45
+bindsym XF86Tools+XF86Launch7+4 		  seat "-" cursor set 448 45
+bindsym XF86Tools+XF86Launch7+5 		  seat "-" cursor set 576 45
+bindsym XF86Tools+XF86Launch7+q 		  seat "-" cursor set 64 135
+bindsym XF86Tools+XF86Launch7+w 		  seat "-" cursor set 192 135
+bindsym XF86Tools+XF86Launch7+e 		  seat "-" cursor set 320 135
+bindsym XF86Tools+XF86Launch7+r 		  seat "-" cursor set 448 135
+bindsym XF86Tools+XF86Launch7+t 		  seat "-" cursor set 576 135
+bindsym XF86Tools+XF86Launch7+a 		  seat "-" cursor set 64 225
+bindsym XF86Tools+XF86Launch7+s 		  seat "-" cursor set 192 225
+bindsym XF86Tools+XF86Launch7+d 		  seat "-" cursor set 320 225
+bindsym XF86Tools+XF86Launch7+f 		  seat "-" cursor set 448 225
+bindsym XF86Tools+XF86Launch7+g 		  seat "-" cursor set 576 225
+bindsym XF86Tools+XF86Launch7+z 		  seat "-" cursor set 64 315
+bindsym XF86Tools+XF86Launch7+x 		  seat "-" cursor set 192 315
+bindsym XF86Tools+XF86Launch7+c 		  seat "-" cursor set 320 315
+bindsym XF86Tools+XF86Launch7+v 		  seat "-" cursor set 448 315
+bindsym XF86Tools+XF86Launch7+b 		  seat "-" cursor set 576 315
+bindsym XF86Launch5+XF86Launch7+1 		  seat "-" cursor set 704 45
+bindsym XF86Launch5+XF86Launch7+2 		  seat "-" cursor set 832 45
+bindsym XF86Launch5+XF86Launch7+3 		  seat "-" cursor set 960 45
+bindsym XF86Launch5+XF86Launch7+4 		  seat "-" cursor set 1088 45
+bindsym XF86Launch5+XF86Launch7+5 		  seat "-" cursor set 1216 45
+bindsym XF86Launch5+XF86Launch7+q 		  seat "-" cursor set 704 135
+bindsym XF86Launch5+XF86Launch7+w 		  seat "-" cursor set 832 135
+bindsym XF86Launch5+XF86Launch7+e 		  seat "-" cursor set 960 135
+bindsym XF86Launch5+XF86Launch7+r 		  seat "-" cursor set 1088 135
+bindsym XF86Launch5+XF86Launch7+t 		  seat "-" cursor set 1216 135
+bindsym XF86Launch5+XF86Launch7+a 		  seat "-" cursor set 704 225
+bindsym XF86Launch5+XF86Launch7+s 		  seat "-" cursor set 832 225
+bindsym XF86Launch5+XF86Launch7+d 		  seat "-" cursor set 960 225
+bindsym XF86Launch5+XF86Launch7+f 		  seat "-" cursor set 1088 225
+bindsym XF86Launch5+XF86Launch7+g 		  seat "-" cursor set 1216 225
+bindsym XF86Launch5+XF86Launch7+z 		  seat "-" cursor set 704 315
+bindsym XF86Launch5+XF86Launch7+x 		  seat "-" cursor set 832 315
+bindsym XF86Launch5+XF86Launch7+c 		  seat "-" cursor set 960 315
+bindsym XF86Launch5+XF86Launch7+v 		  seat "-" cursor set 1088 315
+bindsym XF86Launch5+XF86Launch7+b 		  seat "-" cursor set 1216 315
+bindsym XF86Launch6+XF86Launch7+1 		  seat "-" cursor set 1344 45
+bindsym XF86Launch6+XF86Launch7+2 		  seat "-" cursor set 1472 45
+bindsym XF86Launch6+XF86Launch7+3 		  seat "-" cursor set 1600 45
+bindsym XF86Launch6+XF86Launch7+4 		  seat "-" cursor set 1728 45
+bindsym XF86Launch6+XF86Launch7+5 		  seat "-" cursor set 1856 45
+bindsym XF86Launch6+XF86Launch7+q 		  seat "-" cursor set 1344 135
+bindsym XF86Launch6+XF86Launch7+w 		  seat "-" cursor set 1472 135
+bindsym XF86Launch6+XF86Launch7+e 		  seat "-" cursor set 1600 135
+bindsym XF86Launch6+XF86Launch7+r 		  seat "-" cursor set 1728 135
+bindsym XF86Launch6+XF86Launch7+t 		  seat "-" cursor set 1856 135
+bindsym XF86Launch6+XF86Launch7+a 		  seat "-" cursor set 1344 225
+bindsym XF86Launch6+XF86Launch7+s 		  seat "-" cursor set 1472 225
+bindsym XF86Launch6+XF86Launch7+d 		  seat "-" cursor set 1600 225
+bindsym XF86Launch6+XF86Launch7+f 		  seat "-" cursor set 1728 225
+bindsym XF86Launch6+XF86Launch7+g 		  seat "-" cursor set 1856 225
+bindsym XF86Launch6+XF86Launch7+z 		  seat "-" cursor set 1344 315
+bindsym XF86Launch6+XF86Launch7+x 		  seat "-" cursor set 1472 315
+bindsym XF86Launch6+XF86Launch7+c 		  seat "-" cursor set 1600 315
+bindsym XF86Launch6+XF86Launch7+v 		  seat "-" cursor set 1728 315
+bindsym XF86Launch6+XF86Launch7+b 		  seat "-" cursor set 1856 315
+bindsym XF86Tools+XF86Launch8+1 		  seat "-" cursor set 64 405
+bindsym XF86Tools+XF86Launch8+2 		  seat "-" cursor set 192 405
+bindsym XF86Tools+XF86Launch8+3 		  seat "-" cursor set 320 405
+bindsym XF86Tools+XF86Launch8+4 		  seat "-" cursor set 448 405
+bindsym XF86Tools+XF86Launch8+5 		  seat "-" cursor set 576 405
+bindsym XF86Tools+XF86Launch8+q 		  seat "-" cursor set 64 495
+bindsym XF86Tools+XF86Launch8+w 		  seat "-" cursor set 192 495
+bindsym XF86Tools+XF86Launch8+e 		  seat "-" cursor set 320 495
+bindsym XF86Tools+XF86Launch8+r 		  seat "-" cursor set 448 495
+bindsym XF86Tools+XF86Launch8+t 		  seat "-" cursor set 576 495
+bindsym XF86Tools+XF86Launch8+a 		  seat "-" cursor set 64 585
+bindsym XF86Tools+XF86Launch8+s 		  seat "-" cursor set 192 585
+bindsym XF86Tools+XF86Launch8+d 		  seat "-" cursor set 320 585
+bindsym XF86Tools+XF86Launch8+f 		  seat "-" cursor set 448 585
+bindsym XF86Tools+XF86Launch8+g 		  seat "-" cursor set 576 585
+bindsym XF86Tools+XF86Launch8+z 		  seat "-" cursor set 64 675
+bindsym XF86Tools+XF86Launch8+x 		  seat "-" cursor set 192 675
+bindsym XF86Tools+XF86Launch8+c 		  seat "-" cursor set 320 675
+bindsym XF86Tools+XF86Launch8+v 		  seat "-" cursor set 448 675
+bindsym XF86Tools+XF86Launch8+b 		  seat "-" cursor set 576 675
+bindsym XF86Launch5+XF86Launch8+1 		  seat "-" cursor set 704 405
+bindsym XF86Launch5+XF86Launch8+2 		  seat "-" cursor set 832 405
+bindsym XF86Launch5+XF86Launch8+3 		  seat "-" cursor set 960 405
+bindsym XF86Launch5+XF86Launch8+4 		  seat "-" cursor set 1088 405
+bindsym XF86Launch5+XF86Launch8+5 		  seat "-" cursor set 1216 405
+bindsym XF86Launch5+XF86Launch8+q 		  seat "-" cursor set 704 495
+bindsym XF86Launch5+XF86Launch8+w 		  seat "-" cursor set 832 495
+bindsym XF86Launch5+XF86Launch8+e 		  seat "-" cursor set 960 495
+bindsym XF86Launch5+XF86Launch8+r 		  seat "-" cursor set 1088 495
+bindsym XF86Launch5+XF86Launch8+t 		  seat "-" cursor set 1216 495
+bindsym XF86Launch5+XF86Launch8+a 		  seat "-" cursor set 704 585
+bindsym XF86Launch5+XF86Launch8+s 		  seat "-" cursor set 832 585
+bindsym XF86Launch5+XF86Launch8+d 		  seat "-" cursor set 960 585
+bindsym XF86Launch5+XF86Launch8+f 		  seat "-" cursor set 1088 585
+bindsym XF86Launch5+XF86Launch8+g 		  seat "-" cursor set 1216 585
+bindsym XF86Launch5+XF86Launch8+z 		  seat "-" cursor set 704 675
+bindsym XF86Launch5+XF86Launch8+x 		  seat "-" cursor set 832 675
+bindsym XF86Launch5+XF86Launch8+c 		  seat "-" cursor set 960 675
+bindsym XF86Launch5+XF86Launch8+v 		  seat "-" cursor set 1088 675
+bindsym XF86Launch5+XF86Launch8+b 		  seat "-" cursor set 1216 675
+bindsym XF86Launch6+XF86Launch8+1 		  seat "-" cursor set 1344 405
+bindsym XF86Launch6+XF86Launch8+2 		  seat "-" cursor set 1472 405
+bindsym XF86Launch6+XF86Launch8+3 		  seat "-" cursor set 1600 405
+bindsym XF86Launch6+XF86Launch8+4 		  seat "-" cursor set 1728 405
+bindsym XF86Launch6+XF86Launch8+5 		  seat "-" cursor set 1856 405
+bindsym XF86Launch6+XF86Launch8+q 		  seat "-" cursor set 1344 495
+bindsym XF86Launch6+XF86Launch8+w 		  seat "-" cursor set 1472 495
+bindsym XF86Launch6+XF86Launch8+e 		  seat "-" cursor set 1600 495
+bindsym XF86Launch6+XF86Launch8+r 		  seat "-" cursor set 1728 495
+bindsym XF86Launch6+XF86Launch8+t 		  seat "-" cursor set 1856 495
+bindsym XF86Launch6+XF86Launch8+a 		  seat "-" cursor set 1344 585
+bindsym XF86Launch6+XF86Launch8+s 		  seat "-" cursor set 1472 585
+bindsym XF86Launch6+XF86Launch8+d 		  seat "-" cursor set 1600 585
+bindsym XF86Launch6+XF86Launch8+f 		  seat "-" cursor set 1728 585
+bindsym XF86Launch6+XF86Launch8+g 		  seat "-" cursor set 1856 585
+bindsym XF86Launch6+XF86Launch8+z 		  seat "-" cursor set 1344 675
+bindsym XF86Launch6+XF86Launch8+x 		  seat "-" cursor set 1472 675
+bindsym XF86Launch6+XF86Launch8+c 		  seat "-" cursor set 1600 675
+bindsym XF86Launch6+XF86Launch8+v 		  seat "-" cursor set 1728 675
+bindsym XF86Launch6+XF86Launch8+b 		  seat "-" cursor set 1856 675
+bindsym XF86Tools+XF86Launch9+1 		  seat "-" cursor set 64 765
+bindsym XF86Tools+XF86Launch9+2 		  seat "-" cursor set 192 765
+bindsym XF86Tools+XF86Launch9+3 		  seat "-" cursor set 320 765
+bindsym XF86Tools+XF86Launch9+4 		  seat "-" cursor set 448 765
+bindsym XF86Tools+XF86Launch9+5 		  seat "-" cursor set 576 765
+bindsym XF86Tools+XF86Launch9+q 		  seat "-" cursor set 64 855
+bindsym XF86Tools+XF86Launch9+w 		  seat "-" cursor set 192 855
+bindsym XF86Tools+XF86Launch9+e 		  seat "-" cursor set 320 855
+bindsym XF86Tools+XF86Launch9+r 		  seat "-" cursor set 448 855
+bindsym XF86Tools+XF86Launch9+t 		  seat "-" cursor set 576 855
+bindsym XF86Tools+XF86Launch9+a 		  seat "-" cursor set 64 945
+bindsym XF86Tools+XF86Launch9+s 		  seat "-" cursor set 192 945
+bindsym XF86Tools+XF86Launch9+d 		  seat "-" cursor set 320 945
+bindsym XF86Tools+XF86Launch9+f 		  seat "-" cursor set 448 945
+bindsym XF86Tools+XF86Launch9+g 		  seat "-" cursor set 576 945
+bindsym XF86Tools+XF86Launch9+z 		  seat "-" cursor set 64 1035
+bindsym XF86Tools+XF86Launch9+x 		  seat "-" cursor set 192 1035
+bindsym XF86Tools+XF86Launch9+c 		  seat "-" cursor set 320 1035
+bindsym XF86Tools+XF86Launch9+v 		  seat "-" cursor set 448 1035
+bindsym XF86Tools+XF86Launch9+b 		  seat "-" cursor set 576 1035
+bindsym XF86Launch5+XF86Launch9+1 		  seat "-" cursor set 704 765
+bindsym XF86Launch5+XF86Launch9+2 		  seat "-" cursor set 832 765
+bindsym XF86Launch5+XF86Launch9+3 		  seat "-" cursor set 960 765
+bindsym XF86Launch5+XF86Launch9+4 		  seat "-" cursor set 1088 765
+bindsym XF86Launch5+XF86Launch9+5 		  seat "-" cursor set 1216 765
+bindsym XF86Launch5+XF86Launch9+q 		  seat "-" cursor set 704 855
+bindsym XF86Launch5+XF86Launch9+w 		  seat "-" cursor set 832 855
+bindsym XF86Launch5+XF86Launch9+e 		  seat "-" cursor set 960 855
+bindsym XF86Launch5+XF86Launch9+r 		  seat "-" cursor set 1088 855
+bindsym XF86Launch5+XF86Launch9+t 		  seat "-" cursor set 1216 855
+bindsym XF86Launch5+XF86Launch9+a 		  seat "-" cursor set 704 945
+bindsym XF86Launch5+XF86Launch9+s 		  seat "-" cursor set 832 945
+bindsym XF86Launch5+XF86Launch9+d 		  seat "-" cursor set 960 945
+bindsym XF86Launch5+XF86Launch9+f 		  seat "-" cursor set 1088 945
+bindsym XF86Launch5+XF86Launch9+g 		  seat "-" cursor set 1216 945
+bindsym XF86Launch5+XF86Launch9+z 		  seat "-" cursor set 704 1035
+bindsym XF86Launch5+XF86Launch9+x 		  seat "-" cursor set 832 1035
+bindsym XF86Launch5+XF86Launch9+c 		  seat "-" cursor set 960 1035
+bindsym XF86Launch5+XF86Launch9+v 		  seat "-" cursor set 1088 1035
+bindsym XF86Launch5+XF86Launch9+b 		  seat "-" cursor set 1216 1035
+bindsym XF86Launch6+XF86Launch9+1 		  seat "-" cursor set 1344 765
+bindsym XF86Launch6+XF86Launch9+2 		  seat "-" cursor set 1472 765
+bindsym XF86Launch6+XF86Launch9+3 		  seat "-" cursor set 1600 765
+bindsym XF86Launch6+XF86Launch9+4 		  seat "-" cursor set 1728 765
+bindsym XF86Launch6+XF86Launch9+5 		  seat "-" cursor set 1856 765
+bindsym XF86Launch6+XF86Launch9+q 		  seat "-" cursor set 1344 855
+bindsym XF86Launch6+XF86Launch9+w 		  seat "-" cursor set 1472 855
+bindsym XF86Launch6+XF86Launch9+e 		  seat "-" cursor set 1600 855
+bindsym XF86Launch6+XF86Launch9+r 		  seat "-" cursor set 1728 855
+bindsym XF86Launch6+XF86Launch9+t 		  seat "-" cursor set 1856 855
+bindsym XF86Launch6+XF86Launch9+a 		  seat "-" cursor set 1344 945
+bindsym XF86Launch6+XF86Launch9+s 		  seat "-" cursor set 1472 945
+bindsym XF86Launch6+XF86Launch9+d 		  seat "-" cursor set 1600 945
+bindsym XF86Launch6+XF86Launch9+f 		  seat "-" cursor set 1728 945
+bindsym XF86Launch6+XF86Launch9+g 		  seat "-" cursor set 1856 945
+bindsym XF86Launch6+XF86Launch9+z 		  seat "-" cursor set 1344 1035
+bindsym XF86Launch6+XF86Launch9+x 		  seat "-" cursor set 1472 1035
+bindsym XF86Launch6+XF86Launch9+c 		  seat "-" cursor set 1600 1035
+bindsym XF86Launch6+XF86Launch9+v 		  seat "-" cursor set 1728 1035
+bindsym XF86Launch6+XF86Launch9+b 		  seat "-" cursor set 1856 1035
+bindsym XF86Tools+XF86Launch6+7 seat - cursor move -1920 0; seat - cursor move 41 0
+bindsym XF86Tools+XF86Launch6+8 seat - cursor move -1920 0; seat - cursor move 125 0
+bindsym XF86Tools+XF86Launch6+9 seat - cursor move -1920 0; seat - cursor move 208 0
+bindsym XF86Tools+XF86Launch6+0 seat - cursor move -1920 0; seat - cursor move 292 0
+bindsym XF86Tools+XF86Launch6+1 seat - cursor move -1920 0; seat - cursor move 375 0
+bindsym XF86Tools+XF86Launch6+y seat - cursor move -1920 0; seat - cursor move 459 0
+bindsym XF86Tools+XF86Launch6+u seat - cursor move -1920 0; seat - cursor move 542 0
+bindsym XF86Tools+XF86Launch6+i seat - cursor move -1920 0; seat - cursor move 626 0
+bindsym XF86Tools+XF86Launch6+o seat - cursor move -1920 0; seat - cursor move 709 0
+bindsym XF86Tools+XF86Launch6+p seat - cursor move -1920 0; seat - cursor move 793 0
+bindsym XF86Tools+XF86Launch6+q seat - cursor move -1920 0; seat - cursor move 876 0
+bindsym XF86Tools+XF86Launch6+h seat - cursor move -1920 0; seat - cursor move 960 0
+bindsym XF86Tools+XF86Launch6+j seat - cursor move -1920 0; seat - cursor move 1043 0
+bindsym XF86Tools+XF86Launch6+k seat - cursor move -1920 0; seat - cursor move 1126 0
+bindsym XF86Tools+XF86Launch6+l seat - cursor move -1920 0; seat - cursor move 1210 0
+bindsym XF86Tools+XF86Launch6+a seat - cursor move -1920 0; seat - cursor move 1293 0
+bindsym XF86Tools+XF86Launch6+s seat - cursor move -1920 0; seat - cursor move 1377 0
+bindsym XF86Tools+XF86Launch6+n seat - cursor move -1920 0; seat - cursor move 1460 0
+bindsym XF86Tools+XF86Launch6+m seat - cursor move -1920 0; seat - cursor move 1544 0
+bindsym XF86Tools+XF86Launch6+z seat - cursor move -1920 0; seat - cursor move 1627 0
+bindsym XF86Tools+XF86Launch6+x seat - cursor move -1920 0; seat - cursor move 1711 0
+bindsym XF86Tools+XF86Launch6+c seat - cursor move -1920 0; seat - cursor move 1794 0
+bindsym XF86Tools+XF86Launch6+v seat - cursor move -1920 0; seat - cursor move 1878 0
+bindsym XF86Launch7+XF86Launch9+y seat - cursor move 0 -1080; seat - cursor move 0 23
+bindsym XF86Launch7+XF86Launch9+h seat - cursor move 0 -1080; seat - cursor move 0 70
+bindsym XF86Launch7+XF86Launch9+n seat - cursor move 0 -1080; seat - cursor move 0 117
+bindsym XF86Launch7+XF86Launch9+7 seat - cursor move 0 -1080; seat - cursor move 0 164
+bindsym XF86Launch7+XF86Launch9+u seat - cursor move 0 -1080; seat - cursor move 0 211
+bindsym XF86Launch7+XF86Launch9+j seat - cursor move 0 -1080; seat - cursor move 0 258
+bindsym XF86Launch7+XF86Launch9+m seat - cursor move 0 -1080; seat - cursor move 0 305
+bindsym XF86Launch7+XF86Launch9+8 seat - cursor move 0 -1080; seat - cursor move 0 352
+bindsym XF86Launch7+XF86Launch9+i seat - cursor move 0 -1080; seat - cursor move 0 399
+bindsym XF86Launch7+XF86Launch9+k seat - cursor move 0 -1080; seat - cursor move 0 446
+bindsym XF86Launch7+XF86Launch9+z seat - cursor move 0 -1080; seat - cursor move 0 493
+bindsym XF86Launch7+XF86Launch9+9 seat - cursor move 0 -1080; seat - cursor move 0 540
+bindsym XF86Launch7+XF86Launch9+o seat - cursor move 0 -1080; seat - cursor move 0 586
+bindsym XF86Launch7+XF86Launch9+l seat - cursor move 0 -1080; seat - cursor move 0 633
+bindsym XF86Launch7+XF86Launch9+x seat - cursor move 0 -1080; seat - cursor move 0 680
+bindsym XF86Launch7+XF86Launch9+0 seat - cursor move 0 -1080; seat - cursor move 0 727
+bindsym XF86Launch7+XF86Launch9+p seat - cursor move 0 -1080; seat - cursor move 0 774
+bindsym XF86Launch7+XF86Launch9+a seat - cursor move 0 -1080; seat - cursor move 0 821
+bindsym XF86Launch7+XF86Launch9+c seat - cursor move 0 -1080; seat - cursor move 0 868
+bindsym XF86Launch7+XF86Launch9+1 seat - cursor move 0 -1080; seat - cursor move 0 915
+bindsym XF86Launch7+XF86Launch9+q seat - cursor move 0 -1080; seat - cursor move 0 962
+bindsym XF86Launch7+XF86Launch9+s seat - cursor move 0 -1080; seat - cursor move 0 1009
+bindsym XF86Launch7+XF86Launch9+v seat - cursor move 0 -1080; seat - cursor move 0 1056

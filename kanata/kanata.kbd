@@ -1,269 +1,286 @@
-( defcfg
+(defcfg
    process-unmapped-keys yes
    windows-altgr cancel-lctl-press
+   linux-output-device-bus-type USB
+   concurrent-tap-hold yes
+   log-layer-changes yes
 )
-( deflocalkeys-linux
-  props   130
-)
+
+(deftemplate kpz (k n)  ;; tap Key, hold goes to "Pointer Zone" see 'Raton
+  (fork (concat @pz $n) (tap-hold 150 150 $k (multi (concat @pz $n) (release-key ralt))) (ralt)))
+
+(deftemplate gr (k act);; while in alt-gr 2+ keys or timeout -> mouse mode 
+  (fork $act           ;; »» see "raton" layer 
+        (tap-hold-press 130 130 $k (multi (release-key ralt) $act)) (ralt)))
+
+;; tap one-shots to a "Pointer Zone", hold activates action
+(deftemplate oa (oz a) (tap-hold 150 200 (concat @oz $oz) $a))
+(deftemplate otl (a) (tap-hold 190 200 (one-shot 250 (layer-while-held topleft)) $a))
+(deftemplate otm (a) (tap-hold 190 200 (one-shot 250 (layer-while-held topmid)) $a))
+(deftemplate otr (a) (tap-hold 190 200 (one-shot 250 (layer-while-held topright)) $a))
+(deftemplate oml (a) (tap-hold 190 200 (one-shot 250 (layer-while-held midleft)) $a))
+(deftemplate omm (a) (tap-hold 190 200 (one-shot 250 (layer-while-held midmid)) $a))
+(deftemplate omr (a) (tap-hold 190 200 (one-shot 250 (layer-while-held midright)) $a))
+(deftemplate oll (a) (tap-hold 190 200 (one-shot 250 (layer-while-held lowleft)) $a))
+(deftemplate olm (a) (tap-hold 190 200 (one-shot 250 (layer-while-held lowmid)) $a))
+(deftemplate olr (a) (tap-hold 190 200 (one-shot 250 (layer-while-held lowright)) $a))
+
+(deftemplate th (t h) (fork (tap-hold 150 150 $t $h) $t (nop0) ))
+
+(deftemplate ovz (fx fy zl) (multi    ;; One-shot Mouse Zone
+  (one-shot-pause-processing 40)
+  (one-shot 450 (layer-while-held $zl))
+  (one-shot 300 $fx) (one-shot 300 $fy)
+;;  (macro (on-press press-vkey $fx)  (on-release release-vkey $fx)
+;;         (on-press press-vkey $fy)  (on-release release-vkey $fy)
+;;	 (on-press press-vkey $zl)  (on-release release-vkey $zl) ;;  )
+))
+
+(deftemplate sm (x y) (setmouse $x $y))  ;;setmouse for windows
+
+(deftemplate sml (h v n k) (multi ;;set mouse 4 sway linux 
+ $h (concat nop $v)
+ (layer-while-held $n)
+ (one-shot-pause-processing 50) 
+;; (macro 
+;;     (on-press press-vkey $x) (on-release release-vkey $x)
+;;     (on-press press-vkey $y) (on-release release-vkey $y)
+;;     (hold-for-duration 80 $k))
+;; (hold-for-duration 50 $x) (hold-for-duration 50 $y)
+ (concat @ $n) (macro 10 (hold-for-duration 10 $k))
+;; (on-release release-vkey $k)
+))
+
+(deftemplate n6 (n z k) (t! sml nop6 $n $z $k))
+(deftemplate n7 (n z k) (t! sml nop7 $n $z $k))
+(deftemplate n8 (n z k) (t! sml nop8 $n $z $k))
+(deftemplate n9 (n z k) (t! sml nop9 $n $z $k))
+(deftemplate _og (n k) (multi (concat @ $n) (macro 10 (hold-for-duration 10 $k))))
+(deftemplate og (n) 
+  (switch (nop6) 
+    (switch (nop1) (t! _og $n 1) break (nop2) (t! _og $n 2) break (nop3) (t! _og $n 3) break 
+            (nop4) (t! _og $n 4) break (nop5) (t! _og $n 5) break
+    ) break (nop7)
+    (switch (nop1) (t! _og $n q) break (nop2) (t! _og $n w) break (nop3) (t! _og $n e) break 
+            (nop4) (t! _og $n r) break (nop5) (t! _og $n t) break
+    ) break (nop8)
+    (switch (nop1) (t! _og $n a) break (nop2) (t! _og $n s) break (nop3) (t! _og $n d) break 
+            (nop4) (t! _og $n f) break (nop5) (t! _og $n g) break
+    ) break (nop9)
+    (switch (nop1) (t! _og $n z) break (nop2) (t! _og $n x) break (nop3) (t! _og $n c) break 
+            (nop4) (t! _og $n v) break (nop5) (t! _og $n b) break
+    ) break
+    () d break
+))
+
+(deftemplate n1^m (k o) 
+   (switch (f24 nop1) $k break
+           (lctl rctl lsft rsft lalt ralt lmet rmet) $o break
+	   ()     $k break))
+
+(deftemplate pzn (fx fy lyr) (multi $fx $fy (layer-while-held $lyr)))
+
+(deftemplate lhrm (k m) 
+ (tap-hold-opposite-hand-release 250 $k $m (neutral-keys s d f lalt) (neutral ignore)(require-prior-idle 200)))
+(deftemplate rhrm (k m) 
+     (tap-hold-opposite-hand-release 250 $k $m (neutral-keys j k l lalt) (neutral ignore)(require-prior-idle 200)))
+(deftemplate osl (l) (one-shot 550 (layer-while-held $l)))
+(deftemplate ost (k l) (fork (one-shot-press-pcancel 350 $l) $k (lsft lctl lmet lalt ralt rmet)))
+
+(deftemplate _6 () _ _ _ _ _ _ )
+(deftemplate _7 () _ _ _ _ _ _ _ )
+(deftemplate _8 () _ _ _ _ _ _ _ _ )
+
+(defvirtualkeys
+  w▲ (mwheel-up    70 120)        w▼ (mwheel-down  70 120)
+  w◀ (mwheel-left  70 120)        w▶ (mwheel-right 70 120)
+  F13 (one-shot 120 F13)  F14 (one-shot 120 F14)  F15 (one-shot-press-pcancel 120 F15)  
+  F16 (one-shot 120 F16)  F17 (one-shot 120 F17)  F18 (one-shot-press-pcancel 120 F18)
+  1 1 2 2 3 3 4 4 5 5
+  q q w w e e r r t t
+  a a s s d d f f g g
+  z z x x c c v v b b
+)  
 
 (defsrc
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-  lctl lmet lalt           spc            ralt rmet rctl left down right
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft  up
+  lctl lmet lalt           spc            ralt rctl rmet left down right
 )
+
+(defhands
+  (left 1 2 3 4 5 6 q w e r t a s d f g lsft z x c v b)
+  (right 7 8 9 0 - caps y u i o p [ h j k l ; ' n m , . / )
+)
+
 (deflayer qwerty
-  @gxt 1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @tab q    w    e    r    t    y    u    i    o    p    @dpd ]    \
-  @cap a    s    d    f    g    h    j    k    l    @psb '    ret
-  lsft z    x    c    v    b    n    m    ,    .    @s2f rsft _ 
-  lctl lmet _               spc           @rgr rctl rctl  _    _    _
-)
-(deflayer psinkbols
-  _    _    _    _    _    _    _    _    _    _    _    _    _  _
-S-grv S-=   [    ]   S-[  S-\  S-7   =   S-,  S-.   _    _    _  _
-  _   min  S-9  S-0  S-]  S-;  S-3  S-6  S-4  S-8   _    _    _
-  grv S-2  S-'   '   S-1   _   S-/  S-- S-5   \     _    _    _
-  _    _    _              _              _    _    _    _    _  _
+   grv 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @tab q    w    e    r    t    y    u    i    o    p    @bno ]    \
+  @cap a   @sa  @dc  @fs   g    h   @js  @kc  @la   @psb  '  ret
+  @sf1 z    x    c    v    b    n    m    ,    .    @ssf @sfw  up
+  lctl lmet alt           spc            @rgr @ctp  @ctp left down right
 )
 
 (defalias
-  gxt (tap-hold 200 200 grv (layer-while-held xtra))
-  tab (tap-hold-press 150 150 tab (layer-while-held nav))
-  cap (tap-hold-press 170 170 esc (layer-while-held wmact))
-  s2f (tap-hold-press 100 120 / rsft)
-  psb (tap-hold-press 120 120 ; (layer-while-held psinkbols))
-  dpd (tap-hold 120 120 [ (layer-while-held fncur))
-  rgr (tap-hold 100 120 ret ralt)
-  mau (movemouse-accel-up 30 270 3 17)
-  mad (movemouse-accel-down 30 270 3 17)
-  mal (movemouse-accel-left 30 270 3 17)
-  mar (movemouse-accel-right 30 270 3 17)
-  mwl (mwheel-left 150 120)
-  mwd (mwheel-down 150 120)
-  mwu (mwheel-up 150 120)
-  mwr (mwheel-right 150 120)
-  prv C-S-tab
-  nxt C-tab
-  rnav (release-layer nav) ;; "layer-toggle" used below for brevity
-  gr1 (tap-hold 150 150 home (multi @rnav (layer-toggle ptrtopleft)))
-  gr2 (tap-hold 150 150 M-up (multi @rnav (layer-toggle ptrtopmid)))
-  gr3 (tap-hold 150 150 end  (multi @rnav (layer-toggle ptrtopright)))
-  gr4 (tap-hold 150 150 M-left (multi @rnav (layer-toggle ptrmidleft)))
-  gr5 (tap-hold 150 150 M-down (multi @rnav (layer-toggle ptrmidmid)))
-  gr6 (tap-hold 150 150 M-right (multi @rnav (layer-toggle ptrmidright)))
-  gr7 (tap-hold 150 150 mute (multi @rnav (layer-toggle ptrlowleft)))
-  gr8 (tap-hold 150 150 voldwn (multi @rnav (layer-toggle ptrlowmid)))
-  gr9 (tap-hold 150 150 volu (multi @rnav (layer-toggle ptrlowright)))
+  sa (t! lhrm s lalt)           dc (t! lhrm d lctl)        fs (t! lhrm f lsft)
+  js (t! rhrm j rsft)           kc (t! rhrm k rctl)        la (t! rhrm l lalt)
+  tab (multi nop8 (tap-hold-release 220 220 tab (layer-while-held comnav)))
+  bno (multi nop9 (tap-hold-press 120 120  [  (layer-while-held msenav)))
+
+  cap (tap-hold-press 120 120 esc (multi (layer-while-held wmkp) 
+      (tap-hold-opposite-hand 300 nop0 lmet)))
+  psb (tap-hold 0 110 ; (layer-while-held psinkbols))
+
+  sf1 (fork lsft CapsLock (rsft))
+  ssf (multi nop0 (tap-hold-press 150 150 / (multi lsft (layer-while-held hsft))))
+
+  sfw (fork (tap-hold 130 130 (caps-word 2000) rsft) CapsLock (lsft))
+  
+  rgr (tap-hold 120 150 ret (multi ralt (layer-while-held raton)))
+  ctp (tap-hold 130 130 A-a rctl) ;;best tmux prefix ever
+
+  m▲ (movemouse-accel-up    29 200 3 23)    w▲ (mwheel-up    70 120) 
+  m▼ (movemouse-accel-down  29 200 3 23)    w▼ (mwheel-down  70 120) 
+  m◀ (movemouse-accel-left  29 200 3 23)    w◀ (mwheel-left  70 120)
+  m▶ (movemouse-accel-right 29 200 3 23)    w▶ (mwheel-right 70 120)
+
+  pz7 (t! pzn f13 f16 topleft)  pz8 (t! pzn f14 f16 topmid)  pz9 (t! pzn f15 f16 topright)
+  pz4 (t! pzn f13 f17 midleft)  pz5 (t! pzn f14 f17 midmid)  pz6 (t! pzn f15 f17 midright)
+  pz1 (t! pzn f13 f18 lowleft)  pz2 (t! pzn f14 f18 lowmid)  pz3 (t! pzn f15 f18 lowright)
+
+  qmr (t! gr q mmid) wt« (t! gr w C-S-↹) em▲ (t! gr e @m▲) rt» (t! gr r C-↹) tb▲ (t! gr t brup)    
+  aml (t! gr a mlft)  sm◀ (t! gr s @m◀)  dm▼ (t! gr d @m▼) fm▶ (t! gr f @m▶) gb▼ (t! gr g brdn)    
+                      zw◀ (t! gr z @w◀)  xw▲ (t! gr x @w▲) cw▼ (t! gr c @w▼) vw▶ (t! gr v @w▶)     
+  lsm (tap-hold 120 120 mute (multi lsft (layer-while-held qwerty)))
+  qmt (multi lmet (layer-while-held qwerty))         qct (multi lctl (layer-while-held qwerty))
+  qat (multi lalt (layer-while-held qwerty))
+  c◀ (multi F13 F14) c▲ (multi F16 F17) c▼ (multi F17 F18) c▶ (multi F14 F15)
+  ul (multi F13 F16 u) ur (multi F15 F16 o) dl (multi F13 F18 m) dr (multi F15 F18 .)
 )
 
-(deflayer nav
-  _    _   left  up  down rght  _    _    _    _    _    _    _    _
-  _   lrld @gr1 @gr2 @gr3 pgup @mwu @mwl @mau @mwr mute blup  _    _
-  _   M-F5 @gr4 @gr5 @gr6 pgdn @mwd @mal @mad @mar mrgt bldn  _
-  _   @gr7 @gr8 @gr9 prnt  _   brdn brup mmid vold volu M-mute _
-  _    _   _              mlft           bspc del  del   _     _    _
+(deflayer raton
+    _    _   _    _     _    _        _               _             _           _        _ _ _ _
+    _  @qmr @wt« @em▲ @rt» @tb▲ (t! gr y mrgt) (t! kpz u 7 ) (t! kpz i 8 ) (t! kpz o 9)  p [ ] \
+    _  @aml @sm◀ @dm▼ @fm▶ @gb▼ (t! gr h mmid) (t! kpz j 4 ) (t! kpz k 5 ) (t! kpz l 6)  ; _ _
+  @lsm @zw◀ @xw▲ @cw▼ @vw▶  b   (t! gr n mlft) (t! kpz m 1 ) (t! kpz , 2 ) (t! kpz . 3)  _ _ _
+    _   _     _                      spc                          ralt          _        _ _ _ _
 )
 
-(deflayer wmact
-  _    _    _     @prv @nxt  _    _    prnt @prv @nxt  _    _    _    _
-  _   M-`   M-1   M-2  M-3  M-4  M-[   kp7  kp8   kp9  _    _    _    _
-  _    _    M-5   M-6  M-7  M-8  M-'   kp4  kp5   kp6  _    _    _
-  _   M-9   M-0   M--  M-=   _   M-;   kp1  kp2   kp3  _    _    _
-  _    _     _               _              kp0    _   _    _    _    _
+(deflayer msenav
+ brdn brup   ◀    ▲   ▼    ▶      _        ◀◀            ▶⏸           ▶▶         _    _  _  _
+ @↹mr mmid C-S-↹ @m▲ C-↹ volu   mlft (t! otl ◀◀)   (t! otm ▶⏸)   (t! otr ▶▶)   @pss brup _  _ 
+ @cap mlft  @m◀  @m▼ @m▶ vold   mmid (t! oml rsft) (t! omm rctl) (t! omr lalt) @com brdn _ 
+ @mqw  @w«  @w^  @w_ @w»  _     mrgt (t! oll F23)  (t! olm rmet) (t! olr ralt) @lsi @mqw _
+ @qct @qmt  @qat                      @tqn                @rgr        @qct     @qct   _  _  _
 )
 
-(deflayer fncur
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _  brup   F1   F2   F3   F4   home pgdn pgup end  _    _    _    _
-  _  brdown F5   F6   F7   F8   left down up  right _    _    _
-  _    F9   F10  F11  F12  _    _    _    _    _    _    _    _
-  _    _    _              _              bspc del  del  _    _    _
+ (defalias
+  w« (fork (multi (on-press press-vkey w◀) (on-release release-vkey w◀) nop0) 
+           (multi F13 F15 (layer-while-held rel-mouse) (on-press release-vkey w▶)) (nop0))
+  w» (fork (multi (on-press press-vkey w▶) (on-release release-vkey w▶) nop0) 
+           (multi F13 F15 (layer-while-held rel-mouse) (on-press release-vkey w◀)) (nop0))
+  w^ (fork (multi (on-press press-vkey w▲) (on-release release-vkey w▲) nop0) 
+           (multi F16 F18 (layer-while-held rel-mouse) (on-press release-vkey w▼)) (nop0))
+  w_ (fork (multi (on-press press-vkey w▼) (on-release release-vkey w▼) nop0) 
+           (multi F16 F18 (layer-while-held rel-mouse) (on-press release-vkey w▲)) (nop0))
+  pss (tap-hold 120 120 prnt (layer-while-held psinkbols))
+  com (multi nop0 (layer-while-held comnav))
+  lsi (tap-hold 120 120 ins rsft)      mqw (tap-hold 150 150 (layer-switch qwerty) mute)
 )
 
-(deflayer xtra
-  _   volu brdn @mau brup @mwu _    _    _    _    _    _    _    _
-  _   vold @mal @mad @mar @mwd _    _    _    _    _    _    _    _
-  _   mute  _    _    _   _    _    prev pp   next    _    _    _
-  _    _    _    _    _   _    _    _    _    _    _    _    _
-  _   mrgt mmid          mlft            _    _    _    _    _    _
+(deflayer comnav
+  _   _    A-◀  C-S-↹ C-↹ A-▶       _   ◀◀   ▶⏸   ▶▶   _     _   _  _
+  _  volu  @F1◀ @F2▲ @F3▼ @F4▶     M-◀  M-▼  M-▲  M-▶  prnt brup _  _
+  _  vold  @F5A @F6C @F7S @F8p      ◀    ▼    ▲    ▶   nop0 brdn _    
+mute @F9◀ @F10▲ @F11▼ @F12▶ ret   home pgdn  pgup end  ins  mute _    
+  _  @qmt   _           @tqn                 ralt rctl  _    _   _  _
 )
 
-(defalias 
-  x0y0 (multi f13 f16 7 (setmouse $x0 $y0))     x1y0 (multi f13 f16 8 (setmouse $x1 $y0)) 
-  x0y1 (multi f13 f16 y (setmouse $x0 $y1))     x1y1 (multi f13 f16 u (setmouse $x1 $y1))
-  x0y2 (multi f13 f16 h (setmouse $x0 $y2))     x1y2 (multi f13 f16 j (setmouse $x1 $y2))
-  x0y3 (multi f13 f16 n (setmouse $x0 $y3))     x1y3 (multi f13 f16 m (setmouse $x1 $y3))
-  x0y4 (multi f13 f17 7 (setmouse $x0 $y4))     x1y4 (multi f13 f17 8 (setmouse $x1 $y4))
-  x0y5 (multi f13 f17 y (setmouse $x0 $y5))     x1y5 (multi f13 f17 u (setmouse $x1 $y5))
-  x0y6 (multi f13 f17 h (setmouse $x0 $y6))     x1y6 (multi f13 f17 j (setmouse $x1 $y6))
-  x0y7 (multi f13 f17 n (setmouse $x0 $y7))     x1y7 (multi f13 f17 m (setmouse $x1 $y7))
-  x0y8 (multi f13 f18 7 (setmouse $x0 $y8))     x1y8 (multi f13 f18 8 (setmouse $x1 $y8))
-  x0y9 (multi f13 f18 y (setmouse $x0 $y9))     x1y9 (multi f13 f18 u (setmouse $x1 $y9))
-  x0ya (multi f13 f18 h (setmouse $x0 $ya))     x1ya (multi f13 f18 j (setmouse $x1 $ya))
-  x0yb (multi f13 f18 n (setmouse $x0 $yb))     x1yb (multi f13 f18 m (setmouse $x1 $yb))
-
-  x2y0 (multi f13 f16 9 (setmouse $x2 $y0))     x3y0 (multi f13 f16 0 (setmouse $x3 $y0)) 
-  x2y1 (multi f13 f16 i (setmouse $x2 $y1))     x3y1 (multi f13 f16 o (setmouse $x3 $y1))
-  x2y2 (multi f13 f16 k (setmouse $x2 $y2))     x3y2 (multi f13 f16 l (setmouse $x3 $y2))
-  x2y3 (multi f13 f16 , (setmouse $x2 $y3))     x3y3 (multi f13 f16 . (setmouse $x3 $y3))
-  x2y4 (multi f13 f17 9 (setmouse $x2 $y4))     x3y4 (multi f13 f17 0 (setmouse $x3 $y4))
-  x2y5 (multi f13 f17 i (setmouse $x2 $y5))     x3y5 (multi f13 f17 o (setmouse $x3 $y5))
-  x2y6 (multi f13 f17 k (setmouse $x2 $y6))     x3y6 (multi f13 f17 l (setmouse $x3 $y6))
-  x2y7 (multi f13 f17 , (setmouse $x2 $y7))     x3y7 (multi f13 f17 . (setmouse $x3 $y7))
-  x2y8 (multi f13 f18 9 (setmouse $x2 $y8))     x3y8 (multi f13 f18 0 (setmouse $x3 $y8))
-  x2y9 (multi f13 f18 i (setmouse $x2 $y9))     x3y9 (multi f13 f18 o (setmouse $x3 $y9))
-  x2ya (multi f13 f18 k (setmouse $x2 $ya))     x3ya (multi f13 f18 l (setmouse $x3 $ya))
-  x2yb (multi f13 f18 , (setmouse $x2 $yb))     x3yb (multi f13 f18 . (setmouse $x3 $yb))
-
-  x4y0 (multi f13 f16 - (setmouse $x4 $y0))     x5y0 (multi f14 f16 7 (setmouse $x5 $y0)) 
-  x4y1 (multi f13 f16 p (setmouse $x4 $y1))     x5y1 (multi f14 f16 y (setmouse $x5 $y1))
-  x4y2 (multi f13 f16 ; (setmouse $x4 $y2))     x5y2 (multi f14 f16 h (setmouse $x5 $y2))
-  x4y3 (multi f13 f16 / (setmouse $x4 $y3))     x5y3 (multi f14 f16 n (setmouse $x5 $y3))
-  x4y4 (multi f13 f17 - (setmouse $x4 $y4))     x5y4 (multi f14 f17 7 (setmouse $x5 $y4))
-  x4y5 (multi f13 f17 p (setmouse $x4 $y5))     x5y5 (multi f14 f17 y (setmouse $x5 $y5))
-  x4y6 (multi f13 f17 ; (setmouse $x4 $y6))     x5y6 (multi f14 f17 h (setmouse $x5 $y6))
-  x4y7 (multi f13 f17 / (setmouse $x4 $y7))     x5y7 (multi f14 f17 n (setmouse $x5 $y7))
-  x4y8 (multi f13 f18 0 (setmouse $x4 $y8))     x5y8 (multi f14 f18 7 (setmouse $x5 $y8))
-  x4y9 (multi f13 f18 p (setmouse $x4 $y9))     x5y9 (multi f14 f18 y (setmouse $x5 $y9))
-  x4ya (multi f13 f18 ; (setmouse $x4 $ya))     x5ya (multi f14 f18 h (setmouse $x5 $ya))
-  x4yb (multi f13 f18 / (setmouse $x4 $yb))     x5yb (multi f14 f18 n (setmouse $x5 $yb))
-
-  x6y0 (multi f14 f16 8 (setmouse $x6 $y0))     x7y0 (multi f14 f16 9 (setmouse $x7 $y0)) 
-  x6y1 (multi f14 f16 u (setmouse $x6 $y1))     x7y1 (multi f14 f16 i (setmouse $x7 $y1))
-  x6y2 (multi f14 f16 j (setmouse $x6 $y2))     x7y2 (multi f14 f16 k (setmouse $x7 $y2))
-  x6y3 (multi f14 f16 m (setmouse $x6 $y3))     x7y3 (multi f14 f16 , (setmouse $x7 $y3))
-  x6y4 (multi f14 f17 8 (setmouse $x6 $y4))     x7y4 (multi f14 f17 9 (setmouse $x7 $y4))
-  x6y5 (multi f14 f17 u (setmouse $x6 $y5))     x7y5 (multi f14 f17 i (setmouse $x7 $y5))
-  x6y6 (multi f14 f17 j (setmouse $x6 $y6))     x7y6 (multi f14 f17 k (setmouse $x7 $y6))
-  x6y7 (multi f14 f17 m (setmouse $x6 $y7))     x7y7 (multi f14 f17 , (setmouse $x7 $y7))
-  x6y8 (multi f14 f18 8 (setmouse $x6 $y8))     x7y8 (multi f14 f18 9 (setmouse $x7 $y8))
-  x6y9 (multi f14 f18 u (setmouse $x6 $y9))     x7y9 (multi f14 f18 i (setmouse $x7 $y9))
-  x6ya (multi f14 f18 j (setmouse $x6 $ya))     x7ya (multi f14 f18 k (setmouse $x7 $ya))
-  x6yb (multi f14 f18 m (setmouse $x6 $yb))     x7yb (multi f14 f18 , (setmouse $x7 $yb))
-
-  x8y0 (multi f14 f16 0 (setmouse $x8 $y0))     x9y0 (multi f14 f16 - (setmouse $x9 $y0)) 
-  x8y1 (multi f14 f16 o (setmouse $x8 $y1))     x9y1 (multi f14 f16 p (setmouse $x9 $y1))
-  x8y2 (multi f14 f16 l (setmouse $x8 $y2))     x9y2 (multi f14 f16 ; (setmouse $x9 $y2))
-  x8y3 (multi f14 f16 . (setmouse $x8 $y3))     x9y3 (multi f14 f16 / (setmouse $x9 $y3))
-  x8y4 (multi f14 f17 0 (setmouse $x8 $y4))     x9y4 (multi f14 f17 - (setmouse $x9 $y4))
-  x8y5 (multi f14 f17 o (setmouse $x8 $y5))     x9y5 (multi f14 f17 p (setmouse $x9 $y5))
-  x8y6 (multi f14 f17 l (setmouse $x8 $y6))     x9y6 (multi f14 f17 ; (setmouse $x9 $y6))
-  x8y7 (multi f14 f17 . (setmouse $x8 $y7))     x9y7 (multi f14 f17 / (setmouse $x9 $y7))
-  x8y8 (multi f14 f18 0 (setmouse $x8 $y8))     x9y8 (multi f14 f18 0 (setmouse $x9 $y8))
-  x8y9 (multi f14 f18 o (setmouse $x8 $y9))     x9y9 (multi f14 f18 p (setmouse $x9 $y9))
-  x8ya (multi f14 f18 l (setmouse $x8 $ya))     x9ya (multi f14 f18 ; (setmouse $x9 $ya))
-  x8yb (multi f14 f18 . (setmouse $x8 $yb))     x9yb (multi f14 f18 / (setmouse $x9 $yb))
-
-  xay0 (multi f15 f16 7 (setmouse $xa $y0))     xby0 (multi f15 f16 8 (setmouse $xb $y0)) 
-  xay1 (multi f15 f16 y (setmouse $xa $y1))     xby1 (multi f15 f16 u (setmouse $xb $y1))
-  xay2 (multi f15 f16 h (setmouse $xa $y2))     xby2 (multi f15 f16 j (setmouse $xb $y2))
-  xay3 (multi f15 f16 n (setmouse $xa $y3))     xby3 (multi f15 f16 m (setmouse $xb $y3))
-  xay4 (multi f15 f17 7 (setmouse $xa $y4))     xby4 (multi f15 f17 8 (setmouse $xb $y4))
-  xay5 (multi f15 f17 y (setmouse $xa $y5))     xby5 (multi f15 f17 u (setmouse $xb $y5))
-  xay6 (multi f15 f17 h (setmouse $xa $y6))     xby6 (multi f15 f17 j (setmouse $xb $y6))
-  xay7 (multi f15 f17 n (setmouse $xa $y7))     xby7 (multi f15 f17 m (setmouse $xb $y7))
-  xay8 (multi f15 f18 7 (setmouse $xa $y8))     xby8 (multi f15 f18 8 (setmouse $xb $y8))
-  xay9 (multi f15 f18 y (setmouse $xa $y9))     xby9 (multi f15 f18 u (setmouse $xb $y9))
-  xaya (multi f15 f18 h (setmouse $xa $ya))     xbya (multi f15 f18 j (setmouse $xb $ya))
-  xayb (multi f15 f18 n (setmouse $xa $yb))     xbyb (multi f15 f18 m (setmouse $xb $yb))
-
-  xcy0 (multi f15 f16 9 (setmouse $xc $y0))     xdy0 (multi f15 f16 0 (setmouse $xd $y0)) 
-  xcy1 (multi f15 f16 i (setmouse $xc $y1))     xdy1 (multi f15 f16 o (setmouse $xd $y1))
-  xcy2 (multi f15 f16 k (setmouse $xc $y2))     xdy2 (multi f15 f16 l (setmouse $xd $y2))
-  xcy3 (multi f15 f16 , (setmouse $xc $y3))     xdy3 (multi f15 f16 . (setmouse $xd $y3))
-  xcy4 (multi f15 f17 9 (setmouse $xc $y4))     xdy4 (multi f15 f17 0 (setmouse $xd $y4))
-  xcy5 (multi f15 f17 i (setmouse $xc $y5))     xdy5 (multi f15 f17 o (setmouse $xd $y5))
-  xcy6 (multi f15 f17 k (setmouse $xc $y6))     xdy6 (multi f15 f17 l (setmouse $xd $y6))
-  xcy7 (multi f15 f17 , (setmouse $xc $y7))     xdy7 (multi f15 f17 . (setmouse $xd $y7))
-  xcy8 (multi f15 f18 9 (setmouse $xc $y8))     xdy8 (multi f15 f18 0 (setmouse $xd $y8))
-  xcy9 (multi f15 f18 i (setmouse $xc $y9))     xdy9 (multi f15 f18 o (setmouse $xd $y9))
-  xcya (multi f15 f18 k (setmouse $xc $ya))     xdya (multi f15 f18 l (setmouse $xd $ya))
-  xcyb (multi f15 f18 , (setmouse $xc $yb))     xdyb (multi f15 f18 . (setmouse $xd $yb))
-
-  xey0 (multi f15 f16 - (setmouse $xe $y0))
-  xey1 (multi f15 f16 p (setmouse $xe $y1))
-  xey2 (multi f15 f16 ; (setmouse $xe $y2))
-  xey3 (multi f15 f16 / (setmouse $xe $y3))
-  xey4 (multi f15 f17 - (setmouse $xe $y4))
-  xey5 (multi f15 f17 p (setmouse $xe $y5))
-  xey6 (multi f15 f17 ; (setmouse $xe $y6))
-  xey7 (multi f15 f17 / (setmouse $xe $y7))
-  xey8 (multi f15 f18 0 (setmouse $xe $y8))
-  xey9 (multi f15 f18 p (setmouse $xe $y9))
-  xeya (multi f15 f18 ; (setmouse $xe $ya))
-  xeyb (multi f15 f18 / (setmouse $xe $yb))
+(defalias  
+  ↹mr (tap-hold 130 130 tab mrgt)
+  F1◀ (t! th F1 left)  F2▲ (t! th F2 up)     F3▼ (t! th F3 down)   F4▶ (t! th F4 right)
+  F5A (t! th F5 lalt)  F6C (t! th F6 lctl)   F7S (t! th F7 lsft)  F8p (t! th F8 (layer-toggle psinkbols))
+  F9◀ (t! th F9 home)  F10▲ (t! th F10 pgup) F11▼ (t! th F11 pgdn) F12▶ (t! th F12 end)   
+  tqn (switch                ;; transient/perm swap between Qwerty and MouseNav 
+  	((base-layer qwerty)) (tap-hold 120 120 (layer-switch msenav) (layer-toggle msenav)) break
+               ()         (tap-hold-press 120 120 spc (layer-while-held qwerty)) break)
 )
 
-;; TOP AREA
-(deflayer ptrtopleft
-_ 1 2 3 4 5  6    @x0y0 @x1y0 @x2y0 @x3y0  @x4y0 _ _
-_ q w e r t @x0y1 @x1y1 @x2y1 @x3y1 @x4y1  [ ] \
-_ a s d f g @x0y2 @x1y2 @x2y2 @x3y2 @x4y2  ' _
-_ z x c v b @x0y3 @x1y3 @x2y3 @x3y3 @x4y3  _ _
-_ _ _ spc  _ _ _ _ _ _
-)
-(deflayer ptrtopmid
-_ 1 2 3 4 5 6     @x5y0 @x6y0 @x7y0 @x8y0 @x9y0 _ _
-_ q w e r t @x5y1 @x6y1 @x7y1 @x8y1 @x9y1 [ ] \
-_ a s d f g @x5y2 @x6y2 @x7y2 @x8y2 @x9y2 ' _
-_ z x c v b @x5y3 @x6y3 @x7y3 @x8y3 @x9y3 _ _
-_ _ _ spc  _ _ _ _ _ _
-)
-(deflayer ptrtopright
-_ 1 2 3 4 5 6     @xay0 @xby0 @xcy0 @xdy0 @xey0 _ _
-_ q w e r t @xay1 @xby1 @xcy1 @xdy1 @xey1  [ ] \
-_ a s d f g @xay2 @xby2 @xcy2 @xdy2 @xey2  ' _
-_ z x c v b @xay3 @xby3 @xcy3 @xdy3 @xey3  _ _
-_ _ _ spc  _ _ _ _ _ _
+
+(deflayer psinkbols
+  _    _    _    _    _    _    _    _   _   _   _    _   _   _
+ S-`  S-=  S-[  S-]  S-1   `   S-3  S-/ S-, S-.  _    _   _   _
+  _   min  S-9  S-0   '   S-'  S-8   =  S-- S-5  ;    _   _
+  \    [    ]   S-;  S-2   _   S-7  S-\ S-6 S-4  /    _   _
+  _    _   bspc            spc          ret del del   _   _   _
 )
 
-;;;;; MID AREA 
-(deflayer ptrmidleft
-_ 1 2 3 4 5 6     @x0y4 @x1y4 @x2y4 @x3y4 @x4y4 _ _
-_ q w e r t @x0y5 @x1y5 @x2y5 @x3y5 @x4y5 [ ] \
-_ a s d f g @x0y6 @x1y6 @x2y6 @x3y6 @x4y6 ' _
-_ z x c v b @x0y7 @x1y7 @x2y7 @x3y7 @x4y7 _ _
-_ _ _ spc  _ _ _ _ _ _
-)
-(deflayer ptrmidmid
-_ 1 2 3 4 5 6     @x5y4 @x6y4 @x7y4 @x8y4 @x9y4 _ _
-_ q w e r t @x5y5 @x6y5 @x7y5 @x8y5 @x9y5 [ ] \
-_ a s d f g @x5y6 @x6y6 @x7y6 @x8y6 @x9y6 ' _
-_ z x c v b @x5y7 @x6y7 @x7y7 @x8y7 @x9y7 _ _
-_ _ _ spc  _ _ _ _ _ _
-)
-(deflayer ptrmidright
-_ 1 2 3 4 5 6     @xay4 @xby4 @xcy4 @xdy4 @xey4 _ _
-_ q w e r t @xay5 @xby5 @xcy5 @xdy5 @xey5 [ ] \
-_ a s d f g @xay6 @xby6 @xcy6 @xdy6 @xey6 ' _
-_ z x c v b @xay7 @xby7 @xcy7 @xdy7 @xey7 _ _
-_ _ _ spc  _ _ _ _ _ _
+(deflayer wmkp
+  _    _     ◀    ▲    ▼    ▶    _    M-`  kp*  kp/ bspc  _    _    _
+  _    _     1    2    3    4   M-[   kp7  kp8  kp9 kp-   _    _    _
+  _    _     5    6    7    8   M-]   kp4  kp5  kp6 kp+   _    _
+  _    9     0    -    =    _   M-\   kp1  kp2  kp3 kprt  _    _
+  _   lrld   _            M-'              kp0  kp. kp.   _    _    _
 )
 
-;;;;; LOW AREA 
-(deflayer ptrlowleft
-_ 1 2 3 4 5 6     @x0y8 @x1y8 @x2y8 @x3y8 @x4y8 _ _
-_ q w e r t @x0y9 @x1y9 @x2y9 @x3y9 @x4y9 [ ] \
-_ a s d f g @x0ya @x1ya @x2ya @x3ya @x4ya ' _
-_ z x c v b @x0yb @x1yb @x2yb @x3yb @x4yb _ _
-_ _ _ spc  _ _ _ _ _ _
+(deflayer hsft
+  _    _    _    _    _    _     _    _    _    _    _    _   _  _    
+  _    _    _    _    _    _    M-◀  M-▼  M-▲  M-▶   _    _   _  _ 
+  _    _    _    _    _    _     ◀    ▼    ▲    ▶    _    _   _    
+  _    _    _    _    _    _   home pgdn  pgup end   _    _   _    
+  ctl lmet alt           spc              ralt rctl rmet  _   _  _ 
 )
-(deflayer ptrlowmid
-_ 1 2 3 4 5 6     @x5y8 @x6y8 @x7y8 @x8y8 @x9y8 _ _
-_ q w e r t @x5y9 @x6y9 @x7y9 @x8y9 @x9y9 [ ] \
-_ a s d f g @x5ya @x6ya @x7ya @x8ya @x9ya ' _
-_ z x c v b @x5yb @x6yb @x7yb @x8yb @x9yb _ _
-_ _ _ spc  _ _ _ _ _ _
-)
-(deflayer ptrlowright
-_ 1 2 3 4 5 6     @xay8 @xby8 @xcy8 @xdy8 @xey8 _ _
-_ q w e r t @xay9 @xby9 @xcy9 @xdy9 @xey9 [ ] \
-_ a s d f g @xaya @xbya @xcya @xdya @xeya ' _
-_ z x c v b @xayb @xbyb @xcyb @xdyb @xeyb _ _
-_ _ _ spc  _ _ _ _ _ _
-)
+
+(deftemplate hfd2 (a x y) 
+    (defalias $a (macro (hold-for-duration 50 $x) (hold-for-duration 50 $y))))
+(deftemplate lmsz (n x y)  ;; linux mouse set zone layer
+  (t! hfd2 $n $x $y)
+  (deflayer $n 
+_ (t! n6 1 $n 1) (t! n6 2 $n 2) (t! n6 3 $n 3) (t! n6 4 $n 4) (t! n6 5 $n 5) (t! _8) 
+_ (t! n7 1 $n q) (t! n7 2 $n w) (t! n7 3 $n e) (t! n7 4 $n r) (t! n7 5 $n t) _ @ul      @c▲   @ur _ _ _ _
+_ (t! n8 1 $n a) (t! n8 2 $n s) (t! n8 3 $n d) (t! n8 4 $n f) (t! n8 5 $n g) _ @c◀ (t! og $n) @c▶ _ _ _ 
+  (t! n9 1 $n z) (t! n9 2 $n x) (t! n9 3 $n c) (t! n9 4 $n v) (t! n9 5 $n b) _  _  @dl    @c▼ @dr _ _ _
+ _ _ _ nop0  _ _ _  _ _ _ ))
+
+(platform (linux)
+  (deflayer rel-mouse
+  _    _    _    _    _    _     _    7    8    9    0    1   2  3
+  _    _    _    _    _    _     y    u    i    o    p    q   w  e
+  _    _    _    _    _    _     h    j    k    l    a    s   d
+  _    _    _    _    _    _     n    m    z    x    c    v   _
+  ctl lmet alt            _                r    f    g    _   _  _
+  ))
+
+
+(platform (linux) (t! lmsz topleft  F13 F16))
+(platform (linux) (t! lmsz topmid   F14 F16))
+(platform (linux) (t! lmsz topright F15 F16))
+(platform (linux) (t! lmsz midleft  F13 F17))
+(platform (linux) (t! lmsz midmid   F14 F17))
+(platform (linux) (t! lmsz midright F15 F17))
+(platform (linux) (t! lmsz lowleft  F13 F18))
+(platform (linux) (t! lmsz lowmid   F14 F18))
+(platform (linux) (t! lmsz lowright F15 F18))
+
+(deftemplate wmsz (name 0 1 2 3 4 a b c d)  ;;windows mouse set zone layer
+  (deflayer $name
+   _ (!t sm $0 $a) (!t sm $1 $a) (!t sm $2 $a) (!t sm $3 $a) (!t sm $4 $a) _ _ _ _ _ _ _ _
+   _ (!t sm $0 $b) (!t sm $1 $b) (!t sm $2 $b) (!t sm $3 $b) (!t sm $4 $b) _ _ _ _ _ [ ] \
+   _ (!t sm $0 $c) (!t sm $1 $c) (!t sm $2 $c) (!t sm $3 $c) (!t sm $4 $c) _ _ _ _ _ ' _
+     (!t sm $0 $d) (!t sm $1 $d) (!t sm $2 $d) (!t sm $3 $d) (!t sm $4 $d) _ _ _ _ _ _ _ _
+    _ _ _ spc  _ _ _ _ _ _ ))
+
+(platform (macos win winiov2 wintercept) (t! wmsz topleft  $x0 $x1 $x2 $x3 $x4 $y0 $y1 $y2 $y3))
+(platform (macos win winiov2 wintercept) (t! wmsz topmid   $x5 $x6 $x7 $x8 $x9 $y0 $y1 $y2 $y3))
+(platform (macos win winiov2 wintercept) (t! wmsz topright $xa $xb $xc $xd $xe $y0 $y1 $y2 $y3))
+(platform (macos win winiov2 wintercept) (t! wmsz midleft  $x0 $x1 $x2 $x3 $x4 $y4 $y5 $y6 $y7))
+(platform (macos win winiov2 wintercept) (t! wmsz midmid   $x5 $x6 $x7 $x8 $x9 $y4 $y5 $y6 $y7))
+(platform (macos win winiov2 wintercept) (t! wmsz midright $xa $xb $xc $xd $xe $y4 $y5 $y6 $y7))
+(platform (macos win winiov2 wintercept) (t! wmsz lowleft  $x0 $x1 $x2 $x3 $x4 $y8 $y9 $y2 $y3))
+(platform (macos win winiov2 wintercept) (t! wmsz lowmid   $x5 $x6 $x7 $x8 $x9 $y8 $y9 $y2 $y3))
+(platform (macos win winiov2 wintercept) (t! wmsz lowright $xa $xb $xc $xd $xe $y8 $y9 $ya $yb))
 
 (defvar
  x0 2185
