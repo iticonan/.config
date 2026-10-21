@@ -6,49 +6,31 @@
    log-layer-changes yes
 )
 
-(deftemplate kpz (k n)  ;; tap Key, hold goes to "Pointer Zone" see 'Raton
-  (fork (concat @pz $n) (tap-hold 150 150 $k (multi (concat @pz $n) (release-key ralt))) (ralt)))
-
 (deftemplate gr (k act);; while in alt-gr 2+ keys or timeout -> mouse mode 
   (fork $act           ;; »» see "raton" layer 
         (tap-hold-press 130 130 $k (multi (release-key ralt) $act)) (ralt)))
 
 ;; tap one-shots to a "Pointer Zone", hold activates action
-(deftemplate oa (oz a) (tap-hold 150 200 (concat @oz $oz) $a))
-(deftemplate otl (a) (tap-hold 190 200 (one-shot 250 (layer-while-held topleft)) $a))
-(deftemplate otm (a) (tap-hold 190 200 (one-shot 250 (layer-while-held topmid)) $a))
-(deftemplate otr (a) (tap-hold 190 200 (one-shot 250 (layer-while-held topright)) $a))
-(deftemplate oml (a) (tap-hold 190 200 (one-shot 250 (layer-while-held midleft)) $a))
-(deftemplate omm (a) (tap-hold 190 200 (one-shot 250 (layer-while-held midmid)) $a))
-(deftemplate omr (a) (tap-hold 190 200 (one-shot 250 (layer-while-held midright)) $a))
-(deftemplate oll (a) (tap-hold 190 200 (one-shot 250 (layer-while-held lowleft)) $a))
-(deftemplate olm (a) (tap-hold 190 200 (one-shot 250 (layer-while-held lowmid)) $a))
-(deftemplate olr (a) (tap-hold 190 200 (one-shot 250 (layer-while-held lowright)) $a))
+(deftemplate ot1 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held top1)) $a))
+(deftemplate ot2 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held top2)) $a))
+(deftemplate ot3 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held top3)) $a))
+(deftemplate ot4 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held top4)) $a))
+(deftemplate om1 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held mid1)) $a))
+(deftemplate om2 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held mid2)) $a))
+(deftemplate om3 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held mid3)) $a))
+(deftemplate om4 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held mid4)) $a))
+(deftemplate ol1 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held low1)) $a))
+(deftemplate ol2 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held low2)) $a))
+(deftemplate ol3 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held low3)) $a))
+(deftemplate ol4 (a) (tap-hold 190 200 (one-shot 250 (layer-while-held low4)) $a))
 
 (deftemplate th (t h) (fork (tap-hold 150 150 $t $h) $t (nop0) ))
 
-(deftemplate ovz (fx fy zl) (multi    ;; One-shot Mouse Zone
-  (one-shot-pause-processing 40)
-  (one-shot 450 (layer-while-held $zl))
-  (one-shot 300 $fx) (one-shot 300 $fy)
-;;  (macro (on-press press-vkey $fx)  (on-release release-vkey $fx)
-;;         (on-press press-vkey $fy)  (on-release release-vkey $fy)
-;;	 (on-press press-vkey $zl)  (on-release release-vkey $zl) ;;  )
-))
-
-(deftemplate sm (x y) (setmouse $x $y))  ;;setmouse for windows
-
 (deftemplate sml (h v n k) (multi ;;set mouse 4 sway linux 
- $h (concat nop $v)
- (layer-while-held $n)
- (one-shot-pause-processing 50) 
-;; (macro 
-;;     (on-press press-vkey $x) (on-release release-vkey $x)
-;;     (on-press press-vkey $y) (on-release release-vkey $y)
-;;     (hold-for-duration 80 $k))
-;; (hold-for-duration 50 $x) (hold-for-duration 50 $y)
- (concat @ $n) (macro 10 (hold-for-duration 10 $k))
-;; (on-release release-vkey $k)
+  $h (concat nop $v)
+  (layer-while-held $n)
+  (one-shot-pause-processing 50) 
+  (concat @ $n) (macro 10 (hold-for-duration 10 $k))
 ))
 
 (deftemplate n6 (n z k) (t! sml nop6 $n $z $k))
@@ -73,34 +55,48 @@
     () d break
 ))
 
-(deftemplate n1^m (k o) 
-   (switch (f24 nop1) $k break
-           (lctl rctl lsft rsft lalt ralt lmet rmet) $o break
-	   ()     $k break))
 
-(deftemplate pzn (fx fy lyr) (multi $fx $fy (layer-while-held $lyr)))
+(deftemplate sm (x y) (setmouse $x $y))  ;;setmouse for windows
+(deftemplate smw (x y) (macro (setmouse (concat @x $x) (concat @y $y))))
+(deftemplate sm6 (n x y) (multi nop6 (concat nop $n) (t! smw $x $y) ))
+(deftemplate sm7 (n x y) (multi nop7 (concat nop $n) (t! smw $x $y) ))
+(deftemplate sm8 (n x y) (multi nop8 (concat nop $n) (t! smw $x $y) ))
+(deftemplate sm9 (n x y) (multi nop9 (concat nop $n) (t! smw $x $y) ))
+(deftemplate _wog (n k) (multi (concat @ $n) (macro 10 (hold-for-duration 10 $k))))
+(deftemplate wog (a b c d e 1 2 3 4) 
+  (switch (nop6) 
+    (switch (nop1) (t! smw $a $1) break (nop2) (t! smw $n 2) break (nop3) (t! smw $n 3) break 
+            (nop4) (t! smw $n $4) break (nop5) (t! smw $n 5) break
+    ) break (nop7)
+    (switch (nop1) (t! smw $n $q) break (nop2) (t! smw $n w) break (nop3) (t! smw $n e) break 
+            (nop4) (t! smw $n $r) break (nop5) (t! smw $n t) break
+    ) break (nop8)
+    (switch (nop1) (t! smw $n $a) break (nop2) (t! smw $n s) break (nop3) (t! smw $n d) break 
+            (nop4) (t! smw $n $f) break (nop5) (t! smw $n g) break
+    ) break (nop9)
+    (switch (nop1) (t! smw $n $z) break (nop2) (t! smw $n x) break (nop3) (t! smw $n c) break 
+            (nop4) (t! smw $n $v) break (nop5) (t! smw $n b) break
+    ) break
+    () d break
+))
 
-(deftemplate lhrm (k m) 
- (tap-hold-opposite-hand-release 250 $k $m (neutral-keys s d f lalt) (neutral ignore)(require-prior-idle 200)))
-(deftemplate rhrm (k m) 
-     (tap-hold-opposite-hand-release 250 $k $m (neutral-keys j k l lalt) (neutral ignore)(require-prior-idle 200)))
-(deftemplate osl (l) (one-shot 550 (layer-while-held $l)))
-(deftemplate ost (k l) (fork (one-shot-press-pcancel 350 $l) $k (lsft lctl lmet lalt ralt rmet)))
 
-(deftemplate _6 () _ _ _ _ _ _ )
-(deftemplate _7 () _ _ _ _ _ _ _ )
+(deftemplate lhrm (k m) (tap-hold-opposite-hand-release 250 $k $m 
+                  (neutral-keys s d f g) (neutral ignore) (require-prior-idle 200)))
+(deftemplate rhrm (k m) (tap-hold-opposite-hand-release 250 $k $m 
+                  (neutral-keys h j k l) (neutral ignore)(require-prior-idle 200)))
+
 (deftemplate _8 () _ _ _ _ _ _ _ _ )
 
 (defvirtualkeys
-  w▲ (mwheel-up    70 120)        w▼ (mwheel-down  70 120)
-  w◀ (mwheel-left  70 120)        w▶ (mwheel-right 70 120)
-  F13 (one-shot 120 F13)  F14 (one-shot 120 F14)  F15 (one-shot-press-pcancel 120 F15)  
-  F16 (one-shot 120 F16)  F17 (one-shot 120 F17)  F18 (one-shot-press-pcancel 120 F18)
+  F13 (one-shot 120 F13)  F14 (one-shot 120 F14)  F15 (one-shot 120 F15)  
+  F16 (one-shot 120 F16)  F17 (one-shot 120 F17)  F18 (one-shot 120 F18)
+  F19 (one-shot 120 F19)
   1 1 2 2 3 3 4 4 5 5
   q q w w e e r r t t
   a a s s d d f f g g
   z z x x c c v v b b
-)  
+)
 
 (defsrc
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -117,17 +113,17 @@
 
 (deflayer qwerty
    grv 1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @tab q    w    e    r    t    y    u    i    o    p    @bno ]    \
-  @cap a   @sa  @dc  @fs   g    h   @js  @kc  @la   @psb  '  ret
-  @sf1 z    x    c    v    b    n    m    ,    .    @ssf @sfw  up
-  lctl lmet alt           spc            @rgr @ctp  @ctp left down right
+  @tab q    w    e    r    t    y    u    i    o    p   @bnv  ]    \
+  @cap a   @ss  @da  @fc  @gm  @hm  @jc  @ka  @ls  @psb  '   ret
+  @sf1 z    x    c    v    b    n    m    ,    .   @ssf @sfw  _ 
+  lctl lmet lalt           spc           @rgr @ctp @ctp   _   _    _   
 )
 
 (defalias
-  sa (t! lhrm s lalt)           dc (t! lhrm d lctl)        fs (t! lhrm f lsft)
-  js (t! rhrm j rsft)           kc (t! rhrm k rctl)        la (t! rhrm l lalt)
+  ss (t! lhrm s lsft)   da (t! lhrm d lalt)    fc (t! lhrm f lctl)  gm (t! lhrm g lmet)
+  hm (t! rhrm h rmet)   jc (t! rhrm j rctl)    ka (t! rhrm k lalt)  ls (t! rhrm l rsft)
   tab (multi nop8 (tap-hold-release 220 220 tab (layer-while-held comnav)))
-  bno (multi nop9 (tap-hold-press 120 120  [  (layer-while-held msenav)))
+  bnv (multi nop9 (tap-hold-press 120 120  [  (layer-while-held msenav)))
 
   cap (tap-hold-press 120 120 esc (multi (layer-while-held wmkp) 
       (tap-hold-opposite-hand 300 nop0 lmet)))
@@ -135,79 +131,50 @@
 
   sf1 (fork lsft CapsLock (rsft))
   ssf (multi nop0 (tap-hold-press 150 150 / (multi lsft (layer-while-held hsft))))
-
   sfw (fork (tap-hold 130 130 (caps-word 2000) rsft) CapsLock (lsft))
   
-  rgr (tap-hold 120 150 ret (multi ralt (layer-while-held raton)))
   ctp (tap-hold 130 130 A-a rctl) ;;best tmux prefix ever
 
-  m▲ (movemouse-accel-up    29 200 3 23)    w▲ (mwheel-up    70 120) 
-  m▼ (movemouse-accel-down  29 200 3 23)    w▼ (mwheel-down  70 120) 
-  m◀ (movemouse-accel-left  29 200 3 23)    w◀ (mwheel-left  70 120)
-  m▶ (movemouse-accel-right 29 200 3 23)    w▶ (mwheel-right 70 120)
+  m▲ (movemouse-accel-up    29 200 3 23)     w▲ (mwheel-up    70 120) 
+  m▼ (movemouse-accel-down  29 200 3 23)     w▼ (mwheel-down  70 120) 
+  m◀ (movemouse-accel-left  29 200 3 23)     w◀ (mwheel-left  70 120)
+  m▶ (movemouse-accel-right 29 200 3 23)     w▶ (mwheel-right 70 120)
 
-  pz7 (t! pzn f13 f16 topleft)  pz8 (t! pzn f14 f16 topmid)  pz9 (t! pzn f15 f16 topright)
-  pz4 (t! pzn f13 f17 midleft)  pz5 (t! pzn f14 f17 midmid)  pz6 (t! pzn f15 f17 midright)
-  pz1 (t! pzn f13 f18 lowleft)  pz2 (t! pzn f14 f18 lowmid)  pz3 (t! pzn f15 f18 lowright)
-
-  qmr (t! gr q mmid) wt« (t! gr w C-S-↹) em▲ (t! gr e @m▲) rt» (t! gr r C-↹) tb▲ (t! gr t brup)    
-  aml (t! gr a mlft)  sm◀ (t! gr s @m◀)  dm▼ (t! gr d @m▼) fm▶ (t! gr f @m▶) gb▼ (t! gr g brdn)    
-                      zw◀ (t! gr z @w◀)  xw▲ (t! gr x @w▲) cw▼ (t! gr c @w▼) vw▶ (t! gr v @w▶)     
-  lsm (tap-hold 120 120 mute (multi lsft (layer-while-held qwerty)))
-  qmt (multi lmet (layer-while-held qwerty))         qct (multi lctl (layer-while-held qwerty))
+  qmt (multi lmet (layer-while-held qwerty))         
+  qct (multi lctl (layer-while-held qwerty))
   qat (multi lalt (layer-while-held qwerty))
-  c◀ (multi F13 F14) c▲ (multi F16 F17) c▼ (multi F17 F18) c▶ (multi F14 F15)
-  ul (multi F13 F16 u) ur (multi F15 F16 o) dl (multi F13 F18 m) dr (multi F15 F18 .)
-)
-
-(deflayer raton
-    _    _   _    _     _    _        _               _             _           _        _ _ _ _
-    _  @qmr @wt« @em▲ @rt» @tb▲ (t! gr y mrgt) (t! kpz u 7 ) (t! kpz i 8 ) (t! kpz o 9)  p [ ] \
-    _  @aml @sm◀ @dm▼ @fm▶ @gb▼ (t! gr h mmid) (t! kpz j 4 ) (t! kpz k 5 ) (t! kpz l 6)  ; _ _
-  @lsm @zw◀ @xw▲ @cw▼ @vw▶  b   (t! gr n mlft) (t! kpz m 1 ) (t! kpz , 2 ) (t! kpz . 3)  _ _ _
-    _   _     _                      spc                          ralt          _        _ _ _ _
+  c◀ (multi F13 F14) c▲ (multi F17 F18) c▼ (multi F18 F19) c▶ (multi F14 F15)
+  ul (multi F13 F17 u) ur (multi F15 F17 o) dl (multi F13 F19 m) dr (multi F15 F19 .)
+  qn0 (tap-hold 120 120 (layer-switch qwerty) nop0 )
+  rps (t! th ret (layer-toggle psinkbols))
+  rgr (tap-hold 110 110 ret ralt)
 )
 
 (deflayer msenav
- brdn brup   ◀    ▲   ▼    ▶      _        ◀◀            ▶⏸           ▶▶         _    _  _  _
- @↹mr mmid C-S-↹ @m▲ C-↹ volu   mlft (t! otl ◀◀)   (t! otm ▶⏸)   (t! otr ▶▶)   @pss brup _  _ 
- @cap mlft  @m◀  @m▼ @m▶ vold   mmid (t! oml rsft) (t! omm rctl) (t! omr lalt) @com brdn _ 
- @mqw  @w«  @w^  @w_ @w»  _     mrgt (t! oll F23)  (t! olm rmet) (t! olr ralt) @lsi @mqw _
- @qct @qmt  @qat                      @tqn                @rgr        @qct     @qct   _  _  _
-)
-
- (defalias
-  w« (fork (multi (on-press press-vkey w◀) (on-release release-vkey w◀) nop0) 
-           (multi F13 F15 (layer-while-held rel-mouse) (on-press release-vkey w▶)) (nop0))
-  w» (fork (multi (on-press press-vkey w▶) (on-release release-vkey w▶) nop0) 
-           (multi F13 F15 (layer-while-held rel-mouse) (on-press release-vkey w◀)) (nop0))
-  w^ (fork (multi (on-press press-vkey w▲) (on-release release-vkey w▲) nop0) 
-           (multi F16 F18 (layer-while-held rel-mouse) (on-press release-vkey w▼)) (nop0))
-  w_ (fork (multi (on-press press-vkey w▼) (on-release release-vkey w▼) nop0) 
-           (multi F16 F18 (layer-while-held rel-mouse) (on-press release-vkey w▲)) (nop0))
-  pss (tap-hold 120 120 prnt (layer-while-held psinkbols))
-  com (multi nop0 (layer-while-held comnav))
-  lsi (tap-hold 120 120 ins rsft)      mqw (tap-hold 150 150 (layer-switch qwerty) mute)
+ brdn brup   ◀    ▲   ▼    ▶        ret         ◀◀            ▶⏸           ▶▶           _    _  _  _
+ @tab mute C-S-↹ @m▲ C-↹ volu (t! ot1  ret) (t! ot2 ◀◀)   (t! ot3 ▶⏸)   (t! ot4 ▶▶)   mlft brup _  _ 
+ @cap mlft  @m◀  @m▼ @m▶ vold (t! om1 rmet) (t! om2 rctl) (t! om3 lalt) (t! om4 lsft) mmid brdn _ 
+ @qn0  @w◀  @w▲  @w▼ @w▶  ret (t! ol1 rsft) (t! ol2 ralt) (t! ol3 rctl) (t! ol4 rmet) mrgt mute _
+ @qct @qmt  @qat                         @tqn                 @rgr          @rps      @rps   _  _  _
 )
 
 (deflayer comnav
-  _   _    A-◀  C-S-↹ C-↹ A-▶       _   ◀◀   ▶⏸   ▶▶   _     _   _  _
-  _  volu  @F1◀ @F2▲ @F3▼ @F4▶     M-◀  M-▼  M-▲  M-▶  prnt brup _  _
-  _  vold  @F5A @F6C @F7S @F8p      ◀    ▼    ▲    ▶   nop0 brdn _    
-mute @F9◀ @F10▲ @F11▼ @F12▶ ret   home pgdn  pgup end  ins  mute _    
-  _  @qmt   _           @tqn                 ralt rctl  _    _   _  _
+   _   _      ◀    ▲   ▼    ▶        _   ◀◀   ▶⏸   ▶▶   _     _   _  _
+   _  volu  @F1◀ @F2▲ @F3▼ @F4▶     M-◀  M-▼  M-▲  M-▶  prnt brup _  _
+   _  vold  @F5S @F6A @F7C @F8M      ◀    ▼    ▲    ▶   nop0 brdn _
+   _  @F9◀ @F10▲ @F11▼ @F12▶ ret   home pgdn  pgup end  ins  mute _
+C-S-↹ @rps   _               @tqn               _   _    _    _   _  _
 )
 
 (defalias  
-  ↹mr (tap-hold 130 130 tab mrgt)
-  F1◀ (t! th F1 left)  F2▲ (t! th F2 up)     F3▼ (t! th F3 down)   F4▶ (t! th F4 right)
-  F5A (t! th F5 lalt)  F6C (t! th F6 lctl)   F7S (t! th F7 lsft)  F8p (t! th F8 (layer-toggle psinkbols))
-  F9◀ (t! th F9 home)  F10▲ (t! th F10 pgup) F11▼ (t! th F11 pgdn) F12▶ (t! th F12 end)   
+  F1◀ (t! th F1 left)  F2▲  (t! th F2 up)    F3▼  (t! th F3 down)  F4▶  (t! th F4 right)
+  F5S (t! th F5 lsft)  F6A  (t! th F6 lalt)  F7C  (t! th F7 lctl)  F8M  (t! th F8 lmet)
+  F9◀ (t! th F9 home)  F10▲ (t! th F10 pgup) F11▼ (t! th F11 pgdn) F12▶ (t! th F12 end)
   tqn (switch                ;; transient/perm swap between Qwerty and MouseNav 
-  	((base-layer qwerty)) (tap-hold 120 120 (layer-switch msenav) (layer-toggle msenav)) break
-               ()         (tap-hold-press 120 120 spc (layer-while-held qwerty)) break)
-)
-
+      ((base-layer qwerty)) (tap-hold 120 120 (layer-switch msenav) (layer-toggle msenav)) break
+            (nop0)        (multi F17 F19 (layer-while-held rel-mouse)) break
+               ()         (tap-hold-press 120 120 spc (layer-while-held qwerty)) break
+))
 
 (deflayer psinkbols
   _    _    _    _    _    _    _    _   _   _   _    _   _   _
@@ -218,86 +185,97 @@ mute @F9◀ @F10▲ @F11▼ @F12▶ ret   home pgdn  pgup end  ins  mute _
 )
 
 (deflayer wmkp
-  _    _     ◀    ▲    ▼    ▶    _    M-`  kp*  kp/ bspc  _    _    _
-  _    _     1    2    3    4   M-[   kp7  kp8  kp9 kp-   _    _    _
-  _    _     5    6    7    8   M-]   kp4  kp5  kp6 kp+   _    _
-  _    9     0    -    =    _   M-\   kp1  kp2  kp3 kprt  _    _
+  _    _     ◀    ▲    ▼    ▶   M-[   M-]  kp*  kp/ bspc  _    _    _
+  _    _     1    2    3    4  M-bspc kp7  kp8  kp9 kp-   _    _    _
+  _    _     5    6    7    8   M-\   kp4  kp5  kp6 kp+   _    _
+  _    9     0    -    =   ret  M-`   kp1  kp2  kp3 kprt  _    _
   _   lrld   _            M-'              kp0  kp. kp.   _    _    _
 )
 
 (deflayer hsft
-  _    _    _    _    _    _     _    _    _    _    _    _   _  _    
-  _    _    _    _    _    _    M-◀  M-▼  M-▲  M-▶   _    _   _  _ 
-  _    _    _    _    _    _     ◀    ▼    ▲    ▶    _    _   _    
-  _    _    _    _    _    _   home pgdn  pgup end   _    _   _    
-  ctl lmet alt           spc              ralt rctl rmet  _   _  _ 
+  _    _    _    _    _    _     _    _    _    _    _    _   _  _
+  _    _    _    _    _    _    M-◀  M-▼  M-▲  M-▶   _    _   _  _
+  _    _    _    _    _    _     ◀    ▼    ▲    ▶    _    _   _
+  _    _    _    _    _    _   home pgdn  pgup end   _    _   _
+  ctl lmet alt           spc              ralt rctl rmet  _   _  _
 )
 
 (deftemplate hfd2 (a x y) 
     (defalias $a (macro (hold-for-duration 50 $x) (hold-for-duration 50 $y))))
 (deftemplate lmsz (n x y)  ;; linux mouse set zone layer
-  (t! hfd2 $n $x $y)
-  (deflayer $n 
+ (t! hfd2 $n $x $y)
+ (deflayer $n 
 _ (t! n6 1 $n 1) (t! n6 2 $n 2) (t! n6 3 $n 3) (t! n6 4 $n 4) (t! n6 5 $n 5) (t! _8) 
-_ (t! n7 1 $n q) (t! n7 2 $n w) (t! n7 3 $n e) (t! n7 4 $n r) (t! n7 5 $n t) _ @ul      @c▲   @ur _ _ _ _
+_ (t! n7 1 $n q) (t! n7 2 $n w) (t! n7 3 $n e) (t! n7 4 $n r) (t! n7 5 $n t) _    @ul   @c▲   @ur _ _ _ _
 _ (t! n8 1 $n a) (t! n8 2 $n s) (t! n8 3 $n d) (t! n8 4 $n f) (t! n8 5 $n g) _ @c◀ (t! og $n) @c▶ _ _ _ 
-  (t! n9 1 $n z) (t! n9 2 $n x) (t! n9 3 $n c) (t! n9 4 $n v) (t! n9 5 $n b) _  _  @dl    @c▼ @dr _ _ _
- _ _ _ nop0  _ _ _  _ _ _ ))
+  (t! n9 1 $n z) (t! n9 2 $n x) (t! n9 3 $n c) (t! n9 4 $n v) (t! n9 5 $n b) _  _ @dl   @c▼   @dr _ _ _
+ _ _ _ (multi F13 F15 (layer-while-held rel-mouse))  _ _ _  _ _ _ ))
 
 (platform (linux)
   (deflayer rel-mouse
-  _    _    _    _    _    _     _    7    8    9    0    1   2  3
-  _    _    _    _    _    _     y    u    i    o    p    q   w  e
-  _    _    _    _    _    _     h    j    k    l    a    s   d
-  _    _    _    _    _    _     n    m    z    x    c    v   _
-  ctl lmet alt            _                r    f    g    _   _  _
+  _ 1    2    3    4    5    6    7    8    9    0    -    _    _
+  _ q    w    e    r    t    y    u    i    o    p    [    _    _
+  _ a    s    d    f    g    h    j    k    l    ;    '    _
+  ` z    x    c    v    b    n    m    ,    .    /    =    _  
+  _ lmet lalt           spc            ralt rctl rmet left down right
   ))
 
 
-(platform (linux) (t! lmsz topleft  F13 F16))
-(platform (linux) (t! lmsz topmid   F14 F16))
-(platform (linux) (t! lmsz topright F15 F16))
-(platform (linux) (t! lmsz midleft  F13 F17))
-(platform (linux) (t! lmsz midmid   F14 F17))
-(platform (linux) (t! lmsz midright F15 F17))
-(platform (linux) (t! lmsz lowleft  F13 F18))
-(platform (linux) (t! lmsz lowmid   F14 F18))
-(platform (linux) (t! lmsz lowright F15 F18))
+(platform (linux) (t! lmsz top1 F13 F17))
+(platform (linux) (t! lmsz top2 F14 F17))
+(platform (linux) (t! lmsz top3 F15 F17))
+(platform (linux) (t! lmsz top4 F16 F17))
+(platform (linux) (t! lmsz mid1 F13 F18))
+(platform (linux) (t! lmsz mid2 F14 F18))
+(platform (linux) (t! lmsz mid3 F15 F18))
+(platform (linux) (t! lmsz mid4 F16 F18))
+(platform (linux) (t! lmsz low1 F13 F19))
+(platform (linux) (t! lmsz low2 F14 F19))
+(platform (linux) (t! lmsz low3 F15 F19))
+(platform (linux) (t! lmsz low4 F16 F19))
 
 (deftemplate wmsz (name 0 1 2 3 4 a b c d)  ;;windows mouse set zone layer
-  (deflayer $name
-   _ (!t sm $0 $a) (!t sm $1 $a) (!t sm $2 $a) (!t sm $3 $a) (!t sm $4 $a) _ _ _ _ _ _ _ _
-   _ (!t sm $0 $b) (!t sm $1 $b) (!t sm $2 $b) (!t sm $3 $b) (!t sm $4 $b) _ _ _ _ _ [ ] \
-   _ (!t sm $0 $c) (!t sm $1 $c) (!t sm $2 $c) (!t sm $3 $c) (!t sm $4 $c) _ _ _ _ _ ' _
-     (!t sm $0 $d) (!t sm $1 $d) (!t sm $2 $d) (!t sm $3 $d) (!t sm $4 $d) _ _ _ _ _ _ _ _
-    _ _ _ spc  _ _ _ _ _ _ ))
+ (deflayer $name
+  _ (!t sm $0 $a) (!t sm $1 $a) (!t sm $2 $a) (!t sm $3 $a) (!t sm $4 $a) _ _ _ _ _ _ _ _
+  _ (!t sm $0 $b) (!t sm $1 $b) (!t sm $2 $b) (!t sm $3 $b) (!t sm $4 $b) _ _ _ _ _ [ ] \
+  _ (!t sm $0 $c) (!t sm $1 $c) (!t sm $2 $c) (!t sm $3 $c) (!t sm $4 $c) _ _ _ _ _ ' _
+    (!t sm $0 $d) (!t sm $1 $d) (!t sm $2 $d) (!t sm $3 $d) (!t sm $4 $d) _ _ _ _ _ _ _ _
+   _ _ _ spc  _ _ _ _ _ _ ))
 
-(platform (macos win winiov2 wintercept) (t! wmsz topleft  $x0 $x1 $x2 $x3 $x4 $y0 $y1 $y2 $y3))
-(platform (macos win winiov2 wintercept) (t! wmsz topmid   $x5 $x6 $x7 $x8 $x9 $y0 $y1 $y2 $y3))
-(platform (macos win winiov2 wintercept) (t! wmsz topright $xa $xb $xc $xd $xe $y0 $y1 $y2 $y3))
-(platform (macos win winiov2 wintercept) (t! wmsz midleft  $x0 $x1 $x2 $x3 $x4 $y4 $y5 $y6 $y7))
-(platform (macos win winiov2 wintercept) (t! wmsz midmid   $x5 $x6 $x7 $x8 $x9 $y4 $y5 $y6 $y7))
-(platform (macos win winiov2 wintercept) (t! wmsz midright $xa $xb $xc $xd $xe $y4 $y5 $y6 $y7))
-(platform (macos win winiov2 wintercept) (t! wmsz lowleft  $x0 $x1 $x2 $x3 $x4 $y8 $y9 $y2 $y3))
-(platform (macos win winiov2 wintercept) (t! wmsz lowmid   $x5 $x6 $x7 $x8 $x9 $y8 $y9 $y2 $y3))
-(platform (macos win winiov2 wintercept) (t! wmsz lowright $xa $xb $xc $xd $xe $y8 $y9 $ya $yb))
+(platform (macos win winiov2 wintercept) (t! wmsz top1 $x0 $x1 $x2 $x3 $x4 $y0 $y1 $y2 $y3))
+(platform (macos win winiov2 wintercept) (t! wmsz top2 $x5 $x6 $x7 $x8 $x9 $y0 $y1 $y2 $y3))
+(platform (macos win winiov2 wintercept) (t! wmsz top3 $xa $xb $xc $xd $xe $y0 $y1 $y2 $y3))
+(platform (macos win winiov2 wintercept) (t! wmsz top4 $xf $xg $xh $xi $xj $y0 $y1 $y2 $y3))
+(platform (macos win winiov2 wintercept) (t! wmsz mid1 $x0 $x1 $x2 $x3 $x4 $y4 $y5 $y6 $y7))
+(platform (macos win winiov2 wintercept) (t! wmsz mid2 $x5 $x6 $x7 $x8 $x9 $y4 $y5 $y6 $y7))
+(platform (macos win winiov2 wintercept) (t! wmsz mid3 $xa $xb $xc $xd $xe $y4 $y5 $y6 $y7))
+(platform (macos win winiov2 wintercept) (t! wmsz mid4 $xf $xg $xh $xi $xj $y4 $y5 $y6 $y7))
+(platform (macos win winiov2 wintercept) (t! wmsz low1 $x0 $x1 $x2 $x3 $x4 $y8 $y9 $ya $yb))
+(platform (macos win winiov2 wintercept) (t! wmsz low2 $x5 $x6 $x7 $x8 $x9 $y8 $y9 $ya $yb))
+(platform (macos win winiov2 wintercept) (t! wmsz low3 $xa $xb $xc $xd $xe $y8 $y9 $ya $yb))
+(platform (macos win winiov2 wintercept) (t! wmsz low4 $xf $xg $xh $xi $xj $y8 $y9 $ya $yb))
 
 (defvar
- x0 2185
- x1 6554
- x2 10923
- x3 15292
- x4 19661
- x5 24030
- x6 28399
- x7 32768
- x8 37137
- x9 41506
- xa 45875
- xb 50244
- xc 54613
- xd 58982
- xe 63351
+ x0 1638
+ x1 4915
+ x2 8191
+ x3 11468
+ x4 14745
+ x5 18022
+ x6 21298
+ x7 24575
+ x8 27852
+ x9 31129
+ xa 34405
+ xb 37682
+ xc 40959
+ xd 44236
+ xe 47512
+ xf 50789
+ xg 54066
+ xh 57343
+ xi 60619
+ xj 63896
  y0 2731
  y1 8192
  y2 13653
