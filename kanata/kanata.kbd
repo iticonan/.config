@@ -62,20 +62,19 @@
 (deftemplate sm7 (n x y) (multi nop7 (concat nop $n) (t! smw $x $y) ))
 (deftemplate sm8 (n x y) (multi nop8 (concat nop $n) (t! smw $x $y) ))
 (deftemplate sm9 (n x y) (multi nop9 (concat nop $n) (t! smw $x $y) ))
-(deftemplate _wog (n k) (multi (concat @ $n) (macro 10 (hold-for-duration 10 $k))))
 (deftemplate wog (a b c d e 1 2 3 4) 
-  (switch (nop6) 
-    (switch (nop1) (t! smw $a $1) break (nop2) (t! smw $n 2) break (nop3) (t! smw $n 3) break 
-            (nop4) (t! smw $n $4) break (nop5) (t! smw $n 5) break
+  (switch (nop6)
+    (switch (nop1) (t! smw $a $1) break (nop2) (t! smw $b $1) break (nop3) (t! smw $c $1) break 
+            (nop4) (t! smw $d $1) break (nop5) (t! smw $e $1) break
     ) break (nop7)
-    (switch (nop1) (t! smw $n $q) break (nop2) (t! smw $n w) break (nop3) (t! smw $n e) break 
-            (nop4) (t! smw $n $r) break (nop5) (t! smw $n t) break
+    (switch (nop1) (t! smw $a $2) break (nop2) (t! smw $b $2) break (nop3) (t! smw $c $2) break 
+            (nop4) (t! smw $d $2) break (nop5) (t! smw $e $2) break
     ) break (nop8)
-    (switch (nop1) (t! smw $n $a) break (nop2) (t! smw $n s) break (nop3) (t! smw $n d) break 
-            (nop4) (t! smw $n $f) break (nop5) (t! smw $n g) break
+    (switch (nop1) (t! smw $a $3) break (nop2) (t! smw $b $3) break (nop3) (t! smw $c $3) break 
+            (nop4) (t! smw $d $3) break (nop5) (t! smw $e $3) break
     ) break (nop9)
-    (switch (nop1) (t! smw $n $z) break (nop2) (t! smw $n x) break (nop3) (t! smw $n c) break 
-            (nop4) (t! smw $n $v) break (nop5) (t! smw $n b) break
+    (switch (nop1) (t! smw $a $4) break (nop2) (t! smw $b $4) break (nop3) (t! smw $c $4) break 
+            (nop4) (t! smw $d $4) break (nop5) (t! smw $e $4) break
     ) break
     () d break
 ))
@@ -236,24 +235,24 @@ _ (t! n8 1 $n a) (t! n8 2 $n s) (t! n8 3 $n d) (t! n8 4 $n f) (t! n8 5 $n g) _ @
 
 (deftemplate wmsz (name 0 1 2 3 4 a b c d)  ;;windows mouse set zone layer
  (deflayer $name
-  _ (!t sm $0 $a) (!t sm $1 $a) (!t sm $2 $a) (!t sm $3 $a) (!t sm $4 $a) _ _ _ _ _ _ _ _
-  _ (!t sm $0 $b) (!t sm $1 $b) (!t sm $2 $b) (!t sm $3 $b) (!t sm $4 $b) _ _ _ _ _ [ ] \
-  _ (!t sm $0 $c) (!t sm $1 $c) (!t sm $2 $c) (!t sm $3 $c) (!t sm $4 $c) _ _ _ _ _ ' _
-    (!t sm $0 $d) (!t sm $1 $d) (!t sm $2 $d) (!t sm $3 $d) (!t sm $4 $d) _ _ _ _ _ _ _ _
+  _ (!t smw $0 $a) (!t smw $1 $a) (!t smw $2 $a) (!t smw $3 $a) (!t smw $4 $a) _ _ _ _ _ _ _ _
+  _ (!t smw $0 $b) (!t smw $1 $b) (!t smw $2 $b) (!t smw $3 $b) (!t smw $4 $b) _ _ _ _ _ [ ] \
+  _ (!t smw $0 $c) (!t smw $1 $c) (!t smw $2 $c) (!t smw $3 $c) (!t smw $4 $c) _ _ (t! wog $0 $1 $2 $3 $4 $a $b $c $d) _ _ _ ' _
+    (!t smw 0 d) (!t smw 1 d) (!t smw 2 d) (!t smw 3 d) (!t smw 4 d) _ _ _ _ _ _ _ _
    _ _ _ spc  _ _ _ _ _ _ ))
 
-(platform (macos win winiov2 wintercept) (t! wmsz top1 $x0 $x1 $x2 $x3 $x4 $y0 $y1 $y2 $y3))
-(platform (macos win winiov2 wintercept) (t! wmsz top2 $x5 $x6 $x7 $x8 $x9 $y0 $y1 $y2 $y3))
-(platform (macos win winiov2 wintercept) (t! wmsz top3 $xa $xb $xc $xd $xe $y0 $y1 $y2 $y3))
-(platform (macos win winiov2 wintercept) (t! wmsz top4 $xf $xg $xh $xi $xj $y0 $y1 $y2 $y3))
-(platform (macos win winiov2 wintercept) (t! wmsz mid1 $x0 $x1 $x2 $x3 $x4 $y4 $y5 $y6 $y7))
-(platform (macos win winiov2 wintercept) (t! wmsz mid2 $x5 $x6 $x7 $x8 $x9 $y4 $y5 $y6 $y7))
-(platform (macos win winiov2 wintercept) (t! wmsz mid3 $xa $xb $xc $xd $xe $y4 $y5 $y6 $y7))
-(platform (macos win winiov2 wintercept) (t! wmsz mid4 $xf $xg $xh $xi $xj $y4 $y5 $y6 $y7))
-(platform (macos win winiov2 wintercept) (t! wmsz low1 $x0 $x1 $x2 $x3 $x4 $y8 $y9 $ya $yb))
-(platform (macos win winiov2 wintercept) (t! wmsz low2 $x5 $x6 $x7 $x8 $x9 $y8 $y9 $ya $yb))
-(platform (macos win winiov2 wintercept) (t! wmsz low3 $xa $xb $xc $xd $xe $y8 $y9 $ya $yb))
-(platform (macos win winiov2 wintercept) (t! wmsz low4 $xf $xg $xh $xi $xj $y8 $y9 $ya $yb))
+(platform (macos win winiov2 wintercept) (t! wmsz top1 0 1 2 3 4 0 1 2 3))
+(platform (macos win winiov2 wintercept) (t! wmsz top2 5 6 7 8 9 0 1 2 3))
+(platform (macos win winiov2 wintercept) (t! wmsz top3 a b c d e 0 1 2 3))
+(platform (macos win winiov2 wintercept) (t! wmsz top4 f g h i j 0 1 2 3))
+(platform (macos win winiov2 wintercept) (t! wmsz mid1 0 1 2 3 4 4 5 6 7))
+(platform (macos win winiov2 wintercept) (t! wmsz mid2 5 6 7 8 9 4 5 6 7))
+(platform (macos win winiov2 wintercept) (t! wmsz mid3 a b c d e 4 5 6 7))
+(platform (macos win winiov2 wintercept) (t! wmsz mid4 f g h i j 4 5 6 7))
+(platform (macos win winiov2 wintercept) (t! wmsz low1 0 1 2 3 4 8 9 a b))
+(platform (macos win winiov2 wintercept) (t! wmsz low2 5 6 7 8 9 8 9 a b))
+(platform (macos win winiov2 wintercept) (t! wmsz low3 a b c d e 8 9 a b))
+(platform (macos win winiov2 wintercept) (t! wmsz low4 f g h i j 8 9 a b))
 
 (defvar
  x0 1638
