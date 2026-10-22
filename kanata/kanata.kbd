@@ -57,11 +57,11 @@
 
 
 (deftemplate sm (x y) (setmouse $x $y))  ;;setmouse for windows
-(deftemplate smw (x y) (macro (setmouse (concat @x $x) (concat @y $y))))
-(deftemplate sm6 (n x y) (multi nop6 (concat nop $n) (t! smw $x $y) ))
-(deftemplate sm7 (n x y) (multi nop7 (concat nop $n) (t! smw $x $y) ))
-(deftemplate sm8 (n x y) (multi nop8 (concat nop $n) (t! smw $x $y) ))
-(deftemplate sm9 (n x y) (multi nop9 (concat nop $n) (t! smw $x $y) ))
+(deftemplate smw (h v) (macro (setmouse (concat $ x $h) (concat $ y $v))))
+(deftemplate sm6 (l n x y) (multi (layer-toggle $l) nop6 (concat nop $n) (t! smw $x $y) ))
+(deftemplate sm7 (l n x y) (multi (layer-toggle $l) nop7 (concat nop $n) (t! smw $x $y) ))
+(deftemplate sm8 (l n x y) (multi (layer-toggle $l) nop8 (concat nop $n) (t! smw $x $y) ))
+(deftemplate sm9 (l n x y) (multi (layer-toggle $l) nop9 (concat nop $n) (t! smw $x $y) ))
 (deftemplate wog (a b c d e 1 2 3 4) 
   (switch (nop6)
     (switch (nop1) (t! smw $a $1) break (nop2) (t! smw $b $1) break (nop3) (t! smw $c $1) break 
@@ -144,6 +144,8 @@
   qat (multi lalt (layer-while-held qwerty))
   c◀ (multi F13 F14) c▲ (multi F17 F18) c▼ (multi F18 F19) c▶ (multi F14 F15)
   ul (multi F13 F17 u) ur (multi F15 F17 o) dl (multi F13 F19 m) dr (multi F15 F19 .)
+  pl (movemouse-left 100 8) pr (movemouse-right 100 8) pd (movemouse-down 100 8) pu (movemouse-up 100 8)
+  p/ (multi @pu @pr)     p\ (multi @pu @pl)   p~ (multi @pd @pl ) p_ (multi @pd @pr)
   qn0 (tap-hold 120 120 (layer-switch qwerty) nop0 )
   rps (t! th ret (layer-toggle psinkbols))
   rgr (tap-hold 110 110 ret ralt)
@@ -210,14 +212,13 @@ _ (t! n8 1 $n a) (t! n8 2 $n s) (t! n8 3 $n d) (t! n8 4 $n f) (t! n8 5 $n g) _ @
   (t! n9 1 $n z) (t! n9 2 $n x) (t! n9 3 $n c) (t! n9 4 $n v) (t! n9 5 $n b) _  _ @dl   @c▼   @dr _ _ _
  _ _ _ (multi F13 F15 (layer-while-held rel-mouse))  _ _ _  _ _ _ ))
 
-(platform (linux)
   (deflayer rel-mouse
   _ 1    2    3    4    5    6    7    8    9    0    -    _    _
   _ q    w    e    r    t    y    u    i    o    p    [    _    _
   _ a    s    d    f    g    h    j    k    l    ;    '    _
   ` z    x    c    v    b    n    m    ,    .    /    =    _  
   _ lmet lalt           spc            ralt rctl rmet left down right
-  ))
+  )
 
 
 (platform (linux) (t! lmsz top1 F13 F17))
@@ -233,12 +234,13 @@ _ (t! n8 1 $n a) (t! n8 2 $n s) (t! n8 3 $n d) (t! n8 4 $n f) (t! n8 5 $n g) _ @
 (platform (linux) (t! lmsz low3 F15 F19))
 (platform (linux) (t! lmsz low4 F16 F19))
 
-(deftemplate wmsz (name 0 1 2 3 4 a b c d)  ;;windows mouse set zone layer
- (deflayer $name
-  _ (!t smw $0 $a) (!t smw $1 $a) (!t smw $2 $a) (!t smw $3 $a) (!t smw $4 $a) _ _ _ _ _ _ _ _
-  _ (!t smw $0 $b) (!t smw $1 $b) (!t smw $2 $b) (!t smw $3 $b) (!t smw $4 $b) _ _ _ _ _ [ ] \
-  _ (!t smw $0 $c) (!t smw $1 $c) (!t smw $2 $c) (!t smw $3 $c) (!t smw $4 $c) _ _ (t! wog $0 $1 $2 $3 $4 $a $b $c $d) _ _ _ ' _
-    (!t smw 0 d) (!t smw 1 d) (!t smw 2 d) (!t smw 3 d) (!t smw 4 d) _ _ _ _ _ _ _ _
+(deftemplate wmsz (n 0 1 2 3 4 a b c d)  ;;windows mouse set zone layer
+ (deflayer $n
+  _ (t! sm6 $n 1 $0 $a) (t! sm6 $n 2 $1 $a) (t! sm6 $n 3 $2 $a) (t! sm6 $n 4 $3 $a) (t! sm6 $n 5 $4 $a) _ _ _ _ _ _ _ _
+  _ (t! sm7 $n 1 $0 $b) (t! sm7 $n 2 $1 $b) (t! sm7 $n 3 $2 $b) (t! sm7 $n 4 $3 $b) (t! sm7 $n 5 $4 $b) _ @p\ @pu @p/ _ [ ] \
+  _ (t! sm8 $n 1 $0 $c) (t! sm8 $n 2 $1 $c) (t! sm8 $n 3 $2 $c) (t! sm8 $n 4 $3 $c) (t! sm8 $n 5 $4 $c) 
+                                                                                    _ @pl (t! wog $0 $1 $2 $3 $4 $a $b $c $d) @pr _ _ '
+    (t! sm9 $n 1 $0 $d) (t! sm9 $n 2 $1 $d) (t! sm9 $n 3 $2 $d) (t! sm9 $n 4 $3 $d) (t! sm9 $n 5 $4 $d) _ _ @p~ @pd @p_ _ _ _ 
    _ _ _ spc  _ _ _ _ _ _ ))
 
 (platform (macos win winiov2 wintercept) (t! wmsz top1 0 1 2 3 4 0 1 2 3))
