@@ -3,7 +3,7 @@
    windows-altgr cancel-lctl-press
    linux-output-device-bus-type USB
    concurrent-tap-hold yes
-   log-layer-changes yes
+   log-layer-changes no
 )
 
 (deftemplate gr (k act);; while in alt-gr 2+ keys or timeout -> mouse mode 
@@ -26,7 +26,7 @@
 
 (deftemplate th (t h) (fork (tap-hold 150 150 $t $h) $t (nop0) ))
 
-(deftemplate sml (h v n k) (multi ;;set mouse 4 sway linux 
+(deftemplate sml (h v n k) (multi    ;;set mouse 4 sway linux 
   $h (concat nop $v)
   (layer-while-held $n)
   (one-shot-pause-processing 50) 
@@ -55,7 +55,7 @@
     () d break
 ))
 
-
+;; deftemplates block below enables setmouse "mode" in windows
 (deftemplate sm (x y) (setmouse $x $y))  ;;setmouse for windows
 (deftemplate smw (h v) (macro (setmouse (concat $ x $h) (concat $ y $v))))
 (deftemplate sm6 (l n x y) (multi (layer-toggle $l) nop6 (concat nop $n) (t! smw $x $y) ))
@@ -90,7 +90,7 @@
 (defvirtualkeys
   F13 (one-shot 120 F13)  F14 (one-shot 120 F14)  F15 (one-shot 120 F15)  
   F16 (one-shot 120 F16)  F17 (one-shot 120 F17)  F18 (one-shot 120 F18)
-  F19 (one-shot 120 F19)
+  alt (one-shot 120 lalt)
   1 1 2 2 3 3 4 4 5 5
   q q w w e e r r t t
   a a s s d d f f g g
@@ -107,30 +107,33 @@
 
 (defhands
   (left 1 2 3 4 5 6 q w e r t a s d f g lsft z x c v b)
-  (right 7 8 9 0 - caps y u i o p [ h j k l ; ' n m , . / )
+  (right 7 8 9 0 - = [ ] caps y u i o p h j k l ; ' n m , . / )
 )
 
 (deflayer qwerty
    grv 1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @tab q    w    e    r    t    y    u    i    o    p   @bnv  ]    \
-  @cap a   @ss  @da  @fc  @gm  @hm  @jc  @ka  @ls  @psb  '   ret
-  @sf1 z    x    c    v    b    n    m    ,    .   @ssf @sfw  _ 
-  lctl lmet lalt           spc           @rgr @ctp @ctp   _   _    _   
+  @cap a   @sc  @da  @fm  @gs  @hs  @jm  @ka  @lc  @psb  '   ret
+  @sf1 z    x    c    v    b    n    m    ,    .   @ssf @sfw  _
+  lctl @mml @amm           spc           @rgr @ctp @ctp   _   _    _
 )
 
 (defalias
-  ss (t! lhrm s lsft)   da (t! lhrm d lalt)    fc (t! lhrm f lctl)  gm (t! lhrm g lmet)
-  hm (t! rhrm h rmet)   jc (t! rhrm j rctl)    ka (t! rhrm k lalt)  ls (t! rhrm l rsft)
-  tab (multi nop8 (tap-hold-release 220 220 tab (layer-while-held comnav)))
+  mml (switch ((and F13 F15)) mlft break () lmet break)
+  amm (switch ((and F13 F15)) mmid break () lalt break)
+  sc (t! lhrm s lctl)   da (t! lhrm d lalt)    fm (t! lhrm f lmet)  gs (t! lhrm g lsft)
+  hs (t! rhrm h rsft)   jm (t! rhrm j rmet)    ka (t! rhrm k lalt)  lc (t! rhrm l rctl)
+  tab (multi nop8 (tap-hold-release 150 150 tab (layer-while-held comnav)))
   bnv (multi nop9 (tap-hold-press 120 120  [  (layer-while-held msenav)))
 
   cap (tap-hold-press 120 120 esc (multi (layer-while-held wmkp) 
       (tap-hold-opposite-hand 300 nop0 lmet)))
-  psb (tap-hold 0 110 ; (layer-while-held psinkbols))
+  psb (tap-hold 0 120 ; (layer-while-held psinkbols))
 
-  sf1 (fork lsft CapsLock (rsft))
+  sf1 (switch ((and F13 F15)) \ break (rsft) CapsLock break () lsft break)
   ssf (multi nop0 (tap-hold-press 150 150 / (multi lsft (layer-while-held hsft))))
-  sfw (fork (tap-hold 130 130 (caps-word 2000) rsft) CapsLock (lsft))
+  sfw (switch ((and F13 F15)) = break (lsft) CapsLock break 
+              () (tap-hold 130 130 (caps-word 2000) rsft) break)
   
   ctp (tap-hold 130 130 A-a rctl) ;;best tmux prefix ever
 
@@ -142,55 +145,58 @@
   qmt (multi lmet (layer-while-held qwerty))         
   qct (multi lctl (layer-while-held qwerty))
   qat (multi lalt (layer-while-held qwerty))
-  c◀ (multi F13 F14) c▲ (multi F17 F18) c▼ (multi F18 F19) c▶ (multi F14 F15)
-  ul (multi F13 F17 u) ur (multi F15 F17 o) dl (multi F13 F19 m) dr (multi F15 F19 .)
+  c◀ (multi F13 F14) c▲ (multi F17 F18) c▼ (multi alt F18) c▶ (multi F14 F15)
+  ul (multi F13 F17 u) ur (multi F15 F17 o) dl (multi F13 alt m) dr (multi F15 alt .)
   pl (movemouse-left 100 8) pr (movemouse-right 100 8) pd (movemouse-down 100 8) pu (movemouse-up 100 8)
   p/ (multi @pu @pr)     p\ (multi @pu @pl)   p~ (multi @pd @pl ) p_ (multi @pd @pr)
-  qn0 (tap-hold 120 120 (layer-switch qwerty) nop0 )
-  rps (t! th ret (layer-toggle psinkbols))
-  rgr (tap-hold 110 110 ret ralt)
+  qsf (tap-hold 120 120 (layer-switch qwerty) lsft)
+  rgr (switch ((and F13 F15)) mrgt break () (tap-hold 110 110 ret ralt) break)
+  mrm (tap-hold 150 140 mrgt mmid)
 )
 
 (deflayer msenav
- brdn brup   ◀    ▲   ▼    ▶        ret         ◀◀            ▶⏸           ▶▶           _    _  _  _
- @tab mute C-S-↹ @m▲ C-↹ volu (t! ot1  ret) (t! ot2 ◀◀)   (t! ot3 ▶⏸)   (t! ot4 ▶▶)   mlft brup _  _ 
- @cap mlft  @m◀  @m▼ @m▶ vold (t! om1 rmet) (t! om2 rctl) (t! om3 lalt) (t! om4 lsft) mmid brdn _ 
- @qn0  @w◀  @w▲  @w▼ @w▶  ret (t! ol1 rsft) (t! ol2 ralt) (t! ol3 rctl) (t! ol4 rmet) mrgt mute _
- @qct @qmt  @qat                         @tqn                 @rgr          @rps      @rps   _  _  _
+ brdn brup   ◀    ▲   ▼    ▶        ret         home         pgup          pgdn        end   _  _  _
+ @tab @mrm C-S-↹ @m▲ C-↹ volu (t! ot1 brup) (t! ot2 mlft) (t! ot3 mmid) (t! ot4 mrgt) bspc  del _  _ 
+ @cap mlft  @m◀  @m▼ @m▶ vold (t! om1 rsft) (t! om2 rmet) (t! om3 lalt) (t! om4 rctl)  ret mbck _ 
+ @qsf  @w◀  @w▲  @w▼ @w▶ mute (t! ol1 brdn) (t! ol2 ◀◀ )  (t! ol3 ▶⏸)   (t! ol4 ▶▶)   rsft mfwd _
+ @qct @qmt  @qat                         @tqn                   _          @qct       @qct   _  _  _
 )
 
 (deflayer comnav
-   _   _      ◀    ▲   ▼    ▶        _   ◀◀   ▶⏸   ▶▶   _     _   _  _
-   _  volu  @F1◀ @F2▲ @F3▼ @F4▶     M-◀  M-▼  M-▲  M-▶  prnt brup _  _
-   _  vold  @F5S @F6A @F7C @F8M      ◀    ▼    ▲    ▶   nop0 brdn _
-   _  @F9◀ @F10▲ @F11▼ @F12▶ ret   home pgdn  pgup end  ins  mute _
-C-S-↹ @rps   _               @tqn               _   _    _    _   _  _
+   _   _      ◀    ▲   ▼    ▶        _   ◀◀    ▶⏸  ▶▶  nop0   _   _  _
+   _   _    @F1◀ @F2▲ @F3▼ @F4▶     M-◀  M-▼  M-▲  M-▶ bspc  del  _  _
+   _   _    @F5C @F6A @F7M @F8S      ◀    ▼    ▲    ▶  ret   prnt _
+   _  @F9◀ @F10▲ @F11▼ @F12▶ mute   home pgdn pgup end rsft  ins  _
+C-S-↹  _     _               @tqn               _ @ctp @ctp   _   _  _
 )
 
 (defalias  
   F1◀ (t! th F1 left)  F2▲  (t! th F2 up)    F3▼  (t! th F3 down)  F4▶  (t! th F4 right)
-  F5S (t! th F5 lsft)  F6A  (t! th F6 lalt)  F7C  (t! th F7 lctl)  F8M  (t! th F8 lmet)
+  F5C (t! th F5 lctl)  F6A  (t! th F6 lalt)  F7M  (t! th F7 lmet)  F8S  (t! th F8 lsft)
   F9◀ (t! th F9 home)  F10▲ (t! th F10 pgup) F11▼ (t! th F11 pgdn) F12▶ (t! th F12 end)
   tqn (switch                ;; transient/perm swap between Qwerty and MouseNav 
       ((base-layer qwerty)) (tap-hold 120 120 (layer-switch msenav) (layer-toggle msenav)) break
-            (nop0)        (multi F17 F19 (layer-while-held rel-mouse)) break
-               ()         (tap-hold-press 120 120 spc (layer-while-held qwerty)) break
-))
+               ()           (tap-hold-press 120 120 spc (layer-while-held qwerty)) break)
+)
+
+;; ~`#&*% !?<>
+;;  {()}" -=_'
+;;  \[]:@ +|^$
 
 (deflayer psinkbols
   _    _    _    _    _    _    _    _   _   _   _    _   _   _
- S-`  S-=  S-[  S-]  S-1   `   S-3  S-/ S-, S-.  _    _   _   _
-  _   min  S-9  S-0   '   S-'  S-8   =  S-- S-5  ;    _   _
-  \    [    ]   S-;  S-2   _   S-7  S-\ S-6 S-4  /    _   _
+ S-`   `   S-3  S-7  S-8  S-5  S-1  S-/ S-, S-.  _    _   _   _
+  _   S-[  S-9  S-0  S-]  S-'   -    =  S--  '   ;    _   _
+  \    [    ]   S-;  S-2  XX   S-=  S-\ S-6 S-4  /    _   _
   _    _   bspc            spc          ret del del   _   _   _
 )
 
 (deflayer wmkp
-  _    _     ◀    ▲    ▼    ▶   M-[   M-]  kp*  kp/ bspc  _    _    _
+  _    _     ◀    ▲    ▼    ▶   M-[   M-]  kp*  kp/ bspc bspc  _    _
   _    _     1    2    3    4  M-bspc kp7  kp8  kp9 kp-   _    _    _
   _    _     5    6    7    8   M-\   kp4  kp5  kp6 kp+   _    _
-  _    9     0    -    =   ret  M-`   kp1  kp2  kp3 kprt  _    _
-  _   lrld   _            M-'              kp0  kp. kp.   _    _    _
+  _    9     0    -    =   ret  M-'   kp1  kp2  kp3 kprt  _    _
+  _   lrld   _            spc              kp0  kp. kp.   _    _    _
 )
 
 (deflayer hsft
@@ -206,19 +212,11 @@ C-S-↹ @rps   _               @tqn               _   _    _    _   _  _
 (deftemplate lmsz (n x y)  ;; linux mouse set zone layer
  (t! hfd2 $n $x $y)
  (deflayer $n 
-_ (t! n6 1 $n 1) (t! n6 2 $n 2) (t! n6 3 $n 3) (t! n6 4 $n 4) (t! n6 5 $n 5) (t! _8) 
-_ (t! n7 1 $n q) (t! n7 2 $n w) (t! n7 3 $n e) (t! n7 4 $n r) (t! n7 5 $n t) _    @ul   @c▲   @ur _ _ _ _
-_ (t! n8 1 $n a) (t! n8 2 $n s) (t! n8 3 $n d) (t! n8 4 $n f) (t! n8 5 $n g) _ @c◀ (t! og $n) @c▶ _ _ _ 
-  (t! n9 1 $n z) (t! n9 2 $n x) (t! n9 3 $n c) (t! n9 4 $n v) (t! n9 5 $n b) _  _ @dl   @c▼   @dr _ _ _
- _ _ _ (multi F13 F15 (layer-while-held rel-mouse))  _ _ _  _ _ _ ))
-
-  (deflayer rel-mouse
-  _ 1    2    3    4    5    6    7    8    9    0    -    _    _
-  _ q    w    e    r    t    y    u    i    o    p    [    _    _
-  _ a    s    d    f    g    h    j    k    l    ;    '    _
-  ` z    x    c    v    b    n    m    ,    .    /    =    _  
-  _ lmet lalt           spc            ralt rctl rmet left down right
-  )
+_ (t! n6 1 $n 1) (t! n6 2 $n 2) (t! n6 3 $n 3) (t! n6 4 $n 4) (t! n6 5 $n 5) _ _ _ _ _ _ _ _
+_ (t! n7 1 $n q) (t! n7 2 $n w) (t! n7 3 $n e) (t! n7 4 $n r) (t! n7 5 $n t) _ @ul @c▲ @ur mmid mrgt _ _
+_ (t! n8 1 $n a) (t! n8 2 $n s) (t! n8 3 $n d) (t! n8 4 $n f) (t! n8 5 $n g) _ @c◀ (t! og $n) @c▶ mlft _ _
+  (t! n9 1 $n z) (t! n9 2 $n x) (t! n9 3 $n c) (t! n9 4 $n v) (t! n9 5 $n b) _ _ @dl  @c▼ @dr _ _ _
+ _ _ _ (multi F13 F15 (layer-while-held qwerty)) _ _ _  _ _ _ ))
 
 
 (platform (linux) (t! lmsz top1 F13 F17))
@@ -229,17 +227,17 @@ _ (t! n8 1 $n a) (t! n8 2 $n s) (t! n8 3 $n d) (t! n8 4 $n f) (t! n8 5 $n g) _ @
 (platform (linux) (t! lmsz mid2 F14 F18))
 (platform (linux) (t! lmsz mid3 F15 F18))
 (platform (linux) (t! lmsz mid4 F16 F18))
-(platform (linux) (t! lmsz low1 F13 F19))
-(platform (linux) (t! lmsz low2 F14 F19))
-(platform (linux) (t! lmsz low3 F15 F19))
-(platform (linux) (t! lmsz low4 F16 F19))
+(platform (linux) (t! lmsz low1 F13 alt))
+(platform (linux) (t! lmsz low2 F14 alt))
+(platform (linux) (t! lmsz low3 F15 alt))
+(platform (linux) (t! lmsz low4 F16 alt))
 
 (deftemplate wmsz (n 0 1 2 3 4 a b c d)  ;;windows mouse set zone layer
  (deflayer $n
   _ (t! sm6 $n 1 $0 $a) (t! sm6 $n 2 $1 $a) (t! sm6 $n 3 $2 $a) (t! sm6 $n 4 $3 $a) (t! sm6 $n 5 $4 $a) _ _ _ _ _ _ _ _
   _ (t! sm7 $n 1 $0 $b) (t! sm7 $n 2 $1 $b) (t! sm7 $n 3 $2 $b) (t! sm7 $n 4 $3 $b) (t! sm7 $n 5 $4 $b) _ @p\ @pu @p/ _ [ ] \
   _ (t! sm8 $n 1 $0 $c) (t! sm8 $n 2 $1 $c) (t! sm8 $n 3 $2 $c) (t! sm8 $n 4 $3 $c) (t! sm8 $n 5 $4 $c) 
-                                                                                    _ @pl (t! wog $0 $1 $2 $3 $4 $a $b $c $d) @pr _ _ '
+                                                     _ @pl (t! wog $0 $1 $2 $3 $4 $a $b $c $d) @pr _ _ '
     (t! sm9 $n 1 $0 $d) (t! sm9 $n 2 $1 $d) (t! sm9 $n 3 $2 $d) (t! sm9 $n 4 $3 $d) (t! sm9 $n 5 $4 $d) _ _ @p~ @pd @p_ _ _ _ 
    _ _ _ spc  _ _ _ _ _ _ ))
 
